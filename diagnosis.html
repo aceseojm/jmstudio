@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>무료 자가 진단 | JM Studio</title>
+<meta name="description" content="예술 브랜드·포트폴리오 무료 자가 진단. 5개 질문으로 지금의 연결 상태를 진단하고, 맞춤 리포트를 받아 보세요." />
+<meta name="robots" content="noindex, follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%233a6ff5'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-style='italic' font-size='52' fill='%23fff' text-anchor='middle'%3Ejm%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --paper:#f3f6ff;
+  --ink:#16181f;
+  --ink-soft:#474d63;
+  --muted:#8990a8;
+  --line:rgba(58,111,245,.16);
+  --accent:#3a6ff5;
+  --maxw:820px;
+  --gutter:clamp(22px,5vw,56px);
+  --fz-h2:clamp(28px,3.4vw,46px);
+  --fz-h3:clamp(20px,1.7vw,26px);
+  --fz-lg:clamp(17px,1.4vw,21px);
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Pretendard","Pretendard Variable",system-ui,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);background:var(--paper);color:var(--ink);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  min-height:100vh;display:flex;flex-direction:column;position:relative;overflow-x:hidden;
+}
+.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(60% 50% at 18% 12%,#a9c6ff88,transparent 70%),
+    radial-gradient(55% 45% at 85% 18%,#c6b2ff80,transparent 70%),
+    radial-gradient(60% 55% at 70% 90%,#ffb6d666,transparent 70%),
+    linear-gradient(160deg,#f3f6ff,#eef3fc);}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+.eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:.7em;white-space:nowrap}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7}
+
+/* top bar */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:20px var(--gutter);max-width:1100px;width:100%;margin:0 auto}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;font-size:18px}
+.brand .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;font-family:var(--serif);font-style:italic;font-size:15px;line-height:1;padding-bottom:1px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.back-link{font-size:14px;color:var(--ink-soft);font-weight:500;padding:8px 16px;border:1px solid var(--line);border-radius:100px;transition:background .3s,border-color .3s}
+.back-link:hover{background:#fff;border-color:var(--accent)}
+.lang-toggle{padding:7px 13px;border:1px solid var(--line);border-radius:100px;background:transparent;color:var(--ink-soft);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.lang-toggle:hover{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff;border-color:var(--accent)}
+
+/* main */
+.diag-main{flex:1;width:100%;max-width:var(--maxw);margin:0 auto;padding:clamp(28px,5vh,64px) var(--gutter) clamp(60px,9vh,110px)}
+.diag-card{position:relative;overflow:hidden;background:linear-gradient(165deg,#ffffff 0%,#eef3fc 100%);border:1px solid var(--line);border-radius:28px;padding:clamp(28px,4vw,60px);box-shadow:0 40px 90px -55px rgba(58,111,245,.5)}
+.diag-card::before{content:"";position:absolute;top:-30%;right:-8%;width:55%;height:120%;background:radial-gradient(circle at 70% 30%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%);pointer-events:none;opacity:.6}
+.diag-card > *{position:relative;z-index:1}
+.diag-head{max-width:32ch;margin-bottom:clamp(26px,4vh,42px)}
+.diag-head .eyebrow{margin-bottom:16px}
+.diag-head h1{font-size:var(--fz-h2);font-weight:600;letter-spacing:-.025em;line-height:1.14;text-wrap:balance}
+.diag-head p{margin-top:16px;color:var(--ink-soft);font-size:var(--fz-lg);line-height:1.55;text-wrap:pretty}
+.diag-progress{height:4px;background:rgba(58,111,245,.12);border-radius:100px;overflow:hidden;margin-bottom:30px}
+.diag-progress span{display:block;height:100%;width:0;background:var(--accent);border-radius:100px;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.diag-q{display:flex;flex-direction:column;gap:14px;padding:22px 0;border-top:1px solid var(--line)}
+.diag-q:first-of-type{border-top:none;padding-top:0}
+.diag-q .q-txt{display:flex;gap:13px;align-items:baseline;font-size:clamp(17px,1.5vw,20px);font-weight:600;color:var(--ink);line-height:1.45;text-wrap:pretty}
+.diag-q .q-n{font-family:var(--serif);font-style:italic;color:var(--accent);flex:none;font-size:.92em}
+.diag-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-left:30px}
+.diag-opts label{cursor:pointer}
+.diag-opts input{position:absolute;opacity:0;width:0;height:0}
+.diag-opts .opt{display:block;text-align:center;padding:12px 8px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:14px;font-weight:500;color:var(--ink-soft);transition:all .22s}
+.diag-opts label:hover .opt{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.diag-opts input:checked + .opt{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+.diag-actions{margin-top:32px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.diag-submit{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:#fff;-webkit-text-fill-color:#fff;border:none;border-radius:100px;padding:15px 32px;font-family:var(--sans);font-size:15px;font-weight:600;cursor:pointer;transition:transform .25s,filter .25s,opacity .25s}
+.diag-submit:hover{transform:translateY(-2px)}
+.diag-submit:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.diag-hint{font-size:13px;color:var(--muted)}
+@media(max-width:560px){.diag-opts{margin-left:0}.diag-q .q-txt{align-items:flex-start}}
+
+.diag-result{display:none}
+.diag-result.show{display:block;animation:diagIn .6s cubic-bezier(.2,.7,.2,1)}
+@keyframes diagIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.diag-score{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.diag-score .num{font-size:clamp(48px,7vw,86px);font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--accent)}
+.diag-score .den{font-size:22px;color:var(--muted);font-weight:500}
+.diag-tier{font-size:var(--fz-h3);font-weight:600;letter-spacing:-.01em;margin-bottom:14px}
+.diag-verdict{color:var(--ink-soft);line-height:1.6;max-width:48ch;text-wrap:pretty;margin-bottom:30px}
+.diag-lead{border-top:1px solid var(--line);padding-top:30px}
+.diag-lead h4{font-size:var(--fz-h3);font-weight:600;margin-bottom:8px}
+.diag-lead .sub{color:var(--ink-soft);line-height:1.55;max-width:42ch;margin-bottom:24px;text-wrap:pretty}
+.diag-fields{display:grid;grid-template-columns:1fr;gap:16px}
+.diag-fields .field{display:flex;flex-direction:column;gap:7px}
+.diag-fields label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.diag-fields input,.diag-fields textarea{background:#fff;border:1px solid var(--line);border-radius:12px;color:var(--ink);-webkit-text-fill-color:var(--ink);font-family:var(--sans);font-size:16px;padding:13px 15px;transition:border-color .3s,box-shadow .3s}
+.diag-fields input::placeholder,.diag-fields textarea::placeholder{color:var(--muted);-webkit-text-fill-color:var(--muted)}
+.diag-fields input:focus,.diag-fields textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.diag-fields textarea{resize:vertical;min-height:64px}
+.diag-lead .diag-submit{margin-top:20px;background:var(--accent)}
+.diag-note{font-size:12px;color:var(--muted);margin-top:14px}
+.diag-thanks{display:none;flex-direction:column;gap:12px}
+.diag-thanks.show{display:flex;animation:diagIn .6s cubic-bezier(.2,.7,.2,1)}
+.diag-thanks .ft-mark{width:46px;height:46px;border-radius:50%;border:1px solid var(--accent);display:grid;place-items:center;color:var(--accent);font-size:20px}
+.diag-thanks h3{font-size:var(--fz-h3);font-weight:600}
+.diag-thanks p{color:var(--ink-soft);max-width:40ch;line-height:1.55;text-wrap:pretty}
+.diag-thanks .home-link{margin-top:8px;display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:600;font-size:15px}
+
+.diag-foot{text-align:center;padding:28px var(--gutter);font-size:13px;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.diag-result.show,.diag-thanks.show{animation:none}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+
+<div class="topbar">
+  <a href="index.html" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+  <div class="topbar-right">
+    <a href="index.html" class="back-link" data-en="← Home">← 홈으로</a>
+    <button id="langToggle" class="lang-toggle" type="button" aria-label="Language">EN</button>
+  </div>
+</div>
+
+<main class="diag-main">
+  <div class="diag-card">
+    <div class="diag-head">
+      <p class="eyebrow" data-en="Free self-diagnosis">무료 자가 진단</p>
+      <h1 data-en="Is your art reaching people, or just being made?">당신의 예술은 사람들에게 닿고 있나요, 만들어지고만 있나요?</h1>
+      <p data-en="Five questions to diagnose how well your brand and portfolio actually connect right now. See your result instantly, and get a detailed report by email.">지금 당신의 브랜드와 포트폴리오가 얼마나 잘 연결되고 있는지 5개 질문으로 진단합니다. 결과는 즉시 확인하고, 상세 리포트는 이메일로 받아 보세요.</p>
+    </div>
+
+    <div class="diag-quiz" id="diagQuiz">
+      <div class="diag-progress"><span id="diagBar"></span></div>
+
+      <div class="diag-q">
+        <div class="q-txt"><span class="q-n">01</span><span data-en="When someone first sees your work online, can they grasp “what you do” within 3 seconds?">온라인에서 당신의 작업을 처음 본 사람이, 3초 안에 “무엇을 하는 사람인지” 파악할 수 있나요?</span></div>
+        <div class="diag-opts">
+          <label><input type="radio" name="q1" value="2" /><span class="opt" data-en="Yes">그렇다</span></label>
+          <label><input type="radio" name="q1" value="1" /><span class="opt" data-en="Unsure">애매하다</span></label>
+          <label><input type="radio" name="q1" value="0" /><span class="opt" data-en="No">아니다</span></label>
+        </div>
+      </div>
+
+      <div class="diag-q">
+        <div class="q-txt"><span class="q-n">02</span><span data-en="Does your portfolio/website have a consistent visual identity (logo, color, type)?">포트폴리오나 웹사이트에 일관된 비주얼 아이덴티티(로고·색·타이포)가 있나요?</span></div>
+        <div class="diag-opts">
+          <label><input type="radio" name="q2" value="2" /><span class="opt" data-en="Yes">그렇다</span></label>
+          <label><input type="radio" name="q2" value="1" /><span class="opt" data-en="Unsure">애매하다</span></label>
+          <label><input type="radio" name="q2" value="0" /><span class="opt" data-en="No">아니다</span></label>
+        </div>
+      </div>
+
+      <div class="diag-q">
+        <div class="q-txt"><span class="q-n">03</span><span data-en="Is there a clear path from seeing your work to the next action (inquiry, ticketing, purchase)?">작업을 본 사람이 다음 행동(문의·예매·구매)으로 이어지는 명확한 경로가 있나요?</span></div>
+        <div class="diag-opts">
+          <label><input type="radio" name="q3" value="2" /><span class="opt" data-en="Yes">그렇다</span></label>
+          <label><input type="radio" name="q3" value="1" /><span class="opt" data-en="Unsure">애매하다</span></label>
+          <label><input type="radio" name="q3" value="0" /><span class="opt" data-en="No">아니다</span></label>
+        </div>
+      </div>
+
+      <div class="diag-q">
+        <div class="q-txt"><span class="q-n">04</span><span data-en="Are your name and work easily found via search or social media?">검색이나 SNS에서 당신의 이름과 작업이 잘 발견되나요?</span></div>
+        <div class="diag-opts">
+          <label><input type="radio" name="q4" value="2" /><span class="opt" data-en="Yes">그렇다</span></label>
+          <label><input type="radio" name="q4" value="1" /><span class="opt" data-en="Unsure">애매하다</span></label>
+          <label><input type="radio" name="q4" value="0" /><span class="opt" data-en="No">아니다</span></label>
+        </div>
+      </div>
+
+      <div class="diag-q">
+        <div class="q-txt"><span class="q-n">05</span><span data-en="Does your brand message convey both artistic philosophy and business value at once?">브랜드 메시지가 “예술적 철학”과 “비즈니스 가치”를 동시에 전하나요?</span></div>
+        <div class="diag-opts">
+          <label><input type="radio" name="q5" value="2" /><span class="opt" data-en="Yes">그렇다</span></label>
+          <label><input type="radio" name="q5" value="1" /><span class="opt" data-en="Unsure">애매하다</span></label>
+          <label><input type="radio" name="q5" value="0" /><span class="opt" data-en="No">아니다</span></label>
+        </div>
+      </div>
+
+      <div class="diag-actions">
+        <button type="button" class="diag-submit" id="diagBtn" disabled><span data-en="See my result">결과 확인하기</span><span>→</span></button>
+        <span class="diag-hint" id="diagHint" data-en="Answer all 5 questions">5개 질문에 모두 답해 주세요</span>
+      </div>
+    </div>
+
+    <div class="diag-result" id="diagResult">
+      <div class="diag-score"><span class="num" id="diagNum">0</span><span class="den">/ 10</span></div>
+      <div class="diag-tier" id="diagTier"></div>
+      <p class="diag-verdict" id="diagVerdict"></p>
+
+      <div class="diag-lead" id="diagLead">
+        <h4 data-en="Get your detailed report">상세 진단 리포트 받기</h4>
+        <p class="sub" data-en="Leave your email and website, and we'll send a tailored diagnosis with concrete next steps — free.">이메일과 웹사이트를 남겨주시면, 구체적인 다음 단계를 담은 맞춤 진단 리포트를 보내 드립니다 — 무료입니다.</p>
+        <form id="diagForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfauZ6pT_B_n4FC0PNfm_L1iWrP92QuL0ArJ9SH5Y9XyQgrOQ/formResponse" method="POST" target="diag_hidden_iframe">
+          <input type="hidden" name="entry.207547482" id="diagTag" value="자가진단 리포트 신청" />
+          <input type="hidden" name="entry.1487122623" value="기타" />
+          <div class="diag-fields">
+            <div class="field">
+              <label for="diagEmail" data-en="Email">이메일</label>
+              <input id="diagEmail" name="entry.1659622125" type="email" placeholder="you@email.com" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="diagSite" data-en="Website / portfolio URL">웹사이트 / 포트폴리오 주소</label>
+              <input id="diagSite" name="entry.1956580077" type="text" placeholder="https://" data-en-ph="https://" required />
+            </div>
+            <div class="field">
+              <label for="diagConcern" data-en="Your biggest concern right now">지금 가장 큰 고민</label>
+              <textarea id="diagConcern" name="entry.1901433156" placeholder="예: 작업은 쌓였는데 문의로 이어지지 않아요" data-en-ph="e.g. I have plenty of work but it does not turn into inquiries"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="diag-submit"><span data-en="Send me the report">리포트 받기</span><span>→</span></button>
+          <p class="diag-note" data-en="Your information is used only to send the report and respond to you.">남겨주신 정보는 리포트 발송과 응대 목적으로만 사용됩니다.</p>
+        </form>
+      </div>
+
+      <div class="diag-thanks" id="diagThanks">
+        <div class="ft-mark">✓</div>
+        <h3 data-en="Your report request has been received">리포트 신청이 접수되었습니다</h3>
+        <p data-en="We'll review your website and send a tailored diagnosis within two business days. Thank you.">보내주신 웹사이트를 살펴보고 영업일 기준 2일 안에 맞춤 진단을 보내 드리겠습니다. 감사합니다.</p>
+        <a href="index.html" class="home-link" data-en="← Back to home">← 홈으로 돌아가기</a>
+      </div>
+    </div>
+    <iframe name="diag_hidden_iframe" id="diag_hidden_iframe" title="form-target" style="display:none"></iframe>
+  </div>
+</main>
+
+<div class="diag-foot" data-en="© 2026 JM Studio">© 2026 JM Studio</div>
+
+<script>
+// ---------- i18n ----------
+(function(){
+  const KEY='jm-lang', html=document.documentElement;
+  let lang='ko'; try{lang=localStorage.getItem(KEY)==='en'?'en':'ko';}catch(e){}
+  window.__lang=lang;
+  function apply(l){
+    window.__lang=l; html.setAttribute('lang',l);
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      if(el.dataset.ko===undefined) el.dataset.ko=el.innerHTML;
+      el.innerHTML = l==='en' ? el.dataset.en : el.dataset.ko;
+    });
+    document.querySelectorAll('[data-en-ph]').forEach(el=>{
+      if(el.dataset.koPh===undefined) el.dataset.koPh=el.getAttribute('placeholder')||'';
+      el.setAttribute('placeholder', l==='en' ? el.dataset.enPh : el.dataset.koPh);
+    });
+    const b=document.getElementById('langToggle'); if(b) b.textContent = l==='en'?'KO':'EN';
+    try{localStorage.setItem(KEY,l);}catch(e){}
+  }
+  const btn=document.getElementById('langToggle');
+  if(btn) btn.addEventListener('click',()=>apply(window.__lang==='en'?'ko':'en'));
+  if(lang==='en') apply('en'); else { html.setAttribute('lang','ko'); if(btn) btn.textContent='EN'; }
+})();
+
+// ---------- diagnosis ----------
+(function(){
+  const quiz=document.getElementById('diagQuiz');
+  const btn=document.getElementById('diagBtn'), bar=document.getElementById('diagBar'), hint=document.getElementById('diagHint');
+  const total=5;
+  function refresh(){
+    const a=quiz.querySelectorAll('input[type=radio]:checked').length;
+    bar.style.width=(a/total*100)+'%';
+    const ok=a>=total; btn.disabled=!ok; if(hint) hint.style.display=ok?'none':'';
+  }
+  quiz.addEventListener('change',refresh); refresh();
+
+  const tiers={
+    high:{ko:['단단한 브랜드','이미 철학과 전달이 잘 맞물려 있습니다. 지금의 강점을 자산으로 묶어 더 멀리 확장할 단계입니다 — 웹 플랫폼과 아트 디렉션으로 한 단계 끌어올릴 수 있습니다.'],
+          en:['A solid brand','Your philosophy and delivery already align well. You are ready to package those strengths and scale further — a web platform and art direction can take it up a level.']},
+    mid:{ko:['잠재력은 충분, 연결이 약함','작업의 힘은 분명한데, 사람들에게 닿는 길이 군데군데 끊겨 있습니다. 브랜드 메시지와 전달 경로만 정리하면 지금의 작업이 훨씬 멀리 갑니다.'],
+          en:['Strong potential, weak connection','The work clearly has power, but the path to people breaks in places. Tighten the brand message and the routes, and your work will travel much further.']},
+    low:{ko:['철학은 있는데, 보이지 않음','좋은 작업이 충분히 전달되지 못하고 있습니다. 전략과 브랜딩의 기초부터 함께 세우면 가장 큰 변화를 만들 수 있는 단계입니다.'],
+          en:['Great philosophy, but invisible','Good work is not reaching people yet. Building the foundations of strategy and branding together is where the biggest change happens.']}
+  };
+  function tierFor(s){return s>=8?'high':s>=4?'mid':'low';}
+
+  btn.addEventListener('click',()=>{
+    let score=0; quiz.querySelectorAll('input[type=radio]:checked').forEach(i=>score+=+i.value);
+    const key=tierFor(score), t=tiers[key], en=document.documentElement.lang==='en';
+    document.getElementById('diagTier').textContent=t[en?'en':'ko'][0];
+    document.getElementById('diagVerdict').textContent=t[en?'en':'ko'][1];
+    document.getElementById('diagTag').value='자가진단 '+score+'/10 ('+tiers[key].ko[0]+')';
+    const numEl=document.getElementById('diagNum');
+    quiz.style.display='none';
+    document.getElementById('diagResult').classList.add('show');
+    let n=0; const stp=()=>{n++;numEl.textContent=n;if(n<score)requestAnimationFrame(stp);};
+    if(score>0)requestAnimationFrame(stp); else numEl.textContent='0';
+    document.getElementById('diagResult').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const dform=document.getElementById('diagForm'); let sent=false;
+  dform.addEventListener('submit',(e)=>{
+    e.preventDefault(); if(sent)return; if(!dform.reportValidity())return; sent=true;
+    const params=new URLSearchParams(); new FormData(dform).forEach((v,k)=>params.append(k,v));
+    fetch(dform.action,{method:'POST',mode:'no-cors',body:params}).catch(()=>{});
+    document.getElementById('diagLead').style.display='none';
+    document.getElementById('diagThanks').classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>

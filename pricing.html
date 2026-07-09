@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>패키지 안내 | JM Studio</title>
+<meta name="description" content="JM Studio의 패키지 안내 — The Canvas, The Masterpiece, The Bespoke. 포트폴리오부터 수익화 플랫폼까지 세 가지 시작점." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://thejmstudio.co.kr/pricing.html" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C2512C'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-style='italic' font-size='52' fill='%23fff' text-anchor='middle'%3Ejm%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" />
+<style>
+:root{
+  --paper:#EDE8DD;
+  --paper-2:#E5DFD1;
+  --ink:#2B2824;
+  --ink-soft:#4A463E;
+  --head:#403B34;
+  --muted:#8C8676;
+  --line:rgba(26,24,20,.14);
+  --accent:#C2512C;
+  --accent-ink:#fff;
+
+  --maxw:1360px;
+  --gutter:clamp(22px,4vw,72px);
+
+  --fz-display:clamp(30px,4.6vw,78px);
+  --fz-h1:clamp(30px,4.8vw,72px);
+  --fz-h2:clamp(23px,2.6vw,40px);
+  --fz-h3:clamp(20px,1.55vw,25px);
+  --fz-body:clamp(16px,1.12vw,19px);
+  --fz-lg:clamp(19px,1.7vw,26px);
+  --fz-eyebrow:clamp(11px,.86vw,13px);
+
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Pretendard","Pretendard Variable",system-ui,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:var(--fz-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--accent)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-size:var(--fz-eyebrow);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:.7em;white-space:nowrap;justify-content:center}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7;display:none}
+
+/* NAV */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s;border-bottom:1px solid transparent}
+header.nav.scrolled{background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:18px var(--gutter);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;font-size:18px}
+.brand .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--serif);font-style:italic;font-size:15px;line-height:1;padding-bottom:1px}
+.nav-links{display:flex;align-items:center;gap:clamp(18px,2.4vw,42px)}
+.nav-links a{font-size:14px;color:var(--ink-soft);font-weight:500;position:relative;transition:color .25s;white-space:nowrap}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{padding:9px 20px;border:1px solid var(--ink);border-radius:100px;font-size:14px;font-weight:600;transition:background .3s,color .3s,border-color .3s}
+.nav-links a.nav-cta:hover{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff;border-color:var(--accent)}
+.lang-toggle{margin-left:8px;padding:7px 13px;border:1px solid var(--line);border-radius:100px;background:transparent;color:var(--ink-soft);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.lang-toggle:hover{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff;border-color:var(--accent)}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* PAGE HEAD */
+.page-head{padding-top:clamp(140px,18vh,200px);padding-bottom:clamp(20px,4vh,40px);text-align:center}
+.page-head .back{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:22px;justify-content:center}
+.page-head .back:hover{color:var(--accent)}
+.sec-pad{padding-block:clamp(40px,8vh,90px)}
+
+/* PRICING */
+.pricing{text-align:center}
+.price-head{font-size:var(--fz-h2);font-weight:500;letter-spacing:-.025em;line-height:1.12;margin:16px auto clamp(20px,3vh,34px);max-width:24ch;text-wrap:balance;color:var(--head)}
+.price-intro{max-width:56ch;margin:0 auto clamp(46px,7vh,80px);color:var(--ink-soft);font-size:var(--fz-lg);line-height:1.6;text-wrap:pretty}
+.price-foot{margin-top:clamp(30px,4vh,46px);text-align:center;font-size:13px;color:var(--muted);text-wrap:pretty}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,26px);align-items:stretch;text-align:left}
+.tier{position:relative;display:flex;flex-direction:column;background:rgba(255,255,255,.5);border:1px solid var(--line);border-radius:22px;padding:clamp(28px,2.5vw,40px) clamp(22px,2vw,32px);backdrop-filter:blur(14px) saturate(1.3);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,background .4s}
+.tier:hover{transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(40,40,80,.35)}
+.tier.best{background:rgba(255,255,255,.74);border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 26px 64px -26px color-mix(in srgb,var(--accent) 45%,transparent);transform:translateY(-12px)}
+.tier.best:hover{transform:translateY(-18px)}
+.best-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;letter-spacing:.16em;padding:7px 18px;border-radius:100px;white-space:nowrap;box-shadow:0 8px 20px -6px color-mix(in srgb,var(--accent) 60%,transparent)}
+.tier-name{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center}
+.tier-price{font-size:clamp(28px,2.3vw,38px);font-weight:700;letter-spacing:-.03em;text-align:center;margin-top:14px;line-height:1.05}
+.tier-from{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center;margin-top:14px;margin-bottom:2px}
+.tier-target{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5;text-wrap:pretty}
+.tier-div{height:1px;background:var(--line);margin:clamp(22px,2.4vh,30px) 0}
+.tier-feats{list-style:none;display:flex;flex-direction:column;gap:16px;flex:1}
+.tier-feats li{display:flex;align-items:center;gap:13px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.feat-ic{flex:none;width:34px;height:34px;border-radius:10px;background:color-mix(in srgb,var(--accent) 13%,transparent);display:grid;place-items:center;color:var(--accent)}
+.feat-ic svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tier-btn{margin-top:clamp(26px,3vh,34px);display:block;text-align:center;padding:15px;border-radius:12px;font-size:15px;font-weight:600;border:1px solid var(--ink);color:var(--ink);transition:background .3s,color .3s,transform .25s}
+.tier-btn:hover{transform:translateY(-2px)}
+.tier.best .tier-btn{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tier:not(.best) .tier-btn:hover{background:linear-gradient(100deg,#7a4ff0 0%,#c6b2ff 32%,#ff9fd0 62%,#ffffff 100%);border-color:transparent;color:#241338}
+.tier.best .tier-btn:hover{background:linear-gradient(100deg,#7a4ff0 0%,#ef4d8f 45%,#ff9fd0 75%,#ffffff 100%);border-color:transparent;color:#241338;filter:none}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr;max-width:440px;margin-inline:auto;gap:30px}.tier,.tier.best{transform:none}.tier:hover,.tier.best:hover{transform:translateY(-6px)}}
+
+/* ---------- AURORA / GRADIENT THEME ---------- */
+@property --au1{syntax:'<color>';inherits:true;initial-value:#6f97ff}
+@property --au2{syntax:'<color>';inherits:true;initial-value:#a9c6ff}
+@property --au3{syntax:'<color>';inherits:true;initial-value:#e3ecff}
+@property --acc{syntax:'<color>';inherits:true;initial-value:#3a6ff5}
+.aurora{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;display:none;
+  background:
+    radial-gradient(46% 42% at 16% 20%, var(--au1), transparent 66%),
+    radial-gradient(50% 46% at 84% 16%, var(--au2), transparent 70%),
+    radial-gradient(58% 52% at 72% 84%, var(--au1), transparent 72%),
+    radial-gradient(62% 56% at 24% 82%, var(--au3), transparent 72%),
+    radial-gradient(40% 40% at 50% 50%, var(--au2), transparent 75%),
+    #ffffff;
+  filter:saturate(1.06);
+}
+@keyframes auroraCycle{
+  0%   {--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+  33%  {--au1:#9b7bff;--au2:#c6b2ff;--au3:#efe6ff;--acc:#7a4ff0}
+  66%  {--au1:#ff7bb5;--au2:#ffb6d6;--au3:#ffe7f2;--acc:#ef4d8f}
+  100% {--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+}
+body[data-style="gradient"]{
+  --paper:#f3f6ff;
+  --paper-2:rgba(255,255,255,.45);
+  --ink:#191c2b;
+  --ink-soft:#474d63;
+  --muted:#888ea6;
+  --line:rgba(25,28,55,.13);
+  --accent:var(--acc);
+  background:transparent;
+  animation:auroraCycle var(--au-speed,22s) ease-in-out infinite;
+}
+body[data-style="gradient"] .aurora{display:block}
+body[data-style="gradient"] .foot{background:#15172a}
+body[data-style="gradient"][data-hue="blue"]{animation:none;--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+body[data-style="gradient"][data-hue="purple"]{animation:none;--au1:#9b7bff;--au2:#c6b2ff;--au3:#efe6ff;--acc:#7a4ff0}
+body[data-style="gradient"][data-hue="pink"]{animation:none;--au1:#ff7bb5;--au2:#ffb6d6;--au3:#ffe7f2;--acc:#ef4d8f}
+@media(prefers-reduced-motion:reduce){body[data-style="gradient"]{animation:none}}
+
+/* FOOTER */
+.foot{background:var(--ink);color:var(--paper);border-top:1px solid rgba(237,232,221,.12)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:34px;flex-wrap:wrap}
+.foot-inner .small{font-size:13px;color:rgba(237,232,221,.5)}
+.foot-links{display:flex;gap:24px}
+.foot-links a{font-size:13px;color:rgba(237,232,221,.7);transition:color .25s}
+.foot-links a:hover{color:var(--accent)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body data-style="gradient" data-hue="cycle" data-theme="light" style="font-family: Quicksand">
+
+<div class="aurora" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+    <nav class="nav-links">
+      <a href="index.html#services" data-en="Services">서비스</a>
+      <a href="index.html#work" data-en="Work">작업</a>
+      <a href="index.html#diagnosis" data-en="Diagnosis">자가 진단</a>
+      <a href="pricing.html" data-en="Pricing">패키지</a>
+      <a href="index.html#contact" class="nav-cta" data-en="Start a project">프로젝트 문의</a>
+      <button id="langToggle" class="lang-toggle" type="button" aria-label="Language">EN</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap page-head">
+  <a class="back reveal" href="index.html" data-en="&larr; Back to home">← 홈으로 돌아가기</a>
+  <p class="eyebrow reveal" data-en="Packages">패키지 안내</p>
+  <h1 class="price-head reveal" data-d="1" data-en="Three ways to start, from portfolio to platform.">포트폴리오부터 플랫폼까지, 세 가지 시작점.</h1>
+  <p class="price-intro reveal" data-d="2" data-en="Choose the package that fits where you are now. Every tier is a starting point — the final scope and quote are shaped together after a conversation.">지금 당신의 단계에 맞는 패키지를 골라보세요. 모든 패키지는 시작점이며, 최종 범위와 견적은 상담을 통해 함께 정해집니다.</p>
+</div>
+
+<section class="sec-pad pricing" id="pricing">
+  <div class="wrap">
+    <div class="price-grid">
+      <!-- A -->
+      <div class="tier reveal">
+        <div class="tier-name">Package A · The Canvas</div>
+        <span class="tier-from" data-en="Starting at">시작가</span>
+        <div class="tier-price">150만~300만 원</div>
+        <p class="tier-target" data-en="Solo dancers · painters · indie musicians · one-person planners">개인 무용가 · 화가 · 인디 뮤지션 · 1인 기획자</p>
+        <div class="tier-div"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></span><span data-en="Initial planning &amp; UX/UI wireframes">초기 기획 및 구조 설계 (와이어프레임)</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 18h18"/></svg></span><span data-en="High-end responsive website">하이엔드 반응형 웹사이트 구축</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><span data-en="Basic SEO setup">기본 SEO 세팅</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></span><span data-en="Lead-capture inquiry form">문의 수집 폼 연동</span></li>
+        </ul>
+        <a class="tier-btn" href="index.html#contact" data-en="Inquire">문의하기</a>
+      </div>
+
+      <!-- B (BEST) -->
+      <div class="tier best reveal" data-d="1">
+        <span class="best-badge" data-en="BEST">주력</span>
+        <div class="tier-name">Package B · The Masterpiece</div>
+        <span class="tier-from" data-en="Starting at">시작가</span>
+        <div class="tier-price">300만~700만 원</div>
+        <p class="tier-target" data-en="Dance/music academies · small troupes · independent galleries">무용·음악 학원 · 중소 극단 · 독립 갤러리</p>
+        <div class="tier-div"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span data-en="Everything in Package A">Package A의 모든 기능 포함</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 0 1 0 18M3 12h18"/></svg></span><span data-en="Brand identity (BI) renewal">브랜드 아이덴티티(BI) 리뉴얼</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg></span><span data-en="Booking/payment · shop · ticketing">예약·결제 · 굿즈샵 · 티켓팅 연동</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M7 3h10l3 5-8 13L4 8z"/></svg></span><span data-en="Brand guideline document (PDF)">브랜드 가이드라인 문서 (PDF)</span></li>
+        </ul>
+        <a class="tier-btn" href="index.html#contact" data-en="Inquire">문의하기</a>
+      </div>
+
+      <!-- C -->
+      <div class="tier reveal" data-d="2">
+        <div class="tier-name">Package C · The Bespoke</div>
+        <span class="tier-from" data-en="Custom pricing">별도 견적</span>
+        <div class="tier-price">700만 원 이상~</div>
+        <p class="tier-target" data-en="Major entertainment · renowned artists · large exhibition/show organizers">대형 엔터테인먼트 · 유명 아티스트 · 대형 전시·공연 주관사</p>
+        <div class="tier-div"></div>
+        <ul class="tier-feats">
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span data-en="Everything in Package B">Package B의 모든 기능 포함</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/></svg></span><span data-en="Advanced custom animation &amp; interactive design">고도 커스텀 애니메이션 · 인터랙티브 디자인</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span data-en="Multilingual (EN/JP) support">다국어(영문·일문 등) 지원</span></li>
+          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-en="3-month post-launch GA4 analysis &amp; reports">런칭 후 3개월 GA4 분석·개선 리포트</span></li>
+        </ul>
+        <a class="tier-btn" href="index.html#contact" data-en="Inquire">문의하기</a>
+      </div>
+    </div>
+    <p class="price-foot reveal" data-en="All prices are starting estimates and are finalized after a consultation based on scope.">표기 금액은 시작가 기준이며, 프로젝트 범위에 따라 상담 후 확정됩니다.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="small" data-en="© 2026 JM Studio">© 2026 JM Studio</span>
+    <div class="foot-links">
+      <a href="index.html#services" data-en="Services">서비스</a>
+      <a href="index.html#work" data-en="Work">작업</a>
+      <a href="index.html#contact" data-en="Contact">문의</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// i18n (shares the same jm-lang key as index.html)
+(function(){
+  const KEY='jm-lang', html=document.documentElement;
+  const saved=(()=>{try{return localStorage.getItem(KEY);}catch(e){return null;}})();
+  window.__lang = saved==='en' ? 'en' : 'ko';
+  function apply(lang){
+    window.__lang=lang; html.setAttribute('lang',lang);
+    document.querySelectorAll('[data-en]').forEach(el=>{
+      if(el.dataset.ko===undefined) el.dataset.ko=el.innerHTML;
+      el.innerHTML = lang==='en' ? el.dataset.en : el.dataset.ko;
+    });
+    const b=document.getElementById('langToggle');
+    if(b) b.textContent = lang==='en' ? 'KO' : 'EN';
+    try{localStorage.setItem(KEY,lang);}catch(e){}
+  }
+  const btn=document.getElementById('langToggle');
+  if(btn) btn.addEventListener('click',()=>apply(window.__lang==='en'?'ko':'en'));
+  if(window.__lang==='en'){ apply('en'); }
+  else { html.setAttribute('lang','ko'); if(btn) btn.textContent='EN'; }
+})();
+</script>
+</body>
+</html>

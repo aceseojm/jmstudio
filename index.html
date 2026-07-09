@@ -222,7 +222,9 @@ section{position:relative}
 }
 
 /* work */
-.work-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(16px,2vw,30px)}
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,34px)}
+@media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.work-grid{grid-template-columns:1fr}}
 .proj{display:flex;flex-direction:column;gap:16px;cursor:pointer;text-decoration:none;color:inherit}
 .proj-frame{position:relative;width:100%;overflow:hidden;border-radius:7px;border:1px solid var(--line);background:linear-gradient(135deg,var(--paper-2),color-mix(in srgb,var(--accent) 14%,var(--paper-2)));box-shadow:0 18px 40px -28px rgba(40,40,80,.4)}
 .proj-frame .ph{position:absolute;inset:0;display:grid;place-items:center;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(14px,2vw,22px);color:var(--muted);z-index:0}
@@ -239,6 +241,7 @@ section{position:relative}
 .proj-frame{transition:box-shadow .5s}
 .proj-meta{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-top:1px solid var(--line);padding-top:14px}
 .proj-meta .t{font-size:var(--fz-h3);font-weight:600;letter-spacing:-.015em}
+.col-7,.col-5,.col-6{grid-column:auto}
 /* portfolio bridge copy + reframed descriptions */
 .work-bridge{position:relative;overflow:hidden;background:linear-gradient(160deg,#ffffff 0%,#eef3fc 100%);border:1px solid rgba(58,111,245,.16);border-radius:24px;padding:clamp(28px,4vw,52px);margin-bottom:clamp(28px,4vh,48px);box-shadow:0 36px 80px -56px rgba(58,111,245,.4)}
 .work-bridge::before{content:"";position:absolute;top:-30%;right:-8%;width:48%;height:120%;background:radial-gradient(circle at 70% 30%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 60%);pointer-events:none;opacity:.6}
@@ -248,6 +251,36 @@ section{position:relative}
 .work-bridge p{margin-top:16px;color:var(--ink-soft);font-size:var(--fz-lg);line-height:1.62;max-width:62ch;text-wrap:pretty}
 .proj-reframe{margin-top:10px;font-size:clamp(15px,1.4vw,18px);font-weight:600;color:var(--accent);line-height:1.4;letter-spacing:-.01em;text-wrap:pretty}
 .proj-appeal{margin-top:9px;color:var(--ink-soft);font-size:15px;line-height:1.6;text-wrap:pretty}
+
+/* ---------- book viewer (page-flip project browser) ---------- */
+.book-overlay{position:fixed;inset:0;z-index:200;background:rgba(10,10,18,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,56px);opacity:0;transition:opacity .35s ease}
+.book-overlay.open{display:flex}
+.book-overlay.show{opacity:1}
+.book-stage{position:relative;width:min(1080px,94vw);max-height:88vh;perspective:2400px}
+.book-close{position:absolute;top:-46px;right:0;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);font-size:18px;cursor:pointer;display:grid;place-items:center;transition:background .25s}
+.book-close:hover{background:rgba(255,255,255,.24)}
+.book-count{position:absolute;top:-44px;left:0;color:rgba(255,255,255,.68);font-size:13px;letter-spacing:.08em}
+.book-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:background .25s,transform .25s;z-index:5}
+.book-nav:hover{background:rgba(255,255,255,.26)}
+.book-nav.prev{left:-64px}
+.book-nav.next{right:-64px}
+@media(max-width:860px){.book-nav.prev{left:6px}.book-nav.next{right:6px}.book-nav{width:42px;height:42px;background:rgba(10,10,18,.5)}}
+.book-page{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 60px 120px -50px rgba(0,0,0,.65);transform-origin:left center;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .4s;display:grid;grid-template-columns:1.35fr 1fr;max-height:88vh}
+.book-page.flipping{transform:rotateY(-90deg);opacity:0}
+.book-visual{position:relative;background:linear-gradient(135deg,var(--paper-2),color-mix(in srgb,var(--accent) 14%,var(--paper-2)));overflow:hidden}
+.book-visual .frame-scaler{position:absolute;top:0;left:0;transform-origin:top left;opacity:0;transition:opacity .6s}
+.book-visual .frame-scaler.ready{opacity:1}
+.book-visual .frame-scaler iframe{border:0;display:block;background:#fff}
+.book-info{padding:clamp(26px,3vw,44px);display:flex;flex-direction:column;overflow-y:auto}
+.book-info .k-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.book-info h3{margin-top:12px;font-size:clamp(24px,2.4vw,32px);font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.book-info .k-cat{margin-top:8px;font-size:13px;color:var(--muted)}
+.book-info .k-reframe{margin-top:20px;font-size:16px;font-weight:600;color:var(--accent);line-height:1.45;text-wrap:pretty}
+.book-info .k-appeal{margin-top:12px;font-size:14.5px;color:var(--ink-soft);line-height:1.65;text-wrap:pretty}
+.book-info .k-visit{margin-top:auto;padding-top:22px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink);border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.book-info .k-visit a{display:inline-flex;align-items:center;gap:7px;color:var(--ink)}
+.book-info .k-visit a:hover{color:var(--accent)}
+@media(max-width:760px){.book-page{grid-template-columns:1fr;overflow-y:auto}.book-visual{aspect-ratio:4/3}}
 .proj-meta .cat{font-size:13px;color:var(--muted);text-align:right;line-height:1.5;white-space:nowrap}
 .proj .yr{font-family:var(--serif);font-style:italic;color:var(--accent)}
 .col-7{grid-column:span 7}.col-5{grid-column:span 5}.col-6{grid-column:span 6}
@@ -665,7 +698,7 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
       <a href="#work" data-en="Work">작업</a>
       <a href="#process" data-en="Process">프로세스</a>
       <a href="#diagnosis" data-en="Diagnosis">자가 진단</a>
-      <a href="#pricing" data-en="Pricing">패키지</a>
+      <a href="pricing.html" data-en="Pricing">패키지</a>
       <a href="#studio" data-en="Studio">스튜디오</a>
       <a href="#contact" class="nav-cta" data-en="Start a project">프로젝트 문의</a>
       <button id="langToggle" class="lang-toggle" type="button" aria-label="Language">EN</button>
@@ -797,8 +830,8 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
     </div>
 
     <div class="work-grid">
-      <a class="proj col-7 reveal" href="https://aura-fnh6.vercel.app/" target="_blank" rel="noopener">
-        <div class="proj-frame" data-src="https://aura-fnh6.vercel.app/" data-w="1440" style="aspect-ratio:16/11">
+      <a class="proj reveal" href="https://aura-fnh6.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://aura-fnh6.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
           <span class="ph">AURA</span>
           <div class="frame-scaler"></div>
           <div class="sheen"></div>
@@ -811,8 +844,8 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
         <p class="proj-reframe" data-en="Giving invisible, intangible value a form you can touch through visual interaction.">보이지 않는 무형의 가치를 시각적 인터랙션으로 구현하다.</p>
         <p class="proj-appeal" data-en="A perfect case of how an artist's abstract philosophy and world can be turned into interactive art that audiences touch and experience directly on the web.">예술가의 추상적인 철학과 작품 세계를, 고객이 직접 만지고 체험하는 인터랙티브 아트로 풀어낸 사례입니다.</p>
       </a>
-      <a class="proj col-5 reveal" data-d="1" href="https://shingil-1789.vercel.app/" target="_blank" rel="noopener">
-        <div class="proj-frame" data-src="https://shingil-1789.vercel.app/" data-w="1440" style="aspect-ratio:4/3.4">
+      <a class="proj reveal" data-d="1" href="https://shingil-1789.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://shingil-1789.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
           <span class="ph">SHINGIL</span>
           <div class="frame-scaler"></div>
           <div class="sheen"></div>
@@ -825,8 +858,8 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
         <p class="proj-reframe" data-en="High-end space branding that carries the awe of a vast space onto the digital screen.">거대한 공간의 압도감을 디지털 화면으로 옮겨온 하이엔드 공간 브랜딩.</p>
         <p class="proj-appeal" data-en="Proof of how a website can convey overwhelming scale and premium feel — for clients planning galleries, large exhibitions, or cultural complexes.">오프라인 갤러리나 대형 전시, 복합 문화 공간을 기획하는 클라이언트에게 ‘압도적인 공간감과 프리미엄’을 웹사이트로 어떻게 전달하는지 증명합니다.</p>
       </a>
-      <a class="proj col-5 reveal" href="https://kafsa-xtdp.vercel.app/" target="_blank" rel="noopener">
-        <div class="proj-frame" data-src="https://kafsa-xtdp.vercel.app/" data-w="1440" style="aspect-ratio:4/3.4">
+      <a class="proj reveal" href="https://kafsa-xtdp.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://kafsa-xtdp.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
           <span class="ph">KFASA</span>
           <div class="frame-scaler"></div>
           <div class="sheen"></div>
@@ -839,8 +872,8 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
         <p class="proj-reframe" data-en="Meticulous copywriting and conversion (CRO) design that drives the audience to act.">고객의 행동을 이끌어내는 치밀한 카피라이팅과 전환율(CRO) 설계.</p>
         <p class="proj-appeal" data-en="Beyond simply exhibiting the work — JM Studio's corporate sales know-how that makes visitors open their wallets for goods and tickets (conversion).">예술 작품이 단순히 전시되는 것을 넘어, 관람객이 지갑을 열고 굿즈나 티켓을 구매(전환)하도록 만드는 The JM Studio만의 기업형 세일즈 노하우가 담겨 있습니다.</p>
       </a>
-      <a class="proj col-7 reveal" data-d="1" href="https://theymk.vercel.app/" target="_blank" rel="noopener">
-        <div class="proj-frame" data-src="https://theymk.vercel.app/" data-w="1440" style="aspect-ratio:16/11">
+      <a class="proj reveal" data-d="1" href="https://theymk.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://theymk.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
           <span class="ph">ymk</span>
           <div class="frame-scaler"></div>
           <div class="sheen"></div>
@@ -853,6 +886,58 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
         <p class="proj-reframe" data-en="Rebuilding a scattered identity into one consistent brand language.">흩어져 있던 정체성을 하나의 일관된 브랜드 언어로 재설계하다.</p>
         <p class="proj-appeal" data-en="Shows how scattered messaging and visuals are reorganized around a single core, so the brand reads the same wherever it is met.">흩어져 있던 메시지와 비주얼을 하나의 핵심으로 재정리해, 어디서 마주쳐도 같은 브랜드로 읽히도록 만든 과정을 보여줍니다.</p>
       </a>
+      <a class="proj reveal" href="https://golf-alpha-dun.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://golf-alpha-dun.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
+          <span class="ph">GOLF</span>
+          <div class="frame-scaler"></div>
+          <div class="sheen"></div>
+          <span class="live">Live ↗</span>
+        </div>
+        <div class="proj-meta">
+          <span class="t">골프 아카데미</span>
+          <span class="cat" data-en="Brand website &amp; Booking<br /><span class='yr'>2026</span>">브랜드 웹사이트 · 예약 연동<br /><span class="yr">2026</span></span>
+        </div>
+        <p class="proj-reframe" data-en="Turning the discipline of a sport into a premium brand experience.">스포츠의 절제된 감각을 프리미엄 브랜드 경험으로 옮기다.</p>
+        <p class="proj-appeal" data-en="Shows how instruction and coaching programs can be presented with a clean, confident visual language that drives inquiries and bookings.">레슨·코칭 프로그램을 정제된 톤으로 보여주며, 문의와 예약으로 이어지는 흐름을 설계한 사례입니다.</p>
+      </a>
+      <a class="proj reveal" data-d="1" href="https://insurance-five-nu.vercel.app/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://insurance-five-nu.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
+          <span class="ph">INSURANCE</span>
+          <div class="frame-scaler"></div>
+          <div class="sheen"></div>
+          <span class="live">Live ↗</span>
+        </div>
+        <div class="proj-meta">
+          <span class="t">보험 컨설팅</span>
+          <span class="cat" data-en="Trust branding &amp; Lead generation<br /><span class='yr'>2026</span>">신뢰 브랜딩 · 리드 확보<br /><span class="yr">2026</span></span>
+        </div>
+        <p class="proj-reframe" data-en="Building trust at first glance in a category people rarely enjoy shopping for.">선택이 부담스러운 영역에서, 첫 화면부터 신뢰를 설계하다.</p>
+        <p class="proj-appeal" data-en="An example of translating complex financial information into clear, calm messaging that turns visitors into consultation requests.">복잡한 금융 정보를 명료하고 차분한 메시지로 정리해, 방문자를 상담 신청으로 이끄는 구조를 보여줍니다.</p>
+      </a>
+    </div>
+
+    <!-- Book viewer overlay -->
+    <div class="book-overlay" id="bookOverlay" aria-hidden="true">
+      <div class="book-stage">
+        <span class="book-count" id="bookCount">1 / 6</span>
+        <button class="book-close" id="bookClose" type="button" aria-label="Close">✕</button>
+        <button class="book-nav prev" id="bookPrev" type="button" aria-label="Previous">‹</button>
+        <div class="book-page" id="bookPage">
+          <div class="book-visual">
+            <span class="ph" id="bookPh" style="position:absolute;inset:0;display:grid;place-items:center;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)"></span>
+            <div class="frame-scaler" id="bookScaler"></div>
+          </div>
+          <div class="book-info">
+            <span class="k-eyebrow" data-en="Selected work">Selected work</span>
+            <h3 id="bookTitle"></h3>
+            <span class="k-cat" id="bookCat"></span>
+            <p class="k-reframe" id="bookReframe"></p>
+            <p class="k-appeal" id="bookAppeal"></p>
+            <div class="k-visit"><a id="bookVisit" href="#" target="_blank" rel="noopener"><span data-en="Visit live site">실제 사이트 방문</span><span>↗</span></a></div>
+          </div>
+        </div>
+        <button class="book-nav next" id="bookNext" type="button" aria-label="Next">›</button>
+      </div>
     </div>
   </div>
 </section>
@@ -963,66 +1048,6 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="sec-pad pricing" id="pricing">
-  <div class="wrap">
-    <p class="eyebrow reveal" data-en="Packages">패키지 안내</p>
-    <h2 class="price-head reveal" data-en="Three ways to start, from portfolio to platform.">포트폴리오부터 플랫폼까지, 세 가지 시작점.</h2>
-
-    <div class="price-grid">
-      <!-- A -->
-      <div class="tier reveal">
-        <div class="tier-name">Package A · The Canvas</div>
-        <span class="tier-from" data-en="Starting at">시작가</span>
-        <div class="tier-price">150만~300만 원</div>
-        <p class="tier-target" data-en="Solo dancers · painters · indie musicians · one-person planners">개인 무용가 · 화가 · 인디 뮤지션 · 1인 기획자</p>
-        <div class="tier-div"></div>
-        <ul class="tier-feats">
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg></span><span data-en="Initial planning &amp; UX/UI wireframes">초기 기획 및 구조 설계 (와이어프레임)</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 18h18"/></svg></span><span data-en="High-end responsive website">하이엔드 반응형 웹사이트 구축</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><span data-en="Basic SEO setup">기본 SEO 세팅</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg></span><span data-en="Lead-capture inquiry form">문의 수집 폼 연동</span></li>
-        </ul>
-        <a class="tier-btn" href="#contact" data-en="Inquire">문의하기</a>
-      </div>
-
-      <!-- B (BEST) -->
-      <div class="tier best reveal" data-d="1">
-        <span class="best-badge" data-en="BEST">주력</span>
-        <div class="tier-name">Package B · The Masterpiece</div>
-        <span class="tier-from" data-en="Starting at">시작가</span>
-        <div class="tier-price">300만~700만 원</div>
-        <p class="tier-target" data-en="Dance/music academies · small troupes · independent galleries">무용·음악 학원 · 중소 극단 · 독립 갤러리</p>
-        <div class="tier-div"></div>
-        <ul class="tier-feats">
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span data-en="Everything in Package A">Package A의 모든 기능 포함</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 0 1 0 18M3 12h18"/></svg></span><span data-en="Brand identity (BI) renewal">브랜드 아이덴티티(BI) 리뉴얼</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg></span><span data-en="Booking/payment · shop · ticketing">예약·결제 · 굿즈샵 · 티켓팅 연동</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M7 3h10l3 5-8 13L4 8z"/></svg></span><span data-en="Brand guideline document (PDF)">브랜드 가이드라인 문서 (PDF)</span></li>
-        </ul>
-        <a class="tier-btn" href="#contact" data-en="Inquire">문의하기</a>
-      </div>
-
-      <!-- C -->
-      <div class="tier reveal" data-d="2">
-        <div class="tier-name">Package C · The Bespoke</div>
-        <span class="tier-from" data-en="Custom pricing">별도 견적</span>
-        <div class="tier-price">700만 원 이상~</div>
-        <p class="tier-target" data-en="Major entertainment · renowned artists · large exhibition/show organizers">대형 엔터테인먼트 · 유명 아티스트 · 대형 전시·공연 주관사</p>
-        <div class="tier-div"></div>
-        <ul class="tier-feats">
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span data-en="Everything in Package B">Package B의 모든 기능 포함</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/></svg></span><span data-en="Advanced custom animation &amp; interactive design">고도 커스텀 애니메이션 · 인터랙티브 디자인</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span data-en="Multilingual (EN/JP) support">다국어(영문·일문 등) 지원</span></li>
-          <li><span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span data-en="3-month post-launch GA4 analysis &amp; reports">런칭 후 3개월 GA4 분석·개선 리포트</span></li>
-        </ul>
-        <a class="tier-btn" href="#contact" data-en="Inquire">문의하기</a>
-      </div>
-    </div>
-    <p class="price-foot reveal" data-en="All prices are starting estimates and are finalized after a consultation based on scope.">표기 금액은 시작가 기준이며, 프로젝트 범위에 따라 상담 후 확정됩니다.</p>
   </div>
 </section>
 
@@ -1272,6 +1297,107 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   const bio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){build(e.target);bio.unobserve(e.target);}})},{rootMargin:'200px'});
   frames.forEach(fr=>bio.observe(fr));
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>frames.forEach(fit),120);},{passive:true});
+})();
+// ---------- book viewer: flip through projects like a booklet ----------
+(function(){
+  const cards=[...document.querySelectorAll('.proj')];
+  if(!cards.length) return;
+  const projects=cards.map(a=>({
+    href:a.getAttribute('href'),
+    src:a.querySelector('.proj-frame').dataset.src,
+    dw:+a.querySelector('.proj-frame').dataset.w||1440,
+    ph:a.querySelector('.ph')?.textContent||'',
+    title:a.querySelector('.proj-meta .t')?.textContent||'',
+    cat:a.querySelector('.proj-meta .cat')?.innerHTML||'',
+    reframe:a.querySelector('.proj-reframe')?.textContent||'',
+    appeal:a.querySelector('.proj-appeal')?.textContent||''
+  }));
+  const overlay=document.getElementById('bookOverlay');
+  const page=document.getElementById('bookPage');
+  const scaler=document.getElementById('bookScaler');
+  const phEl=document.getElementById('bookPh');
+  const countEl=document.getElementById('bookCount');
+  const titleEl=document.getElementById('bookTitle');
+  const catEl=document.getElementById('bookCat');
+  const reframeEl=document.getElementById('bookReframe');
+  const appealEl=document.getElementById('bookAppeal');
+  const visitEl=document.getElementById('bookVisit');
+  let idx=0, builtSrc='';
+  function fitBookFrame(){
+    const dw=projects[idx].dw;
+    const visual=scaler.parentElement;
+    const w=visual.clientWidth,h=visual.clientHeight;
+    if(!w||!h) return;
+    const s=w/dw;
+    scaler.style.width=dw+'px';
+    scaler.style.height=(h/s)+'px';
+    scaler.style.transform='scale('+s+')';
+    const ifr=scaler.querySelector('iframe');
+    if(ifr){ifr.style.width=dw+'px';ifr.style.height=(h/s)+'px';}
+  }
+  function render(){
+    const p=projects[idx];
+    phEl.textContent=p.ph;
+    countEl.textContent=(idx+1)+' / '+projects.length;
+    titleEl.textContent=p.title;
+    catEl.innerHTML=p.cat;
+    reframeEl.textContent=p.reframe;
+    appealEl.textContent=p.appeal;
+    visitEl.href=p.href;
+    scaler.classList.remove('ready');
+    if(builtSrc!==p.src){
+      scaler.innerHTML='';
+      const ifr=document.createElement('iframe');
+      ifr.setAttribute('loading','lazy');ifr.setAttribute('scrolling','no');
+      ifr.setAttribute('tabindex','-1');ifr.setAttribute('aria-hidden','true');
+      ifr.referrerPolicy='no-referrer';
+      ifr.addEventListener('load',()=>{fitBookFrame();scaler.classList.add('ready');});
+      scaler.appendChild(ifr);
+      fitBookFrame();
+      ifr.src=p.src;
+      builtSrc=p.src;
+    } else {
+      fitBookFrame();
+      scaler.classList.add('ready');
+    }
+  }
+  function flip(dir){
+    page.classList.add('flipping');
+    setTimeout(()=>{
+      idx=(idx+dir+projects.length)%projects.length;
+      render();
+      page.classList.remove('flipping');
+    },260);
+  }
+  function open(i){
+    idx=i;
+    overlay.classList.add('open');
+    requestAnimationFrame(()=>overlay.classList.add('show'));
+    document.body.style.overflow='hidden';
+    render();
+  }
+  function close(){
+    overlay.classList.remove('show');
+    document.body.style.overflow='';
+    setTimeout(()=>overlay.classList.remove('open'),300);
+  }
+  cards.forEach((a,i)=>{
+    a.addEventListener('click',(e)=>{
+      e.preventDefault();
+      open(i);
+    });
+  });
+  document.getElementById('bookClose').addEventListener('click',close);
+  document.getElementById('bookPrev').addEventListener('click',()=>flip(-1));
+  document.getElementById('bookNext').addEventListener('click',()=>flip(1));
+  overlay.addEventListener('click',(e)=>{ if(e.target===overlay) close(); });
+  addEventListener('keydown',(e)=>{
+    if(!overlay.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='ArrowRight') flip(1);
+    if(e.key==='ArrowLeft') flip(-1);
+  });
+  addEventListener('resize',()=>{ if(overlay.classList.contains('open')) fitBookFrame(); },{passive:true});
 })();
 // contact form -> Google Forms (submits to hidden iframe, no page leave)
 (function(){

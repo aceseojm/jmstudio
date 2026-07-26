@@ -3,11 +3,55 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
 <title>패키지 안내 | JM Studio</title>
 <meta name="description" content="JM Studio의 패키지 안내 — The Canvas, The Masterpiece, The Bespoke. 포트폴리오부터 수익화 플랫폼까지 세 가지 시작점." />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://thejmstudio.co.kr/pricing.html" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JM Studio" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="패키지 안내 | JM Studio" />
+<meta property="og:description" content="JM Studio의 패키지 안내 — The Canvas, The Masterpiece, The Bespoke. 포트폴리오부터 수익화 플랫폼까지 세 가지 시작점." />
+<meta property="og:url" content="https://thejmstudio.co.kr/pricing.html" />
+<meta property="og:image" content="https://thejmstudio.co.kr/og-image.png" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="패키지 안내 | JM Studio" />
+<meta name="twitter:description" content="JM Studio의 패키지 안내 — The Canvas, The Masterpiece, The Bespoke." />
+<meta name="twitter:image" content="https://thejmstudio.co.kr/og-image.png" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23C2512C'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-style='italic' font-size='52' fill='%23fff' text-anchor='middle'%3Ejm%3C/text%3E%3C/svg%3E" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "JM Studio 패키지 안내",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "JM Studio",
+    "url": "https://thejmstudio.co.kr/"
+  },
+  "url": "https://thejmstudio.co.kr/pricing.html",
+  "description": "JM Studio의 패키지 안내 — The Canvas, The Masterpiece, The Bespoke.",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Packages",
+    "itemListElement": [
+      {"@type": "Offer", "name": "The Canvas", "priceCurrency": "KRW", "price": "1500000"},
+      {"@type": "Offer", "name": "The Masterpiece", "priceCurrency": "KRW", "price": "3000000"},
+      {"@type": "Offer", "name": "The Bespoke", "priceCurrency": "KRW", "price": "7000000"}
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
@@ -282,6 +326,20 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   if(btn) btn.addEventListener('click',()=>apply(window.__lang==='en'?'ko':'en'));
   if(window.__lang==='en'){ apply('en'); }
   else { html.setAttribute('lang','ko'); if(btn) btn.textContent='EN'; }
+})();
+// conversion click tracking (tier inquire, kakao)
+(function(){
+  if(!window.gtag) return;
+  document.addEventListener('click',(e)=>{
+    const a=e.target.closest('a');
+    if(!a) return;
+    if(a.href.includes('open.kakao.com')) gtag('event','kakao_click',{link_url:a.href});
+    else if(a.matches('.tier-btn')){
+      const tier=a.closest('.tier');
+      const name=tier&&tier.querySelector('.tier-name')?tier.querySelector('.tier-name').textContent.trim():'unknown';
+      gtag('event','pricing_inquire_click',{tier:name});
+    }
+  });
 })();
 </script>
 </body>

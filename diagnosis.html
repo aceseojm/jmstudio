@@ -3,6 +3,14 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
 <title>무료 자가 진단 | JM Studio</title>
 <meta name="description" content="예술 브랜드·포트폴리오 무료 자가 진단. 5개 질문으로 지금의 연결 상태를 진단하고, 맞춤 리포트를 받아 보세요." />
 <meta name="robots" content="noindex, follow" />
@@ -288,6 +296,7 @@ a{color:inherit;text-decoration:none}
     let n=0; const stp=()=>{n++;numEl.textContent=n;if(n<score)requestAnimationFrame(stp);};
     if(score>0)requestAnimationFrame(stp); else numEl.textContent='0';
     document.getElementById('diagResult').scrollIntoView({behavior:'smooth',block:'start'});
+    if(window.gtag) gtag('event','diagnosis_complete',{score:score,tier:key});
   });
 
   const dform=document.getElementById('diagForm'); let sent=false;
@@ -295,6 +304,7 @@ a{color:inherit;text-decoration:none}
     e.preventDefault(); if(sent)return; if(!dform.reportValidity())return; sent=true;
     const params=new URLSearchParams(); new FormData(dform).forEach((v,k)=>params.append(k,v));
     fetch(dform.action,{method:'POST',mode:'no-cors',body:params}).catch(()=>{});
+    if(window.gtag) gtag('event','generate_lead',{form_id:'diagForm'});
     document.getElementById('diagLead').style.display='none';
     document.getElementById('diagThanks').classList.add('show');
   });

@@ -1,0 +1,17 @@
+{
+  "name": "호순이 · Pixel Tiger Cat",
+  "short_name": "호순이",
+  "description": "마우스와 타이핑에 반응하고 물·휴식·점심을 알려주는 픽셀 데스크톱 펫",
+  "lang": "ko",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10131a",
+  "theme_color": "#10131a",
+  "orientation": "any",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

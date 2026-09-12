@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131a">
+  <meta name="description" content="마우스와 타이핑에 반응하고 건강한 휴식을 알려주는 픽셀 데스크톱 펫 호순이">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="호순이">
+  <title>호순이 · Pixel Tiger Cat</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css?v=20260912-jmstudio-release">
+</head>
+<body>
+  <main class="desktop" id="desktop">
+    <header class="product-card">
+      <p class="eyebrow">DESKTOP PET MVP</p>
+      <h1>Pixel Tiger Cat</h1>
+      <p id="introText">마우스와 타이핑에 반응하고, 정해둔 시간에는 물·휴식·점심을 다정하게 알려주는 데스크톱 친구예요.</p>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span id="statusText">쉬고 있어요</span>
+      </div>
+      <div class="controls">
+        <button id="heartToggle" type="button" aria-pressed="true">♥ Heart Trail ON</button>
+        <button id="resetButton" type="button">호순이 돌아오기</button>
+        <button id="settingsToggle" type="button" aria-expanded="true">알림 설정 접기</button>
+      </div>
+      <div class="deployment-controls" aria-label="앱 설치 및 알림">
+        <img class="deployment-app-icon" src="icons/icon-192.png" alt="호순이 앱 아이콘">
+        <button id="installApp" type="button" hidden>앱 설치</button>
+        <a id="downloadApp" href="hosuni-pwa.zip" download>배포판 다운로드</a>
+        <button id="notificationPermission" type="button">알림 허용</button>
+        <span id="installStatus" role="status"></span>
+      </div>
+      <div class="action-picker" aria-label="8개 동작 미리보기">
+        <button data-action="idle">쉬기</button><button data-action="follow">따라가기</button>
+        <button data-action="typing">타이핑</button><button data-action="greeting">인사</button>
+        <button data-action="complete">완료</button><button data-action="busy">집중</button>
+        <button data-action="reminder">알림</button><button data-action="sleep">잠들기</button>
+      </div>
+      <form class="reminder-settings" id="reminderSettings">
+        <fieldset class="character-picker">
+          <legend id="characterLegend">호순이 선택</legend>
+          <label><input type="radio" name="characterVariant" value="pink"><span><i class="pink-swatch"></i><b id="pinkLabel">핑크 호순이</b></span></label>
+          <label><input type="radio" name="characterVariant" value="orange"><span><i class="orange-swatch"></i><b id="orangeLabel">주황 호순이</b></span></label>
+        </fieldset>
+        <label class="language-field"><span id="languageLabel">언어</span><select id="languageSelect"><option value="ko">한국어</option><option value="en">English</option><option value="hi">हिन्दी</option><option value="ja">日本語</option></select></label>
+        <label class="nickname-field"><span id="nicknameLabel">사용자 닉네임</span><input id="nickname" type="text" maxlength="20" placeholder="예: 정민"></label>
+        <label><span id="waterLabel">물 알림(분)</span><input id="waterMinutes" type="number" min="10" max="240" value="60"></label>
+        <label><span id="breakLabel">휴식 알림(분)</span><input id="breakMinutes" type="number" min="10" max="180" value="50"></label>
+        <label><span id="lunchLabel">점심시간</span><input id="lunchTime" type="time" value="12:00"></label>
+        <div class="schedule-row">
+          <label><span id="scheduleTimeLabel">일정 시간</span><input id="scheduleTime" type="time" value="19:00"></label>
+          <label><span id="scheduleTextLabel">일정 내용</span><input id="scheduleText" type="text" maxlength="40" value="앤드류 미팅" placeholder="예: 앤드류 미팅"></label>
+        </div>
+        <div class="reminder-preview" id="reminderPreview" aria-label="알림 미리보기">
+          <button type="button" data-reminder-preview="water">💧 물 알림 보기</button>
+          <button type="button" data-reminder-preview="break">🌿 휴식 알림 보기</button>
+          <button type="button" data-reminder-preview="lunch">🍱 점심 알림 보기</button>
+          <button type="button" data-reminder-preview="schedule">📅 일정 알림 보기</button>
+        </div>
+        <button id="saveSettings" type="submit">설정 저장</button>
+      </form>
+    </header>
+
+    <section class="hint" aria-label="사용 안내">
+      <span>MOVE</span><span>TYPE</span><span>REST</span>
+    </section>
+
+    <div class="heart-layer" id="heartLayer" aria-hidden="true"></div>
+    <div class="speech" id="speech" role="status" hidden></div>
+    <div class="pet state-idle" id="pet" role="img" aria-label="핑크와 주황색 픽셀 호랑이 고양이">
+      <div class="pet-actor">
+        <img id="petFrame" src="assets/idle/frame-01.png" alt="">
+        <img id="blinkFrame" src="assets/idle/frame-03.png" alt="" aria-hidden="true">
+        <div class="water-bottle" aria-hidden="true"><span></span></div>
+        <div class="keyboard" aria-hidden="true"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js?v=20260912-jmstudio-release"></script>
+</body>
+</html>

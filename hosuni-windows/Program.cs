@@ -73,6 +73,7 @@ internal sealed class PetForm : Form
     private int tickCount;
     private bool facingLeft;
     private bool exiting;
+    private DateTime lastHeartAt = DateTime.MinValue;
 
     public PetForm()
     {
@@ -186,6 +187,21 @@ internal sealed class PetForm : Form
             current = new PointF(current.X + (target.X - current.X) * damping, current.Y + (target.Y - current.Y) * damping);
             if (Math.Abs(target.X - current.X) > 1 || Math.Abs(target.Y - current.Y) > 1)
                 Location = Point.Round(current);
+            if (now - lastHeartAt >= TimeSpan.FromMilliseconds(240))
+            {
+                lastHeartAt = now;
+                var heartX = facingLeft ? Location.X + Width - 38 : Location.X + 10;
+                new HeartForm(new Point(heartX, Location.Y + Height / 2)).Show();
+            }
+        }
+        else if (state == "typing-tired")
+        {
+            // Lift Hosuni slightly so the typing pose reads clearly above the desktop edge.
+            Location = new Point(Point.Round(current).X, Point.Round(current).Y - 12);
+        }
+        else if (Location != Point.Round(current))
+        {
+            Location = Point.Round(current);
         }
         Invalidate();
     }
@@ -270,3 +286,57 @@ internal sealed class PetForm : Form
     private static extern IntPtr GetModuleHandle(string? moduleName);
 }
 
+internal sealed class HeartForm : Form
+{
+    private readonly System.Windows.Forms.Timer lifeTimer = new() { Interval = 40 };
+    private int age;
+
+    public HeartForm(Point origin)
+    {
+        Width = 30;
+        Height = 30;
+        Location = origin;
+        StartPosition = FormStartPosition.Manual;
+        FormBorderStyle = FormBorderStyle.None;
+        ShowInTaskbar = false;
+        TopMost = true;
+        BackColor = Color.Magenta;
+        TransparencyKey = Color.Magenta;
+        DoubleBuffered = true;
+        lifeTimer.Tick += (_, _) =>
+        {
+            age++;
+            Location = new Point(Location.X, Location.Y - 1);
+            Opacity = Math.Max(0.05, 1 - age / 18d);
+            if (age >= 18) { lifeTimer.Stop(); Close(); }
+            else Invalidate();
+        };
+        Shown += (_, _) => lifeTimer.Start();
+    }
+
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            var cp = base.CreateParams;
+            cp.ExStyle |= 0x20 | 0x80;
+            return cp;
+        }
+    }
+
+    protected override bool ShowWithoutActivation => true;
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        using var font = new Font("Segoe UI Symbol", 17, FontStyle.Bold, GraphicsUnit.Pixel);
+        using var brush = new SolidBrush(Color.FromArgb(255, 92, 148));
+        e.Graphics.DrawString("♥", font, brush, 1, 1);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing) lifeTimer.Dispose();
+        base.Dispose(disposing);
+    }
+}

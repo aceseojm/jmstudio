@@ -36,7 +36,7 @@ let nextWaterAt=Date.now()+config.waterMinutes*60000, nextBreakAt=Date.now()+con
 function setState(next, duration=0) {
   if(next!==state){state=next;frameIndex=0;sleepSettled=false;sleepBreathTick=0;} if(duration) manualUntil=performance.now()+duration;
   if(state!=='idle')pet.classList.remove('blinking');
-  pet.classList.toggle('moving',state==='follow'); pet.classList.toggle('typing',false);
+  pet.classList.toggle('moving',state==='follow'); pet.classList.toggle('typing',state==='typing');
   pet.classList.toggle('tired',false);
   pet.classList.toggle('thinking',state==='busy');
   statusText.textContent=tr().statuses[state];

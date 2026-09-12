@@ -14,10 +14,10 @@ const i18n = {
   ja:{intro:'マウスやタイピングに反応し、水分補給・休憩・ランチの時間をやさしく知らせるデスクトップのお友達です。',statuses:{idle:'静かに休んでいます',follow:'マウスを追いかけています ♥',typing:'一緒にタイピング中',greeting:'会えてうれしいです！',complete:'今日のタスク完了！',busy:'集中して作業中',reminder:'健康リマインダーをお知らせ中',sleep:'眠って充電中'},reset:'ホスニを戻す',settingsOpen:'リマインダー設定',settingsClose:'設定を閉じる',actions:['休む','ついてくる','タイピング','あいさつ','完了','集中','通知','眠る'],character:'ホスニを選択',pink:'ピンクのホスニ',orange:'オレンジのホスニ',language:'言語',nickname:'ニックネーム',nicknamePlaceholder:'例：ミナ',waterLabel:'水分通知（分）',breakLabel:'休憩通知（分）',lunchLabel:'ランチ時間',scheduleTimeLabel:'予定時刻',scheduleTextLabel:'予定内容',schedulePlaceholder:'例：アンドリューと会議',previewLabel:'通知プレビュー',previews:['💧 水分通知','🌿 休憩通知','🍱 ランチ通知','📅 予定通知'],save:'設定を保存',saved:'保存しました ✓',water:'お水を飲む時間です 💧',break:'少し休憩しましょう 🌿',lunch:'ランチの時間です！ 🍱',schedule:(time,text)=>`${time}に「${text}」の予定があります 📅`,variantSaved:v=>`${v}で保存しました！`,petLabel:'ピンクとオレンジのピクセルタイガーキャット'}
 };
 const pwaI18n={
-  ko:{install:'앱 설치',download:'배포판 다운로드',installed:'앱으로 설치됨',notify:'알림 허용',notifyOn:'알림 허용됨',notifyOff:'알림 차단됨',notifyNA:'알림 미지원'},
-  en:{install:'Install app',download:'Download package',installed:'Installed as an app',notify:'Enable alerts',notifyOn:'Alerts enabled',notifyOff:'Alerts blocked',notifyNA:'Alerts unavailable'},
-  hi:{install:'ऐप इंस्टॉल करें',download:'पैकेज डाउनलोड करें',installed:'ऐप इंस्टॉल है',notify:'सूचनाएँ चालू करें',notifyOn:'सूचनाएँ चालू हैं',notifyOff:'सूचनाएँ बंद हैं',notifyNA:'सूचनाएँ उपलब्ध नहीं'},
-  ja:{install:'アプリをインストール',download:'配布版をダウンロード',installed:'アプリとしてインストール済み',notify:'通知を許可',notifyOn:'通知を許可済み',notifyOff:'通知が拒否されました',notifyNA:'通知に非対応'}
+  ko:{install:'웹 앱 설치',mac:'Mac용 다운로드',windows:'Windows용 다운로드',installed:'앱으로 설치됨',notify:'알림 허용',notifyOn:'알림 허용됨',notifyOff:'알림 차단됨',notifyNA:'알림 미지원'},
+  en:{install:'Install web app',mac:'Download for Mac',windows:'Download for Windows',installed:'Installed as an app',notify:'Enable alerts',notifyOn:'Alerts enabled',notifyOff:'Alerts blocked',notifyNA:'Alerts unavailable'},
+  hi:{install:'वेब ऐप इंस्टॉल करें',mac:'Mac के लिए डाउनलोड',windows:'Windows के लिए डाउनलोड',installed:'ऐप इंस्टॉल है',notify:'सूचनाएँ चालू करें',notifyOn:'सूचनाएँ चालू हैं',notifyOff:'सूचनाएँ बंद हैं',notifyNA:'सूचनाएँ उपलब्ध नहीं'},
+  ja:{install:'ウェブアプリをインストール',mac:'Mac版をダウンロード',windows:'Windows版をダウンロード',installed:'アプリとしてインストール済み',notify:'通知を許可',notifyOn:'通知を許可済み',notifyOff:'通知が拒否されました',notifyNA:'通知に非対応'}
 };
 const temporary = new Set(['greeting','complete','busy','reminder','sleep']);
 
@@ -65,7 +65,7 @@ let deferredInstallPrompt=null;
 const installButton=$('#installApp'),notificationButton=$('#notificationPermission'),installStatus=$('#installStatus');
 const pwaTr=()=>pwaI18n[config.language]||pwaI18n.ko;
 function isStandalone(){return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}
-function updatePwaControls(){const d=pwaTr();installButton.textContent=d.install;$('#downloadApp').textContent=d.download;installButton.hidden=isStandalone()||!deferredInstallPrompt;installStatus.textContent=isStandalone()?d.installed:'';if(!('Notification' in window)){notificationButton.textContent=d.notifyNA;notificationButton.disabled=true;}else{notificationButton.textContent=Notification.permission==='granted'?d.notifyOn:Notification.permission==='denied'?d.notifyOff:d.notify;notificationButton.disabled=Notification.permission!=='default';}}
+function updatePwaControls(){const d=pwaTr();installButton.textContent=d.install;$('#downloadMac').textContent=d.mac;$('#downloadWindows').textContent=d.windows;installButton.hidden=isStandalone()||!deferredInstallPrompt;installStatus.textContent=isStandalone()?d.installed:'';if(!('Notification' in window)){notificationButton.textContent=d.notifyNA;notificationButton.disabled=true;}else{notificationButton.textContent=Notification.permission==='granted'?d.notifyOn:Notification.permission==='denied'?d.notifyOff:d.notify;notificationButton.disabled=Notification.permission!=='default';}}
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;updatePwaControls();});
 window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;updatePwaControls();});
 installButton.addEventListener('click',async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;updatePwaControls();});

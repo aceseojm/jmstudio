@@ -13,7 +13,7 @@
   <link rel="icon" type="image/png" href="icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
-  <link rel="stylesheet" href="styles.css?v=20260912-jmstudio-release">
+  <link rel="stylesheet" href="styles.css?v=20260912-desktop-release">
 </head>
 <body>
   <main class="desktop" id="desktop">
@@ -33,7 +33,8 @@
       <div class="deployment-controls" aria-label="앱 설치 및 알림">
         <img class="deployment-app-icon" src="icons/icon-192.png" alt="호순이 앱 아이콘">
         <button id="installApp" type="button" hidden>앱 설치</button>
-        <a id="downloadApp" href="hosuni-pwa.zip" download>배포판 다운로드</a>
+        <a id="downloadMac" href="Hosuni-macOS.dmg" download>Mac용 다운로드</a>
+        <a id="downloadWindows" href="Hosuni-Windows-x64.zip" download>Windows용 다운로드</a>
         <button id="notificationPermission" type="button">알림 허용</button>
         <span id="installStatus" role="status"></span>
       </div>
@@ -84,6 +85,6 @@
     </div>
   </main>
 
-  <script src="app.js?v=20260912-jmstudio-release"></script>
+  <script src="app.js?v=20260912-desktop-release"></script>
 </body>
 </html>

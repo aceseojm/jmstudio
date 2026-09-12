@@ -1,4 +1,4 @@
-const CACHE_NAME='hosuni-pwa-v3';
+const CACHE_NAME='hosuni-pwa-v4';
 const CORE=['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./icons/favicon-32.png','./icons/icon-192.png','./icons/icon-512.png','./assets/break-stretch/frame-01.png','./assets/focus-thinking/frame-01.png'];
 const STATES=['idle','mouse-follow','typing-tired','greeting-wave','completion-jump','busy-work','smart-reminder','sleep-recovery'];
 const FRAMES=STATES.flatMap(state=>[1,2,3,4].map(frame=>`./assets/${state}/frame-${String(frame).padStart(2,'0')}.png`));

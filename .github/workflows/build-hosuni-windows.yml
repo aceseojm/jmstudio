@@ -1,0 +1,28 @@
+name: Build Hosuni for Windows
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Build Windows app
+        shell: pwsh
+        run: dotnet publish hosuni-windows/Hosuni.Windows.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o hosuni-windows/publish
+      - name: Package app
+        shell: pwsh
+        run: Compress-Archive -Path hosuni-windows/publish/* -DestinationPath Hosuni-Windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Hosuni-Windows-x64
+          path: Hosuni-Windows-x64.zip
+          if-no-files-found: error
+

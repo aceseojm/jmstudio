@@ -184,7 +184,7 @@ header.nav.scrolled{
 .display em{font-family:inherit;font-style:normal;font-weight:inherit;letter-spacing:inherit}
 .display .accent{color:var(--accent)}
 .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-top:clamp(40px,6vh,72px);flex-wrap:wrap}
-.hero-lead{max-width:46ch;font-size:var(--fz-lg);color:var(--ink-soft);line-height:1.55;text-wrap:pretty}
+.hero-lead{max-width:46ch;font-size:calc(var(--fz-lg) * 0.7);color:var(--ink-soft);line-height:1.55;text-wrap:pretty}
 .scroll-cue{display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .scroll-cue .dot{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center}
 .scroll-cue .dot::after{content:"↓";font-size:14px;animation:bob 1.8s ease-in-out infinite}
@@ -250,12 +250,12 @@ section{position:relative}
 .proj-meta .t{font-size:var(--fz-h3);font-weight:600;letter-spacing:-.015em}
 .col-7,.col-5,.col-6{grid-column:auto}
 /* portfolio bridge copy + reframed descriptions */
-.work-bridge{position:relative;overflow:hidden;background:linear-gradient(160deg,#ffffff 0%,#eef3fc 100%);border:1px solid rgba(58,111,245,.16);border-radius:24px;padding:clamp(28px,4vw,52px);margin-bottom:clamp(28px,4vh,48px);box-shadow:0 36px 80px -56px rgba(58,111,245,.4)}
+.work-bridge{position:relative;overflow:hidden;background:linear-gradient(160deg,#ffffff 0%,#eef3fc 100%);border:1px solid rgba(58,111,245,.16);border-radius:24px;padding:clamp(22px,3.2vw,42px);margin-bottom:clamp(22px,3.2vh,38px);box-shadow:0 36px 80px -56px rgba(58,111,245,.4)}
 .work-bridge::before{content:"";position:absolute;top:-30%;right:-8%;width:48%;height:120%;background:radial-gradient(circle at 70% 30%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 60%);pointer-events:none;opacity:.6}
 .work-bridge > *{position:relative;z-index:1}
 .work-bridge h3{font-size:clamp(22px,2.4vw,34px);font-weight:500;letter-spacing:-.02em;line-height:1.3;max-width:24ch;text-wrap:balance;color:var(--head)}
 .work-bridge h3 em{font-family:inherit;font-style:normal;color:var(--accent)}
-.work-bridge p{margin-top:16px;color:var(--ink-soft);font-size:var(--fz-lg);line-height:1.62;max-width:62ch;text-wrap:pretty}
+.work-bridge p{margin-top:13px;color:var(--ink-soft);font-size:calc(var(--fz-lg) * 0.8);line-height:1.62;max-width:62ch;text-wrap:pretty}
 .proj-reframe{margin-top:10px;font-size:clamp(15px,1.4vw,18px);font-weight:600;color:var(--accent);line-height:1.4;letter-spacing:-.01em;text-wrap:pretty}
 .proj-appeal{margin-top:9px;color:var(--ink-soft);font-size:15px;line-height:1.6;text-wrap:pretty}
 
@@ -831,7 +831,7 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
     </div>
 
     <div class="work-bridge reveal">
-      <h3 data-en="A website that is only beautiful is just a <em>gallery</em>." style="font-size: 30px">아름답기만 한 웹사이트는 <em>갤러리</em>에 불과합니다.</h3>
+      <h3 data-en="A website that is only beautiful is just a <em>gallery</em>." style="font-size: 24px; white-space: nowrap">아름답기만 한 웹사이트는 <em>갤러리</em>에 불과합니다.</h3>
       <p data-en="The JM Studio holds meticulous UX/UI design and sales copywriting know-how that has raised revenue and conversion for many companies. We combine this corporate business strategy with your artistic philosophy to build an art platform that is at once the most beautiful and the most powerful at selling.">The JM Studio는 수많은 기업의 매출과 전환율을 높여온 치밀한 UX/UI 설계와 세일즈 카피라이팅 노하우를 가지고 있습니다. 우리는 이 ‘기업형 비즈니스 전략’을 당신의 예술적 철학과 결합하여, 가장 아름다우면서도 강력하게 팔리는 아트 플랫폼을 구축합니다.</p>
     </div>
 
@@ -894,17 +894,31 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
       </a>
       <a class="proj reveal" data-d="1" href="https://theymk.vercel.app/" target="_blank" rel="noopener">
         <div class="proj-frame" data-src="https://theymk.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">
-          <span class="ph">ymk</span>
+          <span class="ph">(주)와이엠케이</span>
           <div class="frame-scaler"></div>
           <div class="sheen"></div>
           <span class="live">Live ↗</span>
         </div>
         <div class="proj-meta">
-          <span class="t">ymk</span>
+          <span class="t" data-en="YMK Co., Ltd.">(주)와이엠케이</span>
           <span class="cat" data-en="Strategy consulting &amp; Rebranding<br /><span class='yr'>2026</span>">전략 컨설팅 · 리브랜딩<br /><span class="yr">2026</span></span>
         </div>
         <p class="proj-reframe" data-en="Rebuilding a scattered identity into one consistent brand language.">흩어져 있던 정체성을 하나의 일관된 브랜드 언어로 재설계하다.</p>
         <p class="proj-appeal" data-en="Shows how scattered messaging and visuals are reorganized around a single core, so the brand reads the same wherever it is met.">흩어져 있던 메시지와 비주얼을 하나의 핵심으로 재정리해, 어디서 마주쳐도 같은 브랜드로 읽히도록 만든 과정을 보여줍니다.</p>
+      </a>
+      <a class="proj reveal" href="https://www.kanggilwon.com/" target="_blank" rel="noopener">
+        <div class="proj-frame" data-src="https://www.kanggilwon.com/" data-w="1440" style="aspect-ratio:4/3.2">
+          <span class="ph">KANGGILWON</span>
+          <div class="frame-scaler"></div>
+          <div class="sheen"></div>
+          <span class="live">Live ↗</span>
+        </div>
+        <div class="proj-meta">
+          <span class="t" data-en="Kang Gilwon, Poet">강길원 시인</span>
+          <span class="cat" data-en="Author website &amp; Development<br /><span class='yr'>2026</span>">작가 웹사이트 · 개발<br /><span class="yr">2026</span></span>
+        </div>
+        <p class="proj-reframe" data-en="From business to poetry — a website for a life's turning point.">사업가에서 시인으로, 삶의 전환을 담은 작가 웹사이트.</p>
+        <p class="proj-appeal" data-en="The world of the poetry collection 'Four Seasons, Read as Poems' unfolds across spring, summer, autumn and winter, guiding readers to follow the author's language at their own pace.">시집 《사계절로 읽는 시》의 세계관을 봄·여름·가을·겨울 네 챕터로 풀어내며, 독자가 작가의 언어를 차분히 따라 읽도록 설계했습니다.</p>
       </a>
       <a class="proj reveal" href="https://golf-alpha-dun.vercel.app/" target="_blank" rel="noopener">
         <div class="proj-frame" data-src="https://golf-alpha-dun.vercel.app/" data-w="1440" style="aspect-ratio:4/3.2">

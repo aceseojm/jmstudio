@@ -389,6 +389,20 @@ body[data-style="ribbon"] .a-steps li::before,
 body[data-style="ribbon"] .text-link,
 body[data-style="ribbon"] .a-faq summary::after{color:#ffb3c6;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 body[data-style="ribbon"] .a-steps li::before{width:fit-content}
+.a-hero{position:relative;isolation:isolate}
+.a-hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#000 url(/media/ai-hero.jpg) 70% center/cover no-repeat}
+.a-hero-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,7,11,.45) 0%,rgba(7,7,11,0) 22%,rgba(7,7,11,0) 50%,rgba(7,7,11,.72) 78%,var(--paper) 100%)}
+.a-hero .page-head{min-height:min(100vh,58vw);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:clamp(28px,6vh,64px)}
+.a-hero .price-intro{margin-bottom:0}
+.a-hero .page-head .back,.a-hero .eyebrow{color:var(--ink-soft)}
+.a-hero .price-head,.a-hero .price-intro{text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.6)}
+@media(max-width:760px){
+  .a-hero-media{position:relative;inset:auto;aspect-ratio:1/1;background-image:url(/media/ai-hero-sq.jpg);background-position:center}
+  .a-hero-media::after{background:linear-gradient(180deg,rgba(7,7,11,.5) 0%,rgba(7,7,11,0) 20%,rgba(7,7,11,0) 70%,var(--paper) 100%)}
+  .a-hero .page-head{min-height:0;padding-top:8px;margin-top:-56px}
+}
+@media(min-width:761px){.a-hero .page-head .back{display:none}}
 </style>
 </head>
 <body data-style="ribbon" data-theme="dark" style="font-family: Quicksand">
@@ -399,6 +413,7 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
     <nav class="nav-links">
       <a href="/#services">서비스</a>
       <a href="/artist-website.html">예술인</a>
+      <a href="/ai-automation.html">AI 자동화</a>
       <a href="/#work">작업</a>
       <a href="/pricing.html">패키지</a>
       <a href="/#contact" class="nav-cta">프로젝트 문의</a>
@@ -406,12 +421,15 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
   </div>
 </header>
 <main>
+<section class="a-hero">
+  <div class="a-hero-media" aria-hidden="true"></div>
 <div class="wrap page-head">
   <a class="back reveal" href="/">← 홈으로 돌아가기</a>
   <p class="eyebrow reveal">AI Automation</p>
   <h1 class="price-head reveal" data-d="1">AI 자동화 · RAG · LLM 에이전트 구축</h1>
   <p class="price-intro reveal" data-d="2">반복되는 문의 응대와 자료 정리는 AI에게, 사람은 더 중요한 일에. 우리 자료로 정확하게 답하는 RAG 시스템부터 일을 끝까지 처리하는 LLM 에이전트까지, 실제 업무 흐름에 맞춰 설계하고 구축합니다.</p>
 </div>
+</section>
 
 <section class="a-sec">
   <div class="wrap">

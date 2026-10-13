@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07070b" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
+<title>AI 자동화 · RAG 시스템 구축 · LLM 에이전트 개발 — JM Studio</title>
+<meta name="description" content="AI 자동화 구축 스튜디오 JM Studio. 문의 응대 AI 챗봇, 내 자료로 답하는 RAG 시스템 설계, 여러 단계를 스스로 처리하는 LLM 에이전트까지 예술인·기관·비즈니스의 실제 업무에 맞춰 설계하고 구축합니다." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://www.thejmstudio.co.kr/ai-automation.html" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="JM Studio" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="AI 자동화 · RAG · LLM 에이전트 구축 | JM Studio" />
+<meta property="og:description" content="문의 응대 AI 챗봇, 내 자료로 답하는 RAG 시스템, 일을 끝내는 LLM 에이전트까지. 실제 업무에 맞춘 AI 자동화, JM Studio." />
+<meta property="og:url" content="https://www.thejmstudio.co.kr/ai-automation.html" />
+<meta property="og:image" content="https://www.thejmstudio.co.kr/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI 자동화 · RAG · LLM 에이전트 구축 | JM Studio" />
+<meta name="twitter:description" content="AI 챗봇, RAG 시스템 설계, LLM 에이전트 개발까지 실제 업무에 맞춘 AI 자동화, JM Studio." />
+<meta name="twitter:image" content="https://www.thejmstudio.co.kr/og-image.jpg" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Service",
+   "@id": "https://www.thejmstudio.co.kr/ai-automation.html#service",
+   "name": "AI 자동화 · RAG 시스템 구축 · LLM 에이전트 개발",
+   "serviceType": "AI 자동화",
+   "description": "AI 자동화 구축 스튜디오 JM Studio. 문의 응대 AI 챗봇, 내 자료로 답하는 RAG 시스템 설계, 여러 단계를 스스로 처리하는 LLM 에이전트까지 예술인·기관·비즈니스의 실제 업무에 맞춰 설계하고 구축합니다.",
+   "url": "https://www.thejmstudio.co.kr/ai-automation.html",
+   "provider": {
+    "@type": "ProfessionalService",
+    "@id": "https://www.thejmstudio.co.kr/#studio",
+    "name": "JM Studio",
+    "url": "https://www.thejmstudio.co.kr/"
+   },
+   "areaServed": {
+    "@type": "Country",
+    "name": "대한민국"
+   },
+   "audience": {
+    "@type": "Audience",
+    "audienceType": "예술인, 공연·전시 단체, 학원, 갤러리, 스타트업, 중소기업"
+   },
+   "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "AI 자동화 서비스",
+    "itemListElement": [
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "AI 상담 챗봇 제작"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "RAG 시스템 설계·구축"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "LLM 에이전트 개발"
+      }
+     },
+     {
+      "@type": "Offer",
+      "itemOffered": {
+       "@type": "Service",
+       "name": "업무 자동화"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://www.thejmstudio.co.kr/ai-automation.html#faq",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "AI 자동화 구축 비용은 얼마인가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "자동화할 업무의 범위, 연결할 데이터와 시스템, 사용량에 따라 달라 별도 견적으로 진행합니다. 상담에서 업무를 함께 살펴본 뒤 작게 시작할 수 있는 범위와 비용을 먼저 제안드립니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "RAG 시스템이 무엇인가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "RAG(검색 증강 생성)는 AI가 답하기 전에 우리 쪽 자료—작품·공연 아카이브, 매뉴얼, 사내 문서, FAQ—에서 관련 내용을 먼저 찾아보고 그 근거를 바탕으로 답하게 하는 방식입니다. 일반 챗봇보다 정확하고, 어떤 자료를 근거로 답했는지 확인할 수 있습니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "LLM 에이전트는 챗봇과 무엇이 다른가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "챗봇이 질문에 답하는 데서 멈춘다면, LLM 에이전트는 목표를 받아 필요한 단계를 스스로 나누고 도구를 사용해 일을 끝냅니다. 예를 들어 문의 내용을 분류하고, 일정과 재고를 확인하고, 답장 초안을 만들어 담당자 확인 후 발송하는 흐름까지 맡길 수 있습니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "우리 데이터가 외부로 유출되지 않나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "데이터를 어디에 저장하고 어떤 AI 모델로 보낼지는 설계 단계에서 함께 정합니다. 민감한 정보는 제외하거나 가리고, 접근 권한과 기록을 남기도록 구성합니다. 필요하면 데이터가 학습에 쓰이지 않는 API 환경이나 자체 서버 환경을 선택할 수 있습니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "이미 쓰고 있는 시스템과 연결할 수 있나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "네. 홈페이지 문의 폼, 카카오톡·이메일, 구글 시트·노션 같은 협업 도구, 예약·결제 시스템 등 지금 쓰는 도구에 붙이는 것을 기본으로 설계합니다. 새 시스템으로 갈아타지 않아도 됩니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "상담은 어떻게 신청하나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "카카오톡 오픈채팅, 홈페이지 문의 폼, 이메일(mindset.seo@gmail.com)로 신청할 수 있습니다. 지금 시간이 가장 많이 드는 업무가 무엇인지 알려주시면 자동화할 수 있는 부분부터 함께 찾아드립니다."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "JM Studio",
+     "item": "https://www.thejmstudio.co.kr/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "AI 자동화",
+     "item": "https://www.thejmstudio.co.kr/ai-automation.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" />
+<style>
+:root{
+  --paper:#EDE8DD;
+  --paper-2:#E5DFD1;
+  --ink:#2B2824;
+  --ink-soft:#4A463E;
+  --head:#403B34;
+  --muted:#8C8676;
+  --line:rgba(26,24,20,.14);
+  --accent:#C2512C;
+  --accent-ink:#fff;
+
+  --maxw:1360px;
+  --gutter:clamp(22px,4vw,72px);
+
+  --fz-display:clamp(30px,4.6vw,78px);
+  --fz-h1:clamp(30px,4.8vw,72px);
+  --fz-h2:clamp(23px,2.6vw,40px);
+  --fz-h3:clamp(20px,1.55vw,25px);
+  --fz-body:clamp(16px,1.12vw,19px);
+  --fz-lg:clamp(19px,1.7vw,26px);
+  --fz-eyebrow:clamp(11px,.86vw,13px);
+
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Pretendard","Pretendard Variable",system-ui,-apple-system,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:var(--fz-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+::selection{background:var(--accent);color:var(--accent-ink)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--accent)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-size:var(--fz-eyebrow);letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:.7em;white-space:nowrap;justify-content:center}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.7;display:none}
+
+/* NAV */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .4s ease,border-color .4s ease,backdrop-filter .4s;border-bottom:1px solid transparent}
+header.nav.scrolled{background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:18px var(--gutter);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;font-size:18px}
+.brand .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-family:var(--serif);font-style:italic;font-size:15px;line-height:1;padding-bottom:1px}
+.nav-links{display:flex;align-items:center;gap:clamp(18px,2.4vw,42px)}
+.nav-links a{font-size:14px;color:var(--ink-soft);font-weight:500;position:relative;transition:color .25s;white-space:nowrap}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{padding:9px 20px;border:1px solid var(--ink);border-radius:100px;font-size:14px;font-weight:600;transition:background .3s,color .3s,border-color .3s}
+.nav-links a.nav-cta:hover{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff;border-color:var(--accent)}
+.lang-toggle{margin-left:8px;padding:7px 13px;border:1px solid var(--line);border-radius:100px;background:transparent;color:var(--ink-soft);font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.lang-toggle:hover{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff;border-color:var(--accent)}
+@media(max-width:760px){.nav-links a:not(.nav-cta){display:none}}
+
+/* PAGE HEAD */
+.page-head{padding-top:clamp(140px,18vh,200px);padding-bottom:clamp(20px,4vh,40px);text-align:center}
+.page-head .back{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:22px;justify-content:center}
+.page-head .back:hover{color:var(--accent)}
+.sec-pad{padding-block:clamp(40px,8vh,90px)}
+
+/* PRICING */
+.pricing{text-align:center}
+.price-head{font-size:var(--fz-h2);font-weight:500;letter-spacing:-.025em;line-height:1.12;margin:16px auto clamp(20px,3vh,34px);max-width:24ch;text-wrap:balance;color:var(--head)}
+.price-intro{max-width:56ch;margin:0 auto clamp(46px,7vh,80px);color:var(--ink-soft);font-size:var(--fz-lg);line-height:1.6;text-wrap:pretty}
+.price-foot{margin-top:clamp(30px,4vh,46px);text-align:center;font-size:13px;color:var(--muted);text-wrap:pretty}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.8vw,26px);align-items:stretch;text-align:left}
+.tier{position:relative;display:flex;flex-direction:column;background:rgba(255,255,255,.5);border:1px solid var(--line);border-radius:22px;padding:clamp(28px,2.5vw,40px) clamp(22px,2vw,32px);backdrop-filter:blur(14px) saturate(1.3);transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .5s,background .4s}
+.tier:hover{transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(40,40,80,.35)}
+.tier.best{background:rgba(255,255,255,.74);border-color:color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 26px 64px -26px color-mix(in srgb,var(--accent) 45%,transparent);transform:translateY(-12px)}
+.tier.best:hover{transform:translateY(-18px)}
+.best-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;letter-spacing:.16em;padding:7px 18px;border-radius:100px;white-space:nowrap;box-shadow:0 8px 20px -6px color-mix(in srgb,var(--accent) 60%,transparent)}
+.tier-name{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center}
+.tier-price{font-size:clamp(28px,2.3vw,38px);font-weight:700;letter-spacing:-.03em;text-align:center;margin-top:14px;line-height:1.05}
+.tier-from{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center;margin-top:14px;margin-bottom:2px}
+.tier-target{font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5;text-wrap:pretty}
+.tier-div{height:1px;background:var(--line);margin:clamp(22px,2.4vh,30px) 0}
+.tier-feats{list-style:none;display:flex;flex-direction:column;gap:16px;flex:1}
+.tier-feats li{display:flex;align-items:center;gap:13px;font-size:15px;color:var(--ink-soft);line-height:1.45}
+.feat-ic{flex:none;width:34px;height:34px;border-radius:10px;background:color-mix(in srgb,var(--accent) 13%,transparent);display:grid;place-items:center;color:var(--accent)}
+.feat-ic svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tier-btn{margin-top:clamp(26px,3vh,34px);display:block;text-align:center;padding:15px;border-radius:12px;font-size:15px;font-weight:600;border:1px solid var(--ink);color:var(--ink);transition:background .3s,color .3s,transform .25s}
+.tier-btn:hover{transform:translateY(-2px)}
+.tier.best .tier-btn{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tier:not(.best) .tier-btn:hover{background:linear-gradient(100deg,#7a4ff0 0%,#c6b2ff 32%,#ff9fd0 62%,#ffffff 100%);border-color:transparent;color:#241338}
+.tier.best .tier-btn:hover{background:linear-gradient(100deg,#7a4ff0 0%,#ef4d8f 45%,#ff9fd0 75%,#ffffff 100%);border-color:transparent;color:#241338;filter:none}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr;max-width:440px;margin-inline:auto;gap:30px}.tier,.tier.best{transform:none}.tier:hover,.tier.best:hover{transform:translateY(-6px)}}
+
+/* ---------- AURORA / GRADIENT THEME ---------- */
+@property --au1{syntax:'<color>';inherits:true;initial-value:#6f97ff}
+@property --au2{syntax:'<color>';inherits:true;initial-value:#a9c6ff}
+@property --au3{syntax:'<color>';inherits:true;initial-value:#e3ecff}
+@property --acc{syntax:'<color>';inherits:true;initial-value:#3a6ff5}
+.aurora{
+  position:fixed;inset:0;z-index:-2;pointer-events:none;display:none;
+  background:
+    radial-gradient(46% 42% at 16% 20%, var(--au1), transparent 66%),
+    radial-gradient(50% 46% at 84% 16%, var(--au2), transparent 70%),
+    radial-gradient(58% 52% at 72% 84%, var(--au1), transparent 72%),
+    radial-gradient(62% 56% at 24% 82%, var(--au3), transparent 72%),
+    radial-gradient(40% 40% at 50% 50%, var(--au2), transparent 75%),
+    #ffffff;
+  filter:saturate(1.06);
+}
+@keyframes auroraCycle{
+  0%   {--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+  33%  {--au1:#9b7bff;--au2:#c6b2ff;--au3:#efe6ff;--acc:#7a4ff0}
+  66%  {--au1:#ff7bb5;--au2:#ffb6d6;--au3:#ffe7f2;--acc:#ef4d8f}
+  100% {--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+}
+body[data-style="gradient"]{
+  --paper:#f3f6ff;
+  --paper-2:rgba(255,255,255,.45);
+  --ink:#191c2b;
+  --ink-soft:#474d63;
+  --muted:#888ea6;
+  --line:rgba(25,28,55,.13);
+  --accent:var(--acc);
+  background:transparent;
+  animation:auroraCycle var(--au-speed,22s) ease-in-out infinite;
+}
+body[data-style="gradient"] .aurora{display:block}
+body[data-style="gradient"] .foot{background:#15172a}
+body[data-style="gradient"][data-hue="blue"]{animation:none;--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+body[data-style="gradient"][data-hue="purple"]{animation:none;--au1:#9b7bff;--au2:#c6b2ff;--au3:#efe6ff;--acc:#7a4ff0}
+body[data-style="gradient"][data-hue="pink"]{animation:none;--au1:#ff7bb5;--au2:#ffb6d6;--au3:#ffe7f2;--acc:#ef4d8f}
+@media(prefers-reduced-motion:reduce){body[data-style="gradient"]{animation:none}}
+
+/* FOOTER */
+.foot{background:var(--ink);color:var(--paper);border-top:1px solid rgba(237,232,221,.12)}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;gap:24px;padding-block:34px;flex-wrap:wrap}
+.foot-inner .small{font-size:13px;color:rgba(237,232,221,.5)}
+.foot-links{display:flex;gap:24px}
+.foot-links a{font-size:13px;color:rgba(237,232,221,.7);transition:color .25s}
+.foot-links a:hover{color:var(--accent)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}
+
+/* ARTIST WEBSITE PAGE */
+.a-sec{padding-block:clamp(36px,7vh,80px)}
+.a-h2{font-size:var(--fz-h2);font-weight:500;letter-spacing:-.025em;line-height:1.18;color:var(--head);text-wrap:balance;margin:14px 0 clamp(24px,4vh,40px)}
+.a-lead{max-width:62ch;color:var(--ink-soft);font-size:var(--fz-body);line-height:1.75;text-wrap:pretty}
+.a-lead + .a-lead{margin-top:14px}
+.a-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+@media(max-width:900px){.a-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.a-grid{grid-template-columns:minmax(0,1fr)}}
+.a-card{background:rgba(255,255,255,.62);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,2vw,28px)}
+.a-card h3{font-size:var(--fz-h3);font-weight:600;letter-spacing:-.015em;color:var(--ink);margin-bottom:8px}
+.a-card p{font-size:15px;color:var(--ink-soft);line-height:1.65}
+.a-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);counter-reset:s}
+@media(max-width:900px){.a-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.a-steps{grid-template-columns:minmax(0,1fr)}}
+.a-steps li{list-style:none;border-top:1px solid var(--line);padding-top:16px}
+.a-steps li::before{counter-increment:s;content:"0" counter(s);display:block;font-size:13px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:8px}
+.a-steps h3{font-size:var(--fz-h3);font-weight:600;margin-bottom:6px;color:var(--ink)}
+.a-steps p{font-size:15px;color:var(--ink-soft);line-height:1.65}
+.a-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+@media(max-width:760px){.a-work{grid-template-columns:minmax(0,1fr)}}
+.a-work a{display:block}
+.a-work img{width:100%;height:auto;aspect-ratio:4/3.2;object-fit:cover;object-position:top;border-radius:10px;border:1px solid var(--line);display:block}
+.a-work strong{display:block;margin-top:12px;font-size:17px;color:var(--ink)}
+.a-work span{font-size:14px;color:var(--muted)}
+.a-faq details{border-bottom:1px solid var(--line);padding:18px 0}
+.a-faq summary{cursor:pointer;font-weight:600;font-size:clamp(16px,1.3vw,19px);color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:16px}
+.a-faq summary::-webkit-details-marker{display:none}
+.a-faq summary::after{content:"+";color:var(--accent);font-weight:400;font-size:22px;line-height:1}
+.a-faq details[open] summary::after{content:"−"}
+.a-faq details p{margin-top:12px;color:var(--ink-soft);line-height:1.75;max-width:70ch}
+.a-cta{text-align:center}
+.a-cta .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.a-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:12px;font-weight:700;font-size:15px}
+.a-btn.primary{background:var(--accent);color:#fff;-webkit-text-fill-color:#fff}
+.a-btn.dark{background:#1A1814;color:#fff;-webkit-text-fill-color:#fff}
+.a-btn.line{border:1px solid var(--line);color:var(--ink)}
+.text-link{color:var(--accent);border-bottom:1px solid currentColor}
+@media(max-width:760px),(pointer:coarse){
+  body[data-style="gradient"][data-hue="cycle"]{animation:none;--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
+  header.nav.scrolled,.tier{backdrop-filter:none}
+}
+body[data-style="ribbon"]{
+  --paper:#07070b;--paper-2:#0e0e15;--card:#111119;--card-2:#15151f;
+  --ink:#efedf5;--ink-soft:#bcb8c9;--head:#f7f5fb;--muted:#8b879b;
+  --line:rgba(239,237,245,.12);--accent:#ff3a52;--accent-2:#a487ff;--accent-ink:#fff;
+  background:var(--paper);
+}
+/* ribbon theme (black · crimson · violet) */
+body[data-style="ribbon"] .tier,
+body[data-style="ribbon"] .a-card{background:var(--card);border-color:var(--line);box-shadow:none}
+body[data-style="ribbon"] .tier.best{background:var(--card-2);border-color:color-mix(in srgb,var(--accent) 45%,transparent);box-shadow:0 26px 64px -30px rgba(255,58,82,.35)}
+body[data-style="ribbon"] .tier:not(.best) .tier-btn:hover,
+body[data-style="ribbon"] .tier.best .tier-btn:hover{background:linear-gradient(100deg,var(--accent) 0%,#ff7a8a 45%,var(--accent-2) 100%);color:#fff;-webkit-text-fill-color:#fff;border-color:transparent}
+body[data-style="ribbon"] .a-btn.dark{background:#fee500;color:#191600;-webkit-text-fill-color:#191600}
+body[data-style="ribbon"] .foot{background:#030305;border-top-color:var(--line)}
+body[data-style="ribbon"] .foot-inner .small,body[data-style="ribbon"] .foot-links a{color:var(--muted)}
+body[data-style="ribbon"] .foot-links a:hover{color:var(--accent)}
+body[data-style="ribbon"]::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 45% at 85% 0%,rgba(164,135,255,.14),transparent 70%),radial-gradient(50% 40% at 0% 10%,rgba(255,58,82,.10),transparent 70%)}
+body[data-style="ribbon"] .foot-links{flex-wrap:wrap;row-gap:10px}
+/* pink → violet gradient text (replaces red text) */
+body[data-style="ribbon"]{--grad-text:linear-gradient(100deg,#ffb3c6 0%,#e7a6e8 45%,#a487ff 100%)}
+body[data-style="ribbon"] .a-steps li::before,
+body[data-style="ribbon"] .text-link,
+body[data-style="ribbon"] .a-faq summary::after{color:#ffb3c6;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body[data-style="ribbon"] .a-steps li::before{width:fit-content}
+</style>
+</head>
+<body data-style="ribbon" data-theme="dark" style="font-family: Quicksand">
+<div class="aurora" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+    <nav class="nav-links">
+      <a href="/#services">서비스</a>
+      <a href="/#work">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/#contact" class="nav-cta">프로젝트 문의</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap page-head">
+  <a class="back reveal" href="/">← 홈으로 돌아가기</a>
+  <p class="eyebrow reveal">AI Automation</p>
+  <h1 class="price-head reveal" data-d="1">AI 자동화 · RAG · LLM 에이전트 구축</h1>
+  <p class="price-intro reveal" data-d="2">반복되는 문의 응대와 자료 정리는 AI에게, 사람은 더 중요한 일에. 우리 자료로 정확하게 답하는 RAG 시스템부터 일을 끝까지 처리하는 LLM 에이전트까지, 실제 업무 흐름에 맞춰 설계하고 구축합니다.</p>
+</div>
+
+<section class="a-sec">
+  <div class="wrap">
+    <p class="eyebrow reveal">Why</p>
+    <h2 class="a-h2 reveal">AI는 도입보다 설계가 어렵습니다</h2>
+    <p class="a-lead reveal">챗GPT 같은 AI를 써 보는 것은 쉽지만, 우리 조직의 자료와 업무 방식에 맞게 믿고 맡길 수 있도록 만드는 것은 다른 문제입니다. 어떤 일을 AI에 맡기고 어떤 판단을 사람에게 남길지, 어떤 자료를 근거로 답하게 할지부터 정해야 실제로 시간이 줄어듭니다.</p>
+    <p class="a-lead reveal">JM Studio는 전략기획과 웹 플랫폼 구축을 함께 해 온 팀입니다. 업무를 먼저 들여다보고 자동화할 지점을 찾은 뒤, 지금 쓰는 홈페이지와 도구 위에 AI를 자연스럽게 연결합니다.</p>
+  </div>
+</section>
+
+<section class="a-sec">
+  <div class="wrap">
+    <p class="eyebrow reveal">What</p>
+    <h2 class="a-h2 reveal">이런 AI를 만듭니다</h2>
+    <div class="a-grid">
+      <div class="a-card reveal"><h3>AI 상담 챗봇</h3><p>홈페이지·카카오톡으로 들어오는 공연·수업·작품 문의에 24시간 답하고, 사람이 봐야 할 문의만 골라 담당자에게 넘깁니다.</p></div>
+      <div class="a-card reveal" data-d="1"><h3>RAG 시스템 설계</h3><p>작품·공연 아카이브, 매뉴얼, 사내 문서를 AI가 찾아보고 근거와 함께 답하도록 데이터 구조와 검색 방식을 설계합니다.</p></div>
+      <div class="a-card reveal" data-d="2"><h3>LLM 에이전트 개발</h3><p>문의 분류 → 일정 확인 → 답장 초안 → 담당자 확인처럼 여러 단계로 이어지는 일을 AI가 도구를 써서 끝까지 처리합니다.</p></div>
+      <div class="a-card reveal"><h3>업무 자동화</h3><p>예약·신청서 정리, 명단·정산 시트 업데이트, 알림 발송처럼 매일 반복되는 일을 사람 손을 거치지 않게 연결합니다.</p></div>
+      <div class="a-card reveal" data-d="1"><h3>콘텐츠 자동화</h3><p>보도자료·작품 설명·SNS 문구·뉴스레터 초안을 브랜드의 말투에 맞춰 만들고, 최종 결정은 사람이 하도록 설계합니다.</p></div>
+      <div class="a-card reveal" data-d="2"><h3>기존 시스템 연동</h3><p>홈페이지, 문의 폼, 이메일, 구글 시트·노션, 예약·결제 시스템 등 지금 쓰는 도구에 그대로 붙입니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="a-sec">
+  <div class="wrap">
+    <p class="eyebrow reveal">Who</p>
+    <h2 class="a-h2 reveal">이런 곳에 필요합니다</h2>
+    <div class="a-grid">
+      <div class="a-card reveal"><h3>예술인 · 1인 기획자</h3><p>섭외·협업 문의 응대와 일정 정리, 보도자료·포트폴리오 문구 초안을 AI에 맡기고 작업에 집중합니다.</p></div>
+      <div class="a-card reveal" data-d="1"><h3>무용·음악 학원 · 극단</h3><p>수업·공연 문의, 예약 확인, 수강생·관객 안내 메시지를 자동으로 처리합니다.</p></div>
+      <div class="a-card reveal" data-d="2"><h3>갤러리 · 전시·공연 주관사</h3><p>작품·전시 정보를 학습한 다국어 안내 AI와 관람객 문의 응대를 구축합니다.</p></div>
+      <div class="a-card reveal"><h3>스타트업 · 중소기업</h3><p>고객 응대, 영업 리드 정리, 내부 보고처럼 인력이 부족한 반복 업무를 자동화합니다.</p></div>
+      <div class="a-card reveal" data-d="1"><h3>사내 지식이 흩어진 팀</h3><p>규정·매뉴얼·회의록을 RAG로 묶어, 누구나 질문하면 근거와 함께 답을 찾게 합니다.</p></div>
+      <div class="a-card reveal" data-d="2"><h3>예약 · 커머스 운영</h3><p>주문·예약 확인, 배송·환불 안내, 재고 알림을 에이전트가 처리하고 예외만 사람에게 넘깁니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="a-sec">
+  <div class="wrap">
+    <p class="eyebrow reveal">Process</p>
+    <h2 class="a-h2 reveal">AI 자동화 구축 과정</h2>
+    <ol class="a-steps">
+      <li class="reveal"><h3>업무 진단</h3><p>시간이 가장 많이 드는 일과 자주 반복되는 질문을 함께 살펴보고 자동화할 지점을 고릅니다.</p></li>
+      <li class="reveal" data-d="1"><h3>설계</h3><p>AI가 맡을 일과 사람이 확인할 일, 근거로 삼을 데이터, 연결할 도구와 보안 기준을 정합니다.</p></li>
+      <li class="reveal" data-d="2"><h3>구축</h3><p>챗봇·RAG·에이전트를 만들고 실제 질문과 데이터로 정확도를 시험하며 다듬습니다.</p></li>
+      <li class="reveal" data-d="3"><h3>운영 · 개선</h3><p>실제 사용 기록을 보며 답변 품질과 흐름을 개선하고, 자동화 범위를 단계적으로 넓힙니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="a-sec">
+  <div class="wrap a-faq">
+    <p class="eyebrow reveal">FAQ</p>
+    <h2 class="a-h2 reveal">AI 자동화, 자주 묻는 질문</h2>
+    <details class="reveal"><summary>AI 자동화 구축 비용은 얼마인가요?</summary><p>자동화할 업무의 범위, 연결할 데이터와 시스템, 사용량에 따라 달라 별도 견적으로 진행합니다. 상담에서 업무를 함께 살펴본 뒤 작게 시작할 수 있는 범위와 비용을 먼저 제안드립니다.</p></details>
+    <details class="reveal"><summary>RAG 시스템이 무엇인가요?</summary><p>RAG(검색 증강 생성)는 AI가 답하기 전에 우리 쪽 자료—작품·공연 아카이브, 매뉴얼, 사내 문서, FAQ—에서 관련 내용을 먼저 찾아보고 그 근거를 바탕으로 답하게 하는 방식입니다. 일반 챗봇보다 정확하고, 어떤 자료를 근거로 답했는지 확인할 수 있습니다.</p></details>
+    <details class="reveal"><summary>LLM 에이전트는 챗봇과 무엇이 다른가요?</summary><p>챗봇이 질문에 답하는 데서 멈춘다면, LLM 에이전트는 목표를 받아 필요한 단계를 스스로 나누고 도구를 사용해 일을 끝냅니다. 예를 들어 문의 내용을 분류하고, 일정과 재고를 확인하고, 답장 초안을 만들어 담당자 확인 후 발송하는 흐름까지 맡길 수 있습니다.</p></details>
+    <details class="reveal"><summary>우리 데이터가 외부로 유출되지 않나요?</summary><p>데이터를 어디에 저장하고 어떤 AI 모델로 보낼지는 설계 단계에서 함께 정합니다. 민감한 정보는 제외하거나 가리고, 접근 권한과 기록을 남기도록 구성합니다. 필요하면 데이터가 학습에 쓰이지 않는 API 환경이나 자체 서버 환경을 선택할 수 있습니다.</p></details>
+    <details class="reveal"><summary>이미 쓰고 있는 시스템과 연결할 수 있나요?</summary><p>네. 홈페이지 문의 폼, 카카오톡·이메일, 구글 시트·노션 같은 협업 도구, 예약·결제 시스템 등 지금 쓰는 도구에 붙이는 것을 기본으로 설계합니다. 새 시스템으로 갈아타지 않아도 됩니다.</p></details>
+    <details class="reveal"><summary>상담은 어떻게 신청하나요?</summary><p>카카오톡 오픈채팅, 홈페이지 문의 폼, 이메일(mindset.seo@gmail.com)로 신청할 수 있습니다. 지금 시간이 가장 많이 드는 업무가 무엇인지 알려주시면 자동화할 수 있는 부분부터 함께 찾아드립니다.</p></details>
+  </div>
+</section>
+
+<section class="a-sec a-cta">
+  <div class="wrap">
+    <h2 class="a-h2 reveal" style="margin-bottom:8px">어떤 일부터 AI에 맡길지 함께 찾아요</h2>
+    <p class="a-lead reveal" style="margin-inline:auto">무엇을 자동화해야 할지 정리되지 않았어도 괜찮습니다. 지금 가장 시간이 많이 드는 일을 들려주세요.</p>
+    <div class="row reveal">
+      <a class="a-btn primary" href="/#contact">프로젝트 문의하기 →</a>
+      <a class="a-btn dark" href="https://open.kakao.com/o/sMW098zi" target="_blank" rel="noopener">카카오톡으로 문의 ↗</a>
+      <a class="a-btn line" href="/artist-website.html">예술인 웹사이트 제작</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="small">© 2026 JM Studio — AI 자동화 · RAG · LLM 에이전트 · 웹사이트 제작</span>
+    <div class="foot-links">
+      <a href="/#services">서비스</a>
+      <a href="/#work">작업</a>
+      <a href="/artist-website.html">예술인 웹사이트</a>
+      <a href="/#contact">문의</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+document.addEventListener('click',(e)=>{const a=e.target.closest('a');if(!a||!window.gtag)return;if(a.href.includes('open.kakao.com'))gtag('event','kakao_click',{link_url:a.href,page:'ai-automation'});});
+</script>
+</body>
+</html>

@@ -378,6 +378,24 @@ body[data-style="ribbon"] .a-steps li::before,
 body[data-style="ribbon"] .text-link,
 body[data-style="ribbon"] .a-faq summary::after{color:#ffb3c6;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 body[data-style="ribbon"] .a-steps li::before{width:fit-content}
+/* artist hero: dancer with swaying skirt */
+.a-hero{position:relative;isolation:isolate}
+.a-hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:#000 url(/media/artist-hero.jpg) 30% center/cover no-repeat}
+.a-hero-video{width:100%;height:100%;object-fit:cover;object-position:30% center;display:block}
+.a-hero-media::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(7,7,11,.45) 0%,rgba(7,7,11,0) 22%,rgba(7,7,11,0) 50%,rgba(7,7,11,.72) 78%,var(--paper) 100%)}
+.a-hero .page-head{min-height:min(100vh,58vw);display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:clamp(28px,6vh,64px)}
+.a-hero .price-intro{margin-bottom:0}
+.a-hero .page-head .back,.a-hero .eyebrow{color:var(--ink-soft)}
+.a-hero .price-head,.a-hero .price-intro{text-shadow:0 2px 18px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.6)}
+@media(max-width:760px){
+  .a-hero-media{position:relative;inset:auto;aspect-ratio:1/1;background-image:url(/media/artist-hero-sq.jpg);background-position:center}
+  .a-hero-video{object-position:center}
+  .a-hero-media::after{background:linear-gradient(180deg,rgba(7,7,11,.5) 0%,rgba(7,7,11,0) 20%,rgba(7,7,11,0) 70%,var(--paper) 100%)}
+  .a-hero .page-head{min-height:0;padding-top:8px;margin-top:-56px}
+}
+@media(min-width:761px){.a-hero .page-head .back{display:none}}
+@media(prefers-reduced-motion:reduce){.a-hero-video{display:none}}
 </style>
 </head>
 <body data-style="ribbon" data-theme="dark" style="font-family: Quicksand">
@@ -394,12 +412,20 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
   </div>
 </header>
 <main>
-<div class="wrap page-head">
-  <a class="back reveal" href="/">← 홈으로 돌아가기</a>
-  <p class="eyebrow reveal">Website for artists</p>
-  <h1 class="price-head reveal" data-d="1">예술인을 위한 웹사이트 제작</h1>
-  <p class="price-intro reveal" data-d="2">무용가, 음악가, 미술 작가, 연출가, 극단과 갤러리까지. 작품의 철학은 그대로 지키면서 사람들이 찾아오고, 예매하고, 구매하는 홈페이지를 기획부터 디자인·개발까지 한 팀에서 만듭니다.</p>
-</div>
+<section class="a-hero">
+  <div class="a-hero-media" aria-hidden="true">
+    <video class="a-hero-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+      <source src="/media/artist-hero-sq.mp4" type="video/mp4" media="(max-width: 760px)" />
+      <source src="/media/artist-hero.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="wrap page-head">
+    <a class="back reveal" href="/">← 홈으로 돌아가기</a>
+    <p class="eyebrow reveal">Website for artists</p>
+    <h1 class="price-head reveal" data-d="1">예술인을 위한 웹사이트 제작</h1>
+    <p class="price-intro reveal" data-d="2">무용가, 음악가, 미술 작가, 연출가, 극단과 갤러리까지. 작품의 철학은 그대로 지키면서 사람들이 찾아오고, 예매하고, 구매하는 홈페이지를 기획부터 디자인·개발까지 한 팀에서 만듭니다.</p>
+  </div>
+</section>
 
 <section class="a-sec">
   <div class="wrap">

@@ -403,6 +403,10 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
   .a-hero .page-head{min-height:0;padding-top:8px;margin-top:-56px}
 }
 .a-hero .price-intro{font-size:max(13px,calc(var(--fz-lg) * .5));line-height:1.75;max-width:62ch}
+.a-hero-flow{position:absolute;inset:0;width:100%;height:100%;display:block}
+.a-hero-media::before{content:"";position:absolute;inset:-10% -40%;background:linear-gradient(105deg,transparent 42%,rgba(170,150,255,.10) 48%,rgba(255,255,255,.14) 50%,rgba(170,150,255,.10) 52%,transparent 58%);mix-blend-mode:screen;animation:aiSweep 9s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes aiSweep{0%{transform:translateX(-45%)}60%,100%{transform:translateX(45%)}}
+@media(prefers-reduced-motion:reduce){.a-hero-media::before{display:none}.a-hero-flow{display:none}}
 @media(min-width:761px){.a-hero .page-head .back{display:none}}
 </style>
 </head>
@@ -423,7 +427,7 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
 </header>
 <main>
 <section class="a-hero">
-  <div class="a-hero-media" aria-hidden="true"></div>
+  <div class="a-hero-media" aria-hidden="true"><canvas class="a-hero-flow"></canvas></div>
 <div class="wrap page-head">
   <a class="back reveal" href="/">← 홈으로 돌아가기</a>
   <p class="eyebrow reveal">AI Automation</p>
@@ -527,6 +531,40 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passi
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 document.addEventListener('click',(e)=>{const a=e.target.closest('a');if(!a||!window.gtag)return;if(a.href.includes('open.kakao.com'))gtag('event','kakao_click',{link_url:a.href,page:'ai-automation'});});
+</script>
+<script>
+(()=>{const cv=document.querySelector('.a-hero-flow');if(!cv||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+const ctx=cv.getContext('2d'),IW=1672,IH=940;
+// light streams traced over the image (image px)
+const P=[
+ [[470,605],[620,590],[760,612],[900,640],[1050,622],[1190,575],[1255,540]],
+ [[480,700],[640,690],[800,702],[960,730],[1080,750],[1210,720],[1350,662],[1470,612]],
+ [[520,640],[700,650],[900,690],[1050,702],[1250,652],[1430,602],[1545,590]],
+ [[780,770],[950,790],[1150,822],[1400,862],[1672,905]],
+ [[1565,562],[1460,522],[1345,500],[1255,482]],
+ [[1236,0],[1236,160],[1236,320],[1236,470]],
+ 'orbit'];
+const SP=[[1235,375,1],[682,600,.7],[958,545,.6],[1180,690,.7],[1560,560,.6],[874,778,.5]];
+function cr(pts){const o=[];for(let i=0;i<pts.length-1;i++){const a=pts[i-1]||pts[i],b=pts[i],c=pts[i+1],d=pts[i+2]||c;for(let k=0;k<20;k++){const t=k/20,t2=t*t,t3=t2*t;o.push([0,1].map(j=>.5*(2*b[j]+(-a[j]+c[j])*t+(2*a[j]-5*b[j]+4*c[j]-d[j])*t2+(-a[j]+3*b[j]-3*c[j]+d[j])*t3)))}}o.push(pts[pts.length-1]);return o}
+function orbit(){const o=[];for(let k=0;k<=240;k++){const a=Math.PI*2*k/240,x=350*Math.cos(a),y=58*Math.sin(a),r=-.07;o.push([1232+x*Math.cos(r)-y*Math.sin(r),362+x*Math.sin(r)+y*Math.cos(r)])}return o}
+function resamp(pts){const L=[0];for(let i=1;i<pts.length;i++)L.push(L[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));const n=Math.ceil(L[L.length-1]/4),o=[];let j=0;for(let k=0;k<=n;k++){const d=L[L.length-1]*k/n;while(j<L.length-2&&L[j+1]<d)j++;const f=(d-L[j])/((L[j+1]-L[j])||1);o.push([pts[j][0]+(pts[j+1][0]-pts[j][0])*f,pts[j][1]+(pts[j+1][1]-pts[j][1])*f])}return o}
+const paths=P.map(p=>resamp(p==='orbit'?orbit():cr(p)));
+const loop=[0,0,0,0,0,0,1];
+const comets=[];paths.forEach((p,i)=>{const n=i===6?3:i===5?1:3;for(let k=0;k<n;k++)comets.push({p,i,ph:(k/n)+i*.137,sp:(i===6?.055:.07+.02*((i*7+k*3)%5)/4)/(p.length/200),tail:i===5?90:80})});
+let W=0,H=0,s=1,ox=0,oy=0,dpr=1,vis=true;
+function size(){const r=cv.getBoundingClientRect();W=r.width;H=r.height;dpr=Math.min(devicePixelRatio||1,2);cv.width=W*dpr;cv.height=H*dpr;
+ if(innerWidth<=760){s=W/940;ox=-700*s;oy=0}else{s=Math.max(W/IW,H/IH);ox=(W-IW*s)*.7;oy=(H-IH*s)*.5}}
+const X=q=>q[0]*s+ox,Y=q=>q[1]*s+oy;
+function frame(ms){if(!vis)return;const t=ms/1000;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';ctx.lineCap='round';
+ for(const [x,y,w] of SP){const a=w*(.45+.4*Math.sin(t*1.3+x*.01)),R=80*s*w+10;const g=ctx.createRadialGradient(X([x,y]),Y([x,y]),0,X([x,y]),Y([x,y]),R);g.addColorStop(0,`rgba(185,170,255,${a*.55})`);g.addColorStop(1,'rgba(120,100,255,0)');ctx.fillStyle=g;ctx.fillRect(X([x,y])-R,Y([x,y])-R,R*2,R*2)}
+ for(const c of comets){const p=c.p,n=p.length;let u=(c.ph+t*c.sp)%1;const head=Math.floor(u*n);const fade=loop[c.i]?1:Math.min(1,u*8,(1-u)*8);
+  for(let k=1;k<c.tail;k++){const a=head-k,b=a+1;if(a<0&&!loop[c.i])break;const qa=p[(a+n)%n],qb=p[(b+n)%n],f=1-k/c.tail;
+   const m=Math.max(s,.5);ctx.beginPath();ctx.moveTo(X(qa),Y(qa));ctx.lineTo(X(qb),Y(qb));ctx.strokeStyle=`rgba(150,120,255,${(.18*f*fade).toFixed(3)})`;ctx.lineWidth=(4+9*f)*m;ctx.stroke();ctx.strokeStyle=`rgba(${200+55*f|0},${190+50*f|0},255,${(.95*f*f*fade).toFixed(3)})`;ctx.lineWidth=(.8+2.8*f)*m;ctx.stroke()}
+  const h=p[head%n],R=26*Math.max(s,.5),g=ctx.createRadialGradient(X(h),Y(h),0,X(h),Y(h),R);g.addColorStop(0,`rgba(255,255,255,${.95*fade})`);g.addColorStop(.18,`rgba(210,195,255,${.75*fade})`);g.addColorStop(1,'rgba(140,110,255,0)');ctx.fillStyle=g;ctx.fillRect(X(h)-R,Y(h)-R,R*2,R*2)}
+ requestAnimationFrame(frame)}
+size();addEventListener('resize',size,{passive:true});
+new IntersectionObserver(es=>{const v=es[0].isIntersecting;if(v&&!vis){vis=true;requestAnimationFrame(frame)}vis=v}).observe(cv);
+requestAnimationFrame(frame)})();
 </script>
 </body>
 </html>

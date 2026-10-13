@@ -774,6 +774,30 @@ body[data-style="ribbon"] .mcta-form{background:var(--card);color:var(--ink);-we
 body[data-style="ribbon"] .proj:hover .proj-frame{box-shadow:0 26px 56px -26px rgba(255,58,82,.35)}
 body[data-style="ribbon"] .stage-fallback{background:radial-gradient(circle at 38% 32%,#ffffff,var(--accent-2) 42%,var(--accent) 78%)}
 body[data-style="ribbon"] .foot{background:#030305;border-top-color:var(--line)}
+/* pink → violet gradient text (replaces red text) */
+body[data-style="ribbon"]{--grad-text:linear-gradient(100deg,#ffb3c6 0%,#e7a6e8 45%,#a487ff 100%)}
+body[data-style="ribbon"] .marquee-track span::after,
+body[data-style="ribbon"] .svc-idx,
+body[data-style="ribbon"] .work-bridge h3 em,
+body[data-style="ribbon"] .proj .yr,
+body[data-style="ribbon"] .proj-reframe,
+body[data-style="ribbon"] .book-info .k-reframe,
+body[data-style="ribbon"] .cta-band-text em,
+body[data-style="ribbon"] .proc-step .n,
+body[data-style="ribbon"] .manifesto em,
+body[data-style="ribbon"] .contact-head em,
+body[data-style="ribbon"] .pv-score b,
+body[data-style="ribbon"] .diag-checklist .ck,
+body[data-style="ribbon"] .qlist .qn,
+body[data-style="ribbon"] .form-thanks .ft-mark,
+body[data-style="ribbon"] .diag-q .q-n,
+body[data-style="ribbon"] .diag-score .num,
+body[data-style="ribbon"] .nav-links a:hover,
+body[data-style="ribbon"] .foot-links a:hover,
+body[data-style="ribbon"] .book-info .k-visit a:hover,
+body[data-style="ribbon"] .btn-ghost:hover{color:#ffb3c6;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+body[data-style="ribbon"] .svc-idx,body[data-style="ribbon"] .proc-step .n{width:fit-content}
+body[data-style="ribbon"] .form-thanks .ft-mark{border-color:#d9a8f0}
 @media(prefers-reduced-motion:reduce){.hero-video{display:none}}
 </style>
 <link id="gfont-Quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap">

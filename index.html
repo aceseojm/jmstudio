@@ -362,33 +362,33 @@ section{position:relative}
 @media(max-width:520px){.proc-grid{grid-template-columns:1fr}.proc-step{border-right:none!important;padding-right:0;padding-left:0}}
 
 /* studio / manifesto */
-.studio{position:relative}
-.studio-title{font-size:var(--fz-h2);font-weight:500;letter-spacing:-.025em;line-height:1.12;color:var(--head)}
-.manifesto{font-family:var(--sans);font-size:var(--fz-h2);font-weight:500;letter-spacing:-.02em;line-height:1.32;max-width:20ch;text-wrap:balance;min-height:5em;color:var(--head)}
+.studio{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:min(100vh,60vw);padding:clamp(110px,15vh,170px) 0}
+.studio-media{position:absolute;inset:0;z-index:-1;background:#07070b url(/media/studio.jpg) left center/cover no-repeat}
+.studio-media::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(7,7,11,0) 22%,rgba(7,7,11,.6) 46%,rgba(7,7,11,.9) 62%),
+  linear-gradient(180deg,var(--paper) 0%,rgba(7,7,11,0) 18%,rgba(7,7,11,0) 80%,var(--paper) 100%)}
+.studio-inner{display:flex;justify-content:flex-end;width:100%}
+.studio-copy{width:min(520px,46%)}
+.studio-title{margin:0}
+.manifesto{font-family:var(--sans);font-size:clamp(26px,2.5vw,38px);font-weight:500;letter-spacing:-.02em;line-height:1.34;min-height:5.36em;margin:22px 0 30px;color:var(--head);word-break:keep-all;text-shadow:0 2px 18px rgba(0,0,0,.7)}
 .manifesto em{font-family:inherit;font-style:normal;color:var(--accent);font-weight:inherit}
 .mf-caret{display:inline-block;width:2px;height:.82em;background:var(--accent);margin-left:4px;vertical-align:-.04em;animation:caretBlink .85s steps(1) infinite}
 .mf-caret.done{animation:none;opacity:0;transition:opacity .7s .9s}
 @keyframes caretBlink{50%{opacity:0}}
-.studio-grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(36px,5vw,80px);align-items:center;margin-top:clamp(40px,6vh,72px)}
-.studio-stage{position:relative;width:100%;aspect-ratio:1/1;min-height:300px;order:-1}
-.studio-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
-.stage-fallback{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at 38% 32%,#ffffff,var(--au2,#c6b2ff) 42%,var(--au1,#6f97ff) 78%);filter:blur(8px);opacity:.5;z-index:-1}
-.studio-side{display:flex;flex-direction:column;gap:30px}
-.studio-side p{color:var(--ink-soft);line-height:1.7;text-wrap:pretty}
-.studio-side p strong{color:var(--ink);font-weight:700;font-family:inherit;font-style:normal}
-@media(max-width:860px){.studio-grid{grid-template-columns:1fr;gap:24px}.studio-stage{aspect-ratio:4/3;max-width:460px;margin-inline:auto}}
-.studio-stage.no3d{display:none}
-@media(max-width:860px){.studio-grid{grid-template-columns:minmax(0,1fr)}.studio-stage{min-height:0}}
-
-/* studio light panel (trust tone) */
-.studio-panel{position:relative;overflow:hidden;background:linear-gradient(160deg,#ffffff 0%,#eef3fc 100%);border:1px solid rgba(58,111,245,.16);border-radius:28px;padding:clamp(34px,5vw,76px);color:var(--ink);box-shadow:0 40px 90px -55px rgba(58,111,245,.4)}
-.studio-panel::before{content:"";position:absolute;top:-30%;right:-10%;width:60%;height:120%;background:radial-gradient(closest-side at 70% 30%,color-mix(in srgb,var(--accent) 18%,transparent),transparent);pointer-events:none;opacity:.6}
-.studio-panel > *{position:relative;z-index:1}
-.studio .studio-title{color:var(--head)}
-.studio .manifesto{color:var(--head)}
-.studio-panel .studio-side p{color:var(--ink-soft)}
-.studio-panel .studio-side p strong{color:var(--ink)}
-.studio-panel .stage-fallback{opacity:.55}
+.studio-side{display:flex;flex-direction:column;gap:16px}
+.studio-side p{color:var(--ink-soft);font-size:15px;line-height:1.8;word-break:keep-all;text-wrap:pretty}
+.studio-side p strong{color:var(--ink);font-weight:700}
+.studio-facts{list-style:none;padding:0;margin:34px 0 0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.studio-facts li{padding:18px 12px 0 0;display:flex;flex-direction:column;gap:6px}
+.studio-facts b{font-size:clamp(20px,1.7vw,26px);font-weight:600;letter-spacing:-.02em;line-height:1.1;width:fit-content;color:#ffb3c6;background:var(--grad-text);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.studio-facts span{font-size:12.5px;color:var(--muted);line-height:1.5;word-break:keep-all}
+@media(max-width:860px){
+  .studio{display:block;min-height:0;padding:0 0 clamp(70px,10vh,110px)}
+  .studio-media{position:relative;inset:auto;aspect-ratio:4/3;background-image:url(/media/studio-m.jpg);background-position:center}
+  .studio-media::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(7,7,11,0) 16%,rgba(7,7,11,0) 62%,var(--paper) 100%)}
+  .studio-copy{width:100%;margin-top:-36px}
+  .manifesto{font-size:clamp(24px,6.6vw,30px)}
+}
 
 /* scroll progress */
 .scroll-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--accent);z-index:70;pointer-events:none;transition:opacity .3s}
@@ -751,7 +751,6 @@ body[data-style="ribbon"] .hero .tag{background:rgba(7,7,11,.35)}
 body[data-style="ribbon"] .hero-lead,body[data-style="ribbon"] .hero-loc{text-shadow:0 1px 14px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.6)}
 /* cards & panels */
 body[data-style="ribbon"] .work-bridge,
-body[data-style="ribbon"] .studio-panel,
 body[data-style="ribbon"] .diag-card{background:linear-gradient(160deg,var(--card-2) 0%,var(--card) 100%);border-color:var(--line);box-shadow:none}
 body[data-style="ribbon"] .diag-preview,
 body[data-style="ribbon"] .tier,
@@ -1162,22 +1161,21 @@ body[data-style="ribbon"] .form-thanks .ft-mark{border-color:#d9a8f0}
 </section>
 
 <!-- STUDIO -->
-<section class="sec-pad studio" id="studio">
-  <div class="wrap">
-    <div class="studio-panel">
-    <h2 class="studio-title reveal" style="margin-bottom:34px">The studio</h2>
-    <p class="manifesto reveal" data-d="1" id="manifesto" aria-label="우리는 트렌드가 아니라 철학을 남깁니다. 예술이 비즈니스가 되어도 그 본질은 지킵니다."><span class="mf-text" data-ko="우리는 트렌드가 아니라<br /><em>철학</em>을 남깁니다.<br />예술이 비즈니스가 되어도<br />그 <em>본질</em>은 지킵니다." data-en="We keep <em>philosophy</em>,<br />not trends.<br />Even as art becomes business,<br />we protect its <em>essence</em>.">우리는 트렌드가 아니라<br /><em>철학</em>을 남깁니다.<br />예술이 비즈니스가 되어도<br />그 <em>본질</em>은 지킵니다.</span><span class="mf-caret" aria-hidden="true"></span></p>
-
-    <div class="studio-grid">
-      <div class="studio-stage reveal" data-d="2" aria-hidden="true">
-        <canvas id="studio3d"></canvas>
-        <div class="stage-fallback"></div>
-      </div>
-      <div class="studio-side reveal" data-d="3">
+<section class="studio" id="studio">
+  <div class="studio-media" aria-hidden="true"></div>
+  <div class="wrap studio-inner">
+    <div class="studio-copy">
+      <h2 class="eyebrow studio-title reveal">The studio</h2>
+      <p class="manifesto reveal" data-d="1" id="manifesto" aria-label="우리는 트렌드가 아니라 철학을 남깁니다. 예술이 비즈니스가 되어도 그 본질은 지킵니다."><span class="mf-text" data-ko="우리는 트렌드가 아니라<br /><em>철학</em>을 남깁니다.<br />예술이 비즈니스가 되어도<br />그 <em>본질</em>은 지킵니다." data-en="We keep <em>philosophy</em>,<br />not trends.<br />Even as art becomes business,<br />we protect its <em>essence</em>.">우리는 트렌드가 아니라<br /><em>철학</em>을 남깁니다.<br />예술이 비즈니스가 되어도<br />그 <em>본질</em>은 지킵니다.</span><span class="mf-caret" aria-hidden="true"></span></p>
+      <div class="studio-side reveal" data-d="2">
         <p data-en="JM Studio starts from <strong>20+ years</strong> of experience along the border of art and business — strategy planning, marketing, exhibition docent work, activity across the performing arts scene at home and abroad, and licensing projects. An eye for the work, stories that move people, and the sense to carry them onto stage and screen all run through one person's hands.">JM Studio는 전략기획과 마케팅, 전시 도슨트, 국내외 공연예술계 활동과 라이선싱 작업까지 <strong>20여 년</strong>에 걸쳐 예술과 비즈니스의 경계에서 쌓아온 경험에서 출발합니다. 작품을 읽는 눈과 사람의 마음을 움직이는 이야기, 그것을 무대와 화면으로 옮기는 감각이 한 사람의 손끝에서 이어집니다.</p>
         <p data-en="Art travels furthest when it refuses to compromise. We protect that philosophy while making dance, music, and art into a sustainable business — and rather than ending at a single project, we become the partner who thinks through what comes next with you.">예술은 타협하지 않을 때 가장 멀리 갑니다. 우리는 그 철학을 지키면서 무용·음악·미술이 지속 가능한 비즈니스가 되도록 — 한 번의 프로젝트로 끝나지 않고 다음을 함께 고민하는 파트너가 되겠습니다.</p>
       </div>
-    </div>
+      <ul class="studio-facts reveal" data-d="3">
+        <li><b>20+</b><span data-en="Years between art and business">년, 예술과 비즈니스의 경계에서</span></li>
+        <li><b data-en="Stage">무대</b><span data-en="Performing arts at home and abroad">국내외 공연예술계 활동</span></li>
+        <li><b data-en="One team">한 팀</b><span data-en="From strategy to design and build">기획부터 디자인·개발까지</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1312,111 +1310,6 @@ body[data-style="ribbon"] .form-thanks .ft-mark{border-color:#d9a8f0}
   </svg>
 </template>
 
-<script>
-// ---------- studio 3D object (three.js loaded lazily) ----------
-(function(){
-  const host=document.querySelector('.studio-stage');
-  if(!host) return;
-  const lo=new IntersectionObserver((es)=>{
-    if(!es.some(e=>e.isIntersecting)) return;
-    lo.disconnect();
-    const sc=document.createElement('script');
-    sc.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-    sc.onload=init3d; sc.onerror=()=>host.classList.add('no3d');
-    document.head.appendChild(sc);
-  },{rootMargin:'600px 0px'});
-  lo.observe(host);
-})();
-function init3d(){
-  const canvas=document.getElementById('studio3d');
-  const stage=canvas&&canvas.closest('.studio-stage');
-  if(!canvas||!stage||!window.THREE){ if(stage)stage.classList.add('no3d'); return; }
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const lite=matchMedia('(max-width: 760px), (pointer: coarse)').matches;
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(40,1,0.1,100);
-  camera.position.set(0,0,4.5);
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:!lite,powerPreference:'low-power'});
-  renderer.setPixelRatio(Math.min(lite?1.5:2,window.devicePixelRatio||1));
-  if(THREE.ACESFilmicToneMapping)renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=1.05;
-  if('outputEncoding' in renderer && THREE.sRGBEncoding)renderer.outputEncoding=THREE.sRGBEncoding;
-
-  // colorful environment for iridescent reflections
-  let envTex=null;
-  try{
-    const pmrem=new THREE.PMREMGenerator(renderer);
-    const cnv=document.createElement('canvas');cnv.width=512;cnv.height=256;
-    const cx=cnv.getContext('2d');
-    const g=cx.createLinearGradient(0,0,512,256);
-    g.addColorStop(0.00,'#ff3a52');
-    g.addColorStop(0.32,'#c42a6e');
-    g.addColorStop(0.58,'#a487ff');
-    g.addColorStop(0.80,'#e4dbff');
-    g.addColorStop(1.00,'#ffffff');
-    cx.fillStyle=g;cx.fillRect(0,0,512,256);
-    // bright highlight blobs for glints
-    const blob=(x,y,r,c)=>{const rg=cx.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,c);rg.addColorStop(1,'rgba(255,255,255,0)');cx.fillStyle=rg;cx.beginPath();cx.arc(x,y,r,0,7);cx.fill();};
-    blob(120,60,70,'rgba(255,255,255,.95)');
-    blob(380,150,90,'rgba(255,130,150,.8)');
-    blob(260,210,80,'rgba(196,170,255,.7)');
-    const tex=new THREE.CanvasTexture(cnv);
-    tex.mapping=THREE.EquirectangularReflectionMapping;
-    envTex=pmrem.fromEquirectangular(tex).texture;
-    scene.environment=envTex;
-    tex.dispose();pmrem.dispose();
-  }catch(e){}
-
-  // glossy iridescent knot
-  const geo=new THREE.TorusKnotGeometry(1,0.34,lite?140:240,lite?20:36,2,3);
-  const mat=new THREE.MeshPhysicalMaterial({color:0xffffff,metalness:0.92,roughness:0.16,clearcoat:1,clearcoatRoughness:0.2,envMapIntensity:1.35});
-  const mesh=new THREE.Mesh(geo,mat);
-  scene.add(mesh);
-
-  scene.add(new THREE.AmbientLight(0xffffff,0.12));
-  const L=(c,i,x,y,z)=>{const l=new THREE.PointLight(c,i,0);l.position.set(x,y,z);scene.add(l);return l;};
-  L(0x6f97ff,1.1,4,3,5);
-  L(0x9b7bff,1.1,-5,-1,4);
-  L(0xff7bb5,0.9,0,-4,-3);
-  const dir=new THREE.DirectionalLight(0xffffff,0.5);dir.position.set(2,5,-2);scene.add(dir);
-
-  function resize(){
-    const r=stage.getBoundingClientRect();
-    const w=Math.max(1,r.width), h=Math.max(1,r.height);
-    renderer.setSize(w,h,false);
-    camera.aspect=w/h;camera.updateProjectionMatrix();
-  }
-  resize();
-  renderer.render(scene,camera); // initial paint
-  if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);
-  else addEventListener('resize',resize);
-
-  // subtle pointer parallax
-  let px=0,py=0,tx=0,ty=0;
-  stage.addEventListener('pointermove',(e)=>{const r=stage.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-0.5)*0.6;ty=((e.clientY-r.top)/r.height-0.5)*0.6;});
-  stage.addEventListener('pointerleave',()=>{tx=0;ty=0;});
-
-  let running=false,raf=0,t0=performance.now();
-  function frame(now){
-    const t=(now-t0)/1000;
-    px+=(tx-px)*0.05;py+=(ty-py)*0.05;
-    mesh.rotation.x=t*0.18+py*0.8;
-    mesh.rotation.y=t*0.28+px*0.8;
-    mesh.position.y=Math.sin(t*0.8)*0.06;
-    renderer.render(scene,camera);
-    if(running)raf=requestAnimationFrame(frame);
-  }
-  function start(){ if(running||reduce)return; running=true; t0=performance.now()-0; raf=requestAnimationFrame(frame); }
-  function stop(){ running=false; cancelAnimationFrame(raf); }
-
-  if(reduce){ resize(); renderer.render(scene,camera); }
-  // only animate while visible
-  const vio=new IntersectionObserver((es)=>{es.forEach(e=>{ e.isIntersecting?start():stop(); })},{threshold:0.05});
-  vio.observe(stage);
-  document.addEventListener('visibilitychange',()=>{document.hidden?stop():(isVisible()&&start());});
-  function isVisible(){const r=stage.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}
-}
-</script>
 <script>
 // nav scroll state
 // magnetic / springy hero tags

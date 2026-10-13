@@ -395,6 +395,7 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
   .a-hero .page-head{min-height:0;padding-top:8px;margin-top:-56px}
 }
 .a-hero .price-intro{font-size:max(13px,calc(var(--fz-lg) * .5));line-height:1.75;max-width:62ch}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(min-width:761px){.a-hero .page-head .back{display:none}}
 @media(prefers-reduced-motion:reduce){.a-hero-video{display:none}}
 </style>
@@ -425,7 +426,7 @@ body[data-style="ribbon"] .a-steps li::before{width:fit-content}
   <div class="wrap page-head">
     <a class="back reveal" href="/">← 홈으로 돌아가기</a>
     <p class="eyebrow reveal">Website for artists</p>
-    <h1 class="price-head reveal" data-d="1">예술인을 위한 웹사이트 제작</h1>
+    <h1 class="price-head reveal" data-d="1"><span class="sr-only">예술인을 위한 웹사이트 제작 — </span>당신의 예술에, 하나의 공간을</h1>
     <p class="price-intro reveal" data-d="2">무용가, 음악가, 미술 작가, 연출가, 극단과 갤러리까지. 작품의 철학은 그대로 지키면서 사람들이 찾아오고, 예매하고, 구매하는 홈페이지를 기획부터 디자인·개발까지 한 팀에서 만듭니다.</p>
   </div>
 </section>

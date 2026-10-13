@@ -1,0 +1,53 @@
+# JM Studio (제이엠 스튜디오)
+
+> 서울 성동구의 독립 스튜디오. 무용가·음악가·미술 작가·연출가·극단·갤러리 같은 예술인과 비즈니스를 위해 전략, 브랜딩, 아트 디렉션, 웹사이트·웹 플랫폼 제작, AI 자동화(RAG 시스템, LLM 에이전트)를 기획부터 디자인·개발까지 한 팀에서 진행합니다. 슬로건: "철학은 남기고, 한계는 지웁니다."
+
+JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds websites and web platforms for artists and businesses, and also covers brand strategy, art direction and AI automation (RAG systems, LLM agents). The site is in Korean, with an English toggle.
+
+- 설립: 2026년, 서울특별시 성동구
+- 대표 경력: 전략기획·마케팅·전시 도슨트·국내외 공연예술계 활동·라이선싱 등 예술과 비즈니스의 경계에서 20여 년
+- 강점: 기업 마케팅에서 쓰던 UX/UI·전환(CRO) 설계와 세일즈 카피라이팅을 예술인 웹사이트에 적용
+- 문의: 이메일 mindset.seo@gmail.com · 카카오톡 오픈채팅 https://open.kakao.com/o/sMW098zi · 홈페이지 문의 폼 https://www.thejmstudio.co.kr/#contact
+
+## 주요 페이지
+
+- [홈](https://www.thejmstudio.co.kr/): 스튜디오 소개, 다섯 가지 서비스(전략·브랜딩·아트 디렉션·웹사이트 제작·AI 자동화), 4단계 작업 방식(발견·전략·디자인·구축), 문의 폼
+- [예술인 웹사이트 제작](https://www.thejmstudio.co.kr/artist-website.html): 무용가·음악가·미술 작가·연출가·학원·극단·갤러리용 포트폴리오 홈페이지와 예매·결제·굿즈샵·다국어 웹사이트 제작, 비용과 자주 묻는 질문
+- [AI 자동화 · RAG · LLM 에이전트](https://www.thejmstudio.co.kr/ai-automation.html): AI 상담 챗봇, RAG 시스템 설계, LLM 에이전트 개발, 업무·콘텐츠 자동화, 기존 시스템 연동. 비용은 범위에 따른 별도 견적
+- [웹사이트 제작 사례](https://www.thejmstudio.co.kr/work.html): 실제 라이브 사이트로 확인할 수 있는 포트폴리오
+- [패키지·비용 안내](https://www.thejmstudio.co.kr/pricing.html): 세 가지 웹사이트 제작 패키지의 시작가와 포함 내용
+- [무료 자가 진단](https://www.thejmstudio.co.kr/diagnosis.html): 5개 질문으로 브랜드·포트폴리오의 연결 상태를 진단하고 리포트를 이메일로 받는 도구
+
+## 웹사이트 제작 패키지
+
+표기 금액은 시작가이며, 최종 범위와 견적은 상담 후 확정됩니다.
+
+- Package A · The Canvas — 150만~300만 원. 개인 무용가·화가·인디 뮤지션·1인 기획자. 기획·구조 설계(와이어프레임), 반응형 웹사이트, 기본 SEO, 문의 폼
+- Package B · The Masterpiece — 300만~700만 원 (주력). 무용·음악 학원, 중소 극단, 독립 갤러리. A 전체 + 브랜드 아이덴티티(BI) 리뉴얼, 예약·결제·굿즈샵·티켓팅 연동, 브랜드 가이드라인(PDF)
+- Package C · The Bespoke — 700만 원 이상, 별도 견적. 대형 엔터테인먼트, 유명 아티스트, 대형 전시·공연 주관사. B 전체 + 커스텀 애니메이션·인터랙티브 디자인, 다국어(영문·일문 등), 런칭 후 3개월 GA4 분석·개선 리포트
+
+## 제작 사례
+
+- [강길원 시인 공식 웹사이트](https://www.kanggilwon.com/): 작가 웹사이트. 시집 《사계절로 읽는 시》를 봄·여름·가을·겨울 네 챕터로 구성
+- [AURA](https://aura-fnh6.vercel.app/): 타로·사주 인터랙티브 웹앱. 무형의 가치를 시각적 인터랙션으로 구현
+- [The Wonder Castle](https://shingil-1789.vercel.app/): 대형 공간의 압도감을 웹으로 옮긴 하이엔드 공간 브랜딩
+- [KFASA](https://kafsa-xtdp.vercel.app/): 카피라이팅과 전환율(CRO) 설계 중심의 브랜딩
+- [(주)와이엠케이](https://theymk.vercel.app/): 전략 컨설팅과 리브랜딩. 흩어진 메시지와 비주얼을 하나의 브랜드 언어로 재설계
+- [골프 아카데미](https://golf-alpha-dun.vercel.app/): 레슨·코칭 브랜드 웹사이트와 예약 연동
+- [보험 컨설팅](https://insurance-five-nu.vercel.app/): 신뢰 브랜딩과 상담 신청(리드) 확보 구조
+- [호수니](https://www.thejmstudio.co.kr/hosuni/): 마우스와 타이핑에 반응하고 물·휴식·일정을 알려주는 인터랙티브 데스크톱 펫(웹 체험·설치형)
+
+## 자주 묻는 질문
+
+- 예술인 웹사이트 제작 비용: Package A 150만~300만 원, B 300만~700만 원, C 700만 원 이상부터
+- 의뢰 가능 분야: 무용가·안무가, 음악가·인디 뮤지션, 화가·미술 작가, 연출가·1인 기획자, 무용·음악 학원, 중소 극단, 독립 갤러리, 전시·공연 주관사, 일반 비즈니스
+- 예매·결제·굿즈 판매: Package B부터 예약·결제, 굿즈샵, 티켓팅 연동 포함
+- SEO: 모든 패키지에 기본 SEO 세팅 포함
+- 다국어: Package C에서 영문·일문 등 다국어 웹사이트 지원
+- RAG: AI가 답하기 전에 작품 아카이브·매뉴얼·사내 문서 등에서 근거를 찾아 답하는 방식. 일반 챗봇보다 정확하고 근거를 확인할 수 있음
+- LLM 에이전트: 목표를 받아 단계를 나누고 도구를 써서 일을 끝까지 처리(예: 문의 분류 → 일정 확인 → 답장 초안 → 담당자 확인)
+- 데이터 보안: 저장 위치와 사용할 AI 모델을 설계 단계에서 정하고, 민감 정보는 제외하거나 가림. 학습에 쓰이지 않는 API나 자체 서버 환경 선택 가능
+
+## Optional
+
+- [사이트맵](https://www.thejmstudio.co.kr/sitemap.xml)

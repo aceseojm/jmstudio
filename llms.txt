@@ -12,7 +12,7 @@ JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds webs
 ## 주요 페이지
 
 - [홈](https://www.thejmstudio.co.kr/): 스튜디오 소개, 다섯 가지 서비스(전략·브랜딩·아트 디렉션·웹사이트 제작·AI 자동화), 4단계 작업 방식(발견·전략·디자인·구축), 문의 폼
-- [예술인 웹사이트 제작](https://www.thejmstudio.co.kr/artist-website.html): 무용가·음악가·미술 작가·연출가·학원·극단·갤러리용 포트폴리오 홈페이지와 예매·결제·굿즈샵·다국어 웹사이트 제작, 비용과 자주 묻는 질문
+- [예술인 웹사이트 제작](https://www.thejmstudio.co.kr/artist-website.html): 무용가·음악가·미술 작가·연출가·학원·극단·갤러리용 포트폴리오 홈페이지와 예매·결제·굿즈샵·다국어 웹사이트 제작, 제작 과정과 자주 묻는 질문(비용은 상담 후 견적)
 - [AI 자동화 · RAG · LLM 에이전트](https://www.thejmstudio.co.kr/ai-automation.html): AI 상담 챗봇, RAG 시스템 설계, LLM 에이전트 개발, 업무·콘텐츠 자동화, 기존 시스템 연동. 비용은 범위에 따른 별도 견적
 - [웹사이트 제작 사례](https://www.thejmstudio.co.kr/work.html): 실제 라이브 사이트로 확인할 수 있는 포트폴리오
 - [패키지·비용 안내](https://www.thejmstudio.co.kr/pricing.html): 세 가지 웹사이트 제작 패키지의 시작가와 포함 내용

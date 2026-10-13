@@ -17,7 +17,7 @@
 <meta name="description" content="예술인·예술가를 위한 웹사이트 제작 스튜디오 JM Studio(제이엠 스튜디오). 무용가·음악가·미술 작가·공연 단체·갤러리와 비즈니스의 포트폴리오 홈페이지부터 예매·결제 웹 플랫폼, 브랜딩, 아트 디렉션까지 서울 성동구에서 한 팀으로 제작합니다." />
 <meta name="author" content="JM Studio" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-<meta name="theme-color" content="#f3f6ff" />
+<meta name="theme-color" content="#07070b" />
 <link rel="canonical" href="https://www.thejmstudio.co.kr/" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -717,10 +717,68 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
 .reveal[data-d="3"]{transition-delay:.24s}
 .reveal[data-d="4"]{transition-delay:.32s}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}.marquee-track,.scroll-cue .dot::after{animation:none}}
+
+/* ---------- RIBBON THEME (black · crimson · violet) ---------- */
+body[data-style="ribbon"]{
+  --paper:#07070b;
+  --paper-2:#0e0e15;
+  --card:#111119;
+  --card-2:#15151f;
+  --ink:#efedf5;
+  --ink-soft:#bcb8c9;
+  --head:#f7f5fb;
+  --muted:#8b879b;
+  --line:rgba(239,237,245,.12);
+  --accent:#ff3a52;
+  --accent-2:#a487ff;
+  --accent-ink:#fff;
+  --au1:#a487ff;--au2:#ff3a52;
+  background:var(--paper);
+}
+body[data-style="ribbon"] ::selection{background:var(--accent);color:#fff}
+/* hero video */
+.hero{isolation:isolate}
+.hero-media{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:#000 url(/media/ribbon-poster.jpg) center 62%/cover no-repeat}
+.hero-video{width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block}
+.hero-media::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(7,7,11,.55) 0%,rgba(7,7,11,0) 26%,rgba(7,7,11,0) 70%,var(--paper) 100%),
+    radial-gradient(70% 60% at 20% 45%,rgba(7,7,11,.55),rgba(7,7,11,0) 70%)}
+@media(max-width:760px){.hero-media{background-image:url(/media/ribbon-poster-portrait.jpg);background-position:center 30%}.hero-video{object-position:center 30%}}
+body[data-style="ribbon"] .display .accent{background:linear-gradient(100deg,var(--accent) 10%,#ff7a8a 45%,var(--accent-2) 95%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+body[data-style="ribbon"] .hero .tag{background:rgba(7,7,11,.35)}
+body[data-style="ribbon"] .hero-lead,body[data-style="ribbon"] .hero-loc{text-shadow:0 1px 14px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.6)}
+/* cards & panels */
+body[data-style="ribbon"] .work-bridge,
+body[data-style="ribbon"] .studio-panel,
+body[data-style="ribbon"] .diag-card{background:linear-gradient(160deg,var(--card-2) 0%,var(--card) 100%);border-color:var(--line);box-shadow:none}
+body[data-style="ribbon"] .diag-preview,
+body[data-style="ribbon"] .tier,
+body[data-style="ribbon"] .form,
+body[data-style="ribbon"] .form-thanks{background:var(--card);border-color:var(--line);box-shadow:none}
+body[data-style="ribbon"] .tier.best{background:var(--card-2);border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+body[data-style="ribbon"] .diag-progress{background:rgba(239,237,245,.08)}
+body[data-style="ribbon"] .proc{background:var(--paper-2)}
+body[data-style="ribbon"] .contact{background:linear-gradient(160deg,#0d0d14 0%,#07070b 100%);color:var(--ink)}
+body[data-style="ribbon"] .form::before{display:none}
+body[data-style="ribbon"] .field input,
+body[data-style="ribbon"] .field textarea,
+body[data-style="ribbon"] .field select{background:#0a0a10;border-color:var(--line);color:var(--ink);-webkit-text-fill-color:var(--ink)}
+body[data-style="ribbon"] .field input::placeholder,
+body[data-style="ribbon"] .field textarea::placeholder{color:var(--muted);-webkit-text-fill-color:var(--muted)}
+body[data-style="ribbon"] .field select option{background:#0a0a10;color:var(--ink)}
+body[data-style="ribbon"] .email-btn:hover{background:rgba(255,58,82,.08)}
+body[data-style="ribbon"] .kakao-btn,
+body[data-style="ribbon"] .mcta-kakao{background:#fee500;color:#191600;-webkit-text-fill-color:#191600}
+body[data-style="ribbon"] .mcta-form{background:var(--card);color:var(--ink);-webkit-text-fill-color:var(--ink)}
+body[data-style="ribbon"] .proj:hover .proj-frame{box-shadow:0 26px 56px -26px rgba(255,58,82,.35)}
+body[data-style="ribbon"] .stage-fallback{background:radial-gradient(circle at 38% 32%,#ffffff,var(--accent-2) 42%,var(--accent) 78%)}
+body[data-style="ribbon"] .foot{background:#030305;border-top-color:var(--line)}
+@media(prefers-reduced-motion:reduce){.hero-video{display:none}}
 </style>
 <link id="gfont-Quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap">
 </head>
-<body data-style="gradient" data-hue="cycle" data-theme="light" style="font-family: Quicksand">
+<body data-style="ribbon" data-theme="dark" style="font-family: Quicksand">
 
 <div class="scroll-progress" aria-hidden="true"></div>
 <div class="aurora" aria-hidden="true"></div>
@@ -747,6 +805,12 @@ body[data-theme="dark"] .tier.best{background:rgba(52,49,42,.7)}
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-media" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture>
+      <source src="/media/ribbon-portrait.mp4" type="video/mp4" media="(max-width: 760px)" />
+      <source src="/media/ribbon-1080.mp4" type="video/mp4" />
+    </video>
+  </div>
   <div class="wrap">
     <div class="hero-top reveal">
       <div class="hero-tags">
@@ -1245,17 +1309,17 @@ function init3d(){
     const cnv=document.createElement('canvas');cnv.width=512;cnv.height=256;
     const cx=cnv.getContext('2d');
     const g=cx.createLinearGradient(0,0,512,256);
-    g.addColorStop(0.00,'#3a6ff5');
-    g.addColorStop(0.32,'#7a4ff0');
-    g.addColorStop(0.58,'#ef4d8f');
-    g.addColorStop(0.80,'#ffb6d6');
+    g.addColorStop(0.00,'#ff3a52');
+    g.addColorStop(0.32,'#c42a6e');
+    g.addColorStop(0.58,'#a487ff');
+    g.addColorStop(0.80,'#e4dbff');
     g.addColorStop(1.00,'#ffffff');
     cx.fillStyle=g;cx.fillRect(0,0,512,256);
     // bright highlight blobs for glints
     const blob=(x,y,r,c)=>{const rg=cx.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,c);rg.addColorStop(1,'rgba(255,255,255,0)');cx.fillStyle=rg;cx.beginPath();cx.arc(x,y,r,0,7);cx.fill();};
     blob(120,60,70,'rgba(255,255,255,.95)');
-    blob(380,150,90,'rgba(180,210,255,.8)');
-    blob(260,210,80,'rgba(255,200,235,.7)');
+    blob(380,150,90,'rgba(255,130,150,.8)');
+    blob(260,210,80,'rgba(196,170,255,.7)');
     const tex=new THREE.CanvasTexture(cnv);
     tex.mapping=THREE.EquirectangularReflectionMapping;
     envTex=pmrem.fromEquirectangular(tex).texture;

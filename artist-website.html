@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07070b" />
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
 <script>
@@ -352,9 +353,27 @@ body[data-style="gradient"][data-hue="pink"]{animation:none;--au1:#ff7bb5;--au2:
   body[data-style="gradient"][data-hue="cycle"]{animation:none;--au1:#6f97ff;--au2:#a9c6ff;--au3:#e7eeff;--acc:#3a6ff5}
   header.nav.scrolled,.tier{backdrop-filter:none}
 }
+body[data-style="ribbon"]{
+  --paper:#07070b;--paper-2:#0e0e15;--card:#111119;--card-2:#15151f;
+  --ink:#efedf5;--ink-soft:#bcb8c9;--head:#f7f5fb;--muted:#8b879b;
+  --line:rgba(239,237,245,.12);--accent:#ff3a52;--accent-2:#a487ff;--accent-ink:#fff;
+  background:var(--paper);
+}
+/* ribbon theme (black · crimson · violet) */
+body[data-style="ribbon"] .tier,
+body[data-style="ribbon"] .a-card{background:var(--card);border-color:var(--line);box-shadow:none}
+body[data-style="ribbon"] .tier.best{background:var(--card-2);border-color:color-mix(in srgb,var(--accent) 45%,transparent);box-shadow:0 26px 64px -30px rgba(255,58,82,.35)}
+body[data-style="ribbon"] .tier:not(.best) .tier-btn:hover,
+body[data-style="ribbon"] .tier.best .tier-btn:hover{background:linear-gradient(100deg,var(--accent) 0%,#ff7a8a 45%,var(--accent-2) 100%);color:#fff;-webkit-text-fill-color:#fff;border-color:transparent}
+body[data-style="ribbon"] .a-btn.dark{background:#fee500;color:#191600;-webkit-text-fill-color:#191600}
+body[data-style="ribbon"] .foot{background:#030305;border-top-color:var(--line)}
+body[data-style="ribbon"] .foot-inner .small,body[data-style="ribbon"] .foot-links a{color:var(--muted)}
+body[data-style="ribbon"] .foot-links a:hover{color:var(--accent)}
+body[data-style="ribbon"]::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 45% at 85% 0%,rgba(164,135,255,.14),transparent 70%),radial-gradient(50% 40% at 0% 10%,rgba(255,58,82,.10),transparent 70%)}
 </style>
 </head>
-<body data-style="gradient" data-hue="cycle" data-theme="light" style="font-family: Quicksand">
+<body data-style="ribbon" data-theme="dark" style="font-family: Quicksand">
 <div class="aurora" aria-hidden="true"></div>
 <header class="nav" id="nav">
   <div class="nav-inner">

@@ -16,7 +16,12 @@ JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds webs
 - [AI 자동화 · RAG · LLM 에이전트](https://www.thejmstudio.co.kr/ai-automation.html): AI 상담 챗봇, RAG 시스템 설계, LLM 에이전트 개발, 업무·콘텐츠 자동화, 기존 시스템 연동. 비용은 범위에 따른 별도 견적
 - [웹사이트 제작 사례](https://www.thejmstudio.co.kr/work.html): 실제 라이브 사이트로 확인할 수 있는 포트폴리오
 - [패키지·비용 안내](https://www.thejmstudio.co.kr/pricing.html): 세 가지 웹사이트 제작 패키지의 시작가와 포함 내용
+- [Deep AI 블로그](https://www.thejmstudio.co.kr/deep-ai/): AI 에이전트·RAG·워크플로 자동화를 쉬운 말로 풀어 쓰는 글 모음
 - [무료 자가 진단](https://www.thejmstudio.co.kr/diagnosis.html): 5개 질문으로 브랜드·포트폴리오의 연결 상태를 진단하고 리포트를 이메일로 받는 도구
+
+## Deep AI 글
+
+- [Agent와 Node 그리고 Tool의 차이가 궁금해요](https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html): Tool은 한 가지 일을 하는 기능, Node는 워크플로의 한 단계, Agent는 목표를 받아 스스로 Tool을 고르며 반복하는 AI. 비교표, 공연 문의 응대 예시, 언제 무엇을 쓸지 정리 (2026-10-16)
 
 ## 웹사이트 제작 패키지
 

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07070b" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
+<title>Agent와 Node 그리고 Tool의 차이가 궁금해요 | Deep AI — JM Studio</title>
+<meta name="description" content="AI 자동화에서 자주 나오는 Agent, Node, Tool의 차이를 쉽게 정리했습니다. Tool은 한 가지 일을 하는 기능, Node는 워크플로의 한 단계, Agent는 목표를 받아 스스로 도구를 고르며 일을 끝내는 AI입니다. 비교표와 실제 예시로 설명합니다." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="JM Studio" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="Agent와 Node 그리고 Tool의 차이가 궁금해요 | Deep AI" />
+<meta property="og:description" content="Tool은 장비, Node는 큐시트의 한 줄, Agent는 무대감독. AI 자동화의 세 단어를 쉽게 정리했습니다." />
+<meta property="og:url" content="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html" />
+<meta property="og:image" content="https://www.thejmstudio.co.kr/og-ai.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-10-16" />
+<meta property="article:section" content="Deep AI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Agent와 Node 그리고 Tool의 차이가 궁금해요 | Deep AI" />
+<meta name="twitter:description" content="Tool은 장비, Node는 큐시트의 한 줄, Agent는 무대감독. AI 자동화의 세 단어를 쉽게 정리했습니다." />
+<meta name="twitter:image" content="https://www.thejmstudio.co.kr/og-ai.jpg" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html#post",
+   "headline": "Agent와 Node 그리고 Tool의 차이가 궁금해요",
+   "description": "AI 자동화에서 자주 나오는 Agent, Node, Tool의 차이를 비교표와 실제 예시로 쉽게 정리한 글",
+   "datePublished": "2026-10-16",
+   "dateModified": "2026-10-16",
+   "inLanguage": "ko-KR",
+   "url": "https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html",
+   "mainEntityOfPage": "https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html",
+   "image": "https://www.thejmstudio.co.kr/og-ai.jpg",
+   "keywords": ["AI 에이전트", "Agent", "Node", "Tool", "워크플로 자동화", "LangGraph", "n8n", "LLM"],
+   "author": {"@type": "Organization", "name": "JM Studio", "url": "https://www.thejmstudio.co.kr/"},
+   "publisher": {"@id": "https://www.thejmstudio.co.kr/#studio"},
+   "isPartOf": {"@id": "https://www.thejmstudio.co.kr/deep-ai/#blog"}
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "홈", "item": "https://www.thejmstudio.co.kr/"},
+    {"@type": "ListItem", "position": 2, "name": "Deep AI", "item": "https://www.thejmstudio.co.kr/deep-ai/"},
+    {"@type": "ListItem", "position": 3, "name": "Agent와 Node 그리고 Tool의 차이가 궁금해요", "item": "https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html"}
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {"@type": "Question", "name": "Agent와 Tool의 차이는 무엇인가요?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Tool은 일정 조회나 메일 발송처럼 한 가지 일을 하는 기능이고 스스로 판단하지 않습니다. Agent는 목표를 받아 어떤 Tool을 언제 쓸지 스스로 고르고, 결과를 보고 다음 행동을 정하며 일을 끝까지 처리하는 AI입니다."}},
+    {"@type": "Question", "name": "Node는 무엇인가요?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Node는 워크플로(작업 흐름도)를 이루는 한 단계입니다. 현재 상태를 받아 한 가지 처리를 하고 결과를 다음 단계로 넘깁니다. 한 Node 안에서는 LLM 호출, 일반 코드, Tool 실행 중 무엇이든 할 수 있습니다."}},
+    {"@type": "Question", "name": "업무 자동화에는 Agent와 워크플로 중 무엇이 좋나요?",
+     "acceptedAnswer": {"@type": "Answer", "text": "순서가 정해진 업무는 Node로 짠 워크플로가 더 빠르고 저렴하며 결과가 일정합니다. 상황마다 판단이 달라지는 부분에만 Agent를 두고, 중요한 결정 앞에는 사람이 확인하는 단계를 넣는 방식을 권합니다."}},
+    {"@type": "Question", "name": "Agent 안에 Node가 있나요, Node 안에 Agent가 있나요?",
+     "acceptedAnswer": {"@type": "Answer", "text": "둘 다 가능합니다. 워크플로의 한 Node 자리에 Agent를 넣을 수 있고, Agent 하나를 내부적으로 여러 Node로 이루어진 그래프로 만들 수도 있습니다. Tool은 어느 쪽에서든 호출되는 가장 작은 실행 단위입니다."}}
+   ]
+  }
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="/deep-ai/blog.css" />
+</head>
+<body data-style="ribbon" data-theme="dark">
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+    <nav class="nav-links">
+      <a href="/#services">서비스</a>
+      <a href="/artist-website.html">예술인</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/deep-ai/" aria-current="page">Deep AI</a>
+      <a href="/#contact" class="nav-cta">프로젝트 문의</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article class="post">
+  <header class="p-head">
+    <nav class="crumb" aria-label="경로"><a href="/">홈</a><span>/</span><a href="/deep-ai/">Deep AI</a></nav>
+    <h1>Agent와 Node 그리고 Tool의 차이가 궁금해요</h1>
+    <p class="dek">AI 자동화를 상담하다 보면 가장 자주 받는 질문입니다. 세 단어는 서로 다른 층위의 이야기라서, 한 번 자리를 잡아 두면 견적서와 기획서가 훨씬 잘 읽힙니다.</p>
+    <div class="p-meta"><strong>JM Studio</strong><time datetime="2026-10-16">2026년 10월 16일</time><span>읽는 시간 8분</span><span class="chip">개념 정리</span></div>
+  </header>
+
+  <div class="prose">
+    <aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>Tool</strong>은 한 가지 일을 하는 기능입니다. 스스로 판단하지 않습니다.</li>
+        <li><strong>Node</strong>는 미리 그린 작업 흐름도의 한 칸입니다. 순서는 사람이 정합니다.</li>
+        <li><strong>Agent</strong>는 목표를 받아 어떤 Tool을 언제 쓸지 스스로 고르는 AI입니다. 순서를 AI가 정합니다.</li>
+      </ul>
+    </aside>
+
+    <nav class="toc" aria-label="목차">
+      <p>목차</p>
+      <ol>
+        <li><a href="#define">한 문장씩 정의하기</a></li>
+        <li><a href="#stage">공연 무대로 비유하면</a></li>
+        <li><a href="#compare">한눈에 비교하기</a></li>
+        <li><a href="#example">같은 일을 두 방식으로</a></li>
+        <li><a href="#layers">셋은 어떻게 겹쳐 있을까</a></li>
+        <li><a href="#choose">언제 무엇을 써야 할까</a></li>
+        <li><a href="#myths">자주 하는 오해</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="define">한 문장씩 정의하기</h2>
+    <p>세 단어는 크기 순서로 보면 쉽습니다. 가장 작은 실행 단위가 Tool, 그 Tool들을 순서대로 엮은 흐름의 한 칸이 Node, 그 흐름 자체를 상황에 따라 스스로 짜는 존재가 Agent입니다.</p>
+    <div class="defs">
+      <div class="def t"><span class="ic">T</span><div><h3>Tool<span>도구</span></h3><p>정해진 입력을 받아 정해진 일을 하는 기능입니다. 일정 조회, 메일 발송, 문서 검색, 결제 내역 확인 같은 것들이죠. 계산기처럼 <strong>시키는 일만 정확히</strong> 하고, 언제 쓸지는 스스로 정하지 않습니다.</p></div></div>
+      <div class="def n"><span class="ic">N</span><div><h3>Node<span>노드</span></h3><p>워크플로(작업 흐름도)를 이루는 <strong>한 단계</strong>입니다. 앞 단계에서 넘어온 정보를 받아 한 가지 처리를 하고 다음 단계로 넘깁니다. 그 처리는 LLM에게 묻는 일일 수도, 평범한 코드일 수도, Tool 실행일 수도 있습니다. n8n이나 LangGraph 화면에 보이는 네모 상자 하나하나가 Node입니다.</p></div></div>
+      <div class="def a"><span class="ic">A</span><div><h3>Agent<span>에이전트</span></h3><p>목표를 받으면 <strong>스스로 다음 행동을 고르는</strong> AI입니다. 어떤 Tool을 쓸지 정하고, 결과를 보고, 부족하면 다시 다른 Tool을 씁니다. 이 “판단 → 실행 → 관찰”을 목표를 이루거나 멈춤 조건에 닿을 때까지 반복합니다.</p></div></div>
+    </div>
+
+    <h2 id="stage">공연 무대로 비유하면</h2>
+    <p>공연예술 현장에서 일해 온 경험 덕분에, 저희는 이 셋을 설명할 때 무대를 자주 꺼냅니다.</p>
+    <ul>
+      <li><strong>Tool은 장비</strong>입니다. 조명기, 음향 콘솔, 막 장치. 버튼을 누르면 정확히 그 일을 하지만, 언제 켤지는 모릅니다.</li>
+      <li><strong>Node는 큐시트의 한 줄</strong>입니다. “Q12 — 암전 후 핀 조명 켜기.” 순서와 내용이 미리 적혀 있고, 리허설 때와 본 공연 때 똑같이 실행됩니다.</li>
+      <li><strong>Agent는 무대감독</strong>입니다. 배우가 대사를 건너뛰거나 장비가 멈추는 돌발 상황에서 큐시트에 없는 판단을 내리고, 필요한 장비를 직접 골라 씁니다.</li>
+    </ul>
+    <p>좋은 공연에는 셋이 다 필요합니다. 큐시트 없이 무대감독의 즉흥에만 기대는 공연은 위험하고, 무대감독 없이 큐시트만 있는 공연은 사고 한 번에 멈춥니다. AI 자동화도 똑같습니다.</p>
+
+    <h2 id="compare">한눈에 비교하기</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Tool</th><th scope="col">Node</th><th scope="col">Agent</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">정체</th><td>한 가지 일을 하는 기능(함수·API)</td><td>워크플로의 한 단계</td><td>목표를 향해 반복하며 행동을 고르는 AI</td></tr>
+          <tr><th scope="row">순서는 누가 정하나</th><td>부르는 쪽</td><td>사람이 미리 그린 흐름도</td><td>AI가 상황을 보고 결정</td></tr>
+          <tr><th scope="row">결과의 일관성</th><td>매우 높음</td><td>높음</td><td>상황마다 달라질 수 있음</td></tr>
+          <tr><th scope="row">예시</th><td>캘린더 조회, 메일 발송, DB 검색</td><td>“문의 유형 분류” 단계, “담당자 승인” 단계</td><td>“이 문의를 처리해 줘”를 받아 알아서 조회·작성·확인</td></tr>
+          <tr><th scope="row">문제가 생기면</th><td>오류를 그대로 돌려줌</td><td>정해 둔 분기·재시도로 처리</td><td>다른 방법을 스스로 시도(멈춤 조건이 꼭 필요)</td></tr>
+          <tr><th scope="row">비용·속도</th><td>가장 저렴·빠름</td><td>예측 가능</td><td>반복 횟수만큼 늘어남</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="example">같은 일을 두 방식으로</h2>
+    <p>예를 들어 공연 단체에 이런 메일이 왔다고 해 봅시다. “11월 8일 저녁 공연, 단체 20명 예매 가능한가요? 휠체어석도 필요해요.”</p>
+    <h3>방식 1. Node로 짠 워크플로</h3>
+    <p>사람이 미리 흐름을 그려 둡니다. 어떤 문의가 와도 같은 순서로 지나갑니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 330" role="img" aria-label="워크플로: 문의 접수, 유형 분류, 좌석 조회, 답장 초안, 담당자 확인이 순서대로 이어지는 다이어그램" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="18" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">WORKFLOW</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="50" y="34" width="220" height="42" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="60">① 문의 접수</text>
+              <rect x="50" y="96" width="220" height="42" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="122">② 유형 분류 <tspan fill="#c6b2ff" font-size="12">LLM</tspan></text>
+              <rect x="50" y="158" width="220" height="42" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="184">③ 좌석 조회 <tspan fill="#8b879b" font-size="12">Tool</tspan></text>
+              <rect x="50" y="220" width="220" height="42" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="246">④ 답장 초안 <tspan fill="#c6b2ff" font-size="12">LLM</tspan></text>
+              <rect x="50" y="282" width="220" height="42" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="308">⑤ 담당자 확인 <tspan fill="#ff9fb4" font-size="12">사람</tspan></text>
+            </g>
+            <g stroke="#8b879b" stroke-width="1.5" marker-end="url(#ah)"><line x1="160" y1="77" x2="160" y2="94"/><line x1="160" y1="139" x2="160" y2="156"/><line x1="160" y1="201" x2="160" y2="218"/><line x1="160" y1="263" x2="160" y2="280"/></g>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 330" role="img" aria-label="에이전트: 가운데 에이전트가 좌석 조회, 예매 내역, FAQ 검색, 메일 초안 도구를 필요할 때마다 골라 쓰는 다이어그램" font-family="Pretendard, system-ui, sans-serif">
+            <defs>
+              <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3a52"/><stop offset="1" stop-color="#a487ff"/></linearGradient>
+              <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c6b2ff"/></marker>
+            </defs>
+            <text x="160" y="18" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">AGENT</text>
+            <g stroke="rgba(198,178,255,.55)" stroke-width="1.5" stroke-dasharray="4 4"><line x1="160" y1="165" x2="80" y2="76"/><line x1="160" y1="165" x2="240" y2="76"/><line x1="160" y1="165" x2="80" y2="262"/><line x1="160" y1="165" x2="240" y2="262"/></g>
+            <g font-size="14" fill="#efedf5" text-anchor="middle">
+              <rect x="14" y="40" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="80" y="65">좌석 조회</text>
+              <rect x="174" y="40" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="240" y="65">예매 내역</text>
+              <rect x="14" y="252" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="80" y="277">FAQ 검색</text>
+              <rect x="174" y="252" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="240" y="277">메일 초안</text>
+            </g>
+            <path d="M90 162a70 70 0 0 1 140 0" fill="none" stroke="#c6b2ff" stroke-width="1.5" marker-end="url(#ah2)"/>
+            <path d="M230 168a70 70 0 0 1 -140 0" fill="none" stroke="#c6b2ff" stroke-width="1.5" marker-end="url(#ah2)"/>
+            <rect x="100" y="140" width="120" height="50" rx="25" fill="url(#ag)"/>
+            <text x="160" y="171" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Agent</text>
+            <text x="160" y="318" text-anchor="middle" fill="#8b879b" font-size="12">판단 → 실행 → 관찰을 반복</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>워크플로는 정해진 순서를 그대로 따르고, Agent는 필요한 Tool을 그때그때 골라 씁니다.</figcaption>
+    </figure>
+    <p>워크플로는 매번 같은 길로 가기 때문에 결과가 예측 가능하고, 어느 단계에서 문제가 났는지 바로 보입니다. 대신 “휠체어석”처럼 흐름도에 없던 요청이 끼어들면 놓치기 쉽습니다.</p>
+    <h3>방식 2. Agent에게 맡기기</h3>
+    <p>Agent에게는 “이 문의에 답할 수 있게 준비해 줘”라는 목표와 쓸 수 있는 Tool 목록만 줍니다. Agent는 먼저 좌석을 조회하고, 휠체어석 정보가 없으면 FAQ를 검색하고, 그래도 없으면 “담당자 확인 필요”라고 표시한 초안을 씁니다. 순서를 문의마다 스스로 바꾸기 때문에 예외에 강합니다. 대신 매번 판단 과정을 거치니 비용과 시간이 더 들고, 기록을 남기지 않으면 왜 그렇게 했는지 알기 어렵습니다.</p>
+
+    <h2 id="layers">셋은 어떻게 겹쳐 있을까</h2>
+    <p>헷갈리는 이유는 셋이 서로를 품을 수 있기 때문입니다.</p>
+    <ul>
+      <li><strong>Node 안에서 Tool을 부릅니다.</strong> “좌석 조회” Node는 결국 좌석 조회 Tool을 실행하는 한 칸입니다.</li>
+      <li><strong>Agent 하나가 Node 한 칸이 될 수 있습니다.</strong> 큰 워크플로의 대부분은 고정된 순서로 두고, 판단이 필요한 한 칸에만 Agent를 넣는 식입니다.</li>
+      <li><strong>Agent 자체를 Node로 만들 수도 있습니다.</strong> LangGraph 같은 도구에서는 “생각하기” Node와 “Tool 실행” Node를 고리로 이어 Agent를 만듭니다.</li>
+    </ul>
+    <p>코드로 아주 단순하게 줄이면 이런 모양입니다.</p>
+    <p class="code-label">개념을 보여 주기 위한 의사 코드</p>
+<pre class="code"><span class="c"># Tool — 한 가지 일만 한다</span>
+<span class="k">def</span> <span class="f">check_seats</span>(date, count): ...
+<span class="k">def</span> <span class="f">search_faq</span>(question): ...
+
+<span class="c"># Node — 상태를 받아 한 단계를 처리하고 넘긴다</span>
+<span class="k">def</span> <span class="f">classify</span>(state):
+    state[<span class="s">"type"</span>] = llm(<span class="s">"이 문의의 유형은?"</span>, state[<span class="s">"mail"</span>])
+    <span class="k">return</span> state
+
+<span class="c"># Agent — 목표를 이룰 때까지 다음 행동을 스스로 고른다</span>
+<span class="k">def</span> <span class="f">agent</span>(goal, tools, max_steps=<span class="s">8</span>):
+    history = []
+    <span class="k">for</span> _ <span class="k">in</span> range(max_steps):          <span class="c"># 멈춤 조건</span>
+        action = llm.decide(goal, history, tools)
+        <span class="k">if</span> action.done: <span class="k">return</span> action.answer
+        history.append(tools[action.name](**action.args))
+    <span class="k">return</span> <span class="s">"담당자 확인 필요"</span></pre>
+
+    <h2 id="choose">언제 무엇을 써야 할까</h2>
+    <p>실무에서 권하는 순서는 이렇습니다.</p>
+    <ol>
+      <li><strong>먼저 워크플로로 그려 봅니다.</strong> 업무의 70~80%는 순서가 정해져 있습니다. 정해진 일은 Node로 짜는 쪽이 빠르고 저렴하고 검증하기 쉽습니다.</li>
+      <li><strong>판단이 갈리는 칸에만 Agent를 둡니다.</strong> 문의 내용이 제각각이라 처리 경로가 매번 다르다면 그 칸이 Agent 자리입니다.</li>
+      <li><strong>중요한 결정 앞에는 사람 Node를 넣습니다.</strong> 환불, 계약, 외부 발송처럼 되돌리기 어려운 일은 AI가 초안까지만 만들고 사람이 승인합니다.</li>
+      <li><strong>Tool은 작고 분명하게 만듭니다.</strong> 이름과 설명만 보고도 무엇을 하는지 알 수 있어야 Agent가 잘못 고르지 않습니다.</li>
+    </ol>
+    <div class="callout"><p><strong>한 줄 기준:</strong> “이 일의 순서를 표로 그릴 수 있는가?” 그릴 수 있으면 워크플로, 그릴 수 없으면 그 부분만 Agent.</p></div>
+
+    <h2 id="myths">자주 하는 오해</h2>
+    <h3>“Tool을 많이 붙일수록 똑똑해진다”</h3>
+    <p>반대인 경우가 많습니다. 비슷한 Tool이 여러 개면 Agent가 헷갈려 엉뚱한 것을 고릅니다. 꼭 필요한 Tool만, 겹치지 않게 주는 편이 정확합니다.</p>
+    <h3>“Agent면 알아서 다 해 준다”</h3>
+    <p>Agent에게는 반드시 멈춤 조건(최대 반복 횟수, 비용 한도), 권한 범위(읽기만 할지 쓰기까지 할지), 실행 기록이 필요합니다. 이 셋이 없으면 같은 일을 계속 반복하거나, 하지 말아야 할 일을 하고도 이유를 알 수 없습니다.</p>
+    <h3>“워크플로는 구식이고 Agent가 최신이다”</h3>
+    <p>둘은 경쟁 관계가 아니라 역할 분담입니다. 실제로 잘 돌아가는 시스템은 대부분 탄탄한 워크플로 위에 Agent를 필요한 만큼만 얹은 형태입니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>Agent와 Tool의 차이는 무엇인가요?</summary><p>Tool은 일정 조회나 메일 발송처럼 한 가지 일을 하는 기능이고 스스로 판단하지 않습니다. Agent는 목표를 받아 어떤 Tool을 언제 쓸지 스스로 고르고, 결과를 보고 다음 행동을 정하며 일을 끝까지 처리하는 AI입니다.</p></details>
+      <details><summary>Node는 무엇인가요?</summary><p>Node는 워크플로(작업 흐름도)를 이루는 한 단계입니다. 현재 상태를 받아 한 가지 처리를 하고 결과를 다음 단계로 넘깁니다. 한 Node 안에서는 LLM 호출, 일반 코드, Tool 실행 중 무엇이든 할 수 있습니다.</p></details>
+      <details><summary>업무 자동화에는 Agent와 워크플로 중 무엇이 좋나요?</summary><p>순서가 정해진 업무는 Node로 짠 워크플로가 더 빠르고 저렴하며 결과가 일정합니다. 상황마다 판단이 달라지는 부분에만 Agent를 두고, 중요한 결정 앞에는 사람이 확인하는 단계를 넣는 방식을 권합니다.</p></details>
+      <details><summary>Agent 안에 Node가 있나요, Node 안에 Agent가 있나요?</summary><p>둘 다 가능합니다. 워크플로의 한 Node 자리에 Agent를 넣을 수 있고, Agent 하나를 내부적으로 여러 Node로 이루어진 그래프로 만들 수도 있습니다. Tool은 어느 쪽에서든 호출되는 가장 작은 실행 단위입니다.</p></details>
+    </div>
+
+    <aside class="p-cta">
+      <h2>우리 업무에는 어디까지 자동화할 수 있을까요?</h2>
+      <p>지금 반복하고 있는 일을 들려주시면 워크플로로 짤 부분과 Agent가 필요한 부분을 나눠 제안드립니다.</p>
+      <div class="row">
+        <a class="btn primary" href="/#contact">프로젝트 문의</a>
+        <a class="btn" href="/ai-automation.html">AI 자동화 서비스 보기</a>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="p-nav" aria-label="글 이동"><a href="/deep-ai/">← Deep AI 글 목록</a><a href="/ai-automation.html">AI 자동화 →</a></nav>
+</article>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="small">© 2026 JM Studio — 예술인·비즈니스를 위한 웹사이트 제작 · 브랜딩 · AI 자동화</span>
+    <div class="foot-links">
+      <a href="/#services">서비스</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/deep-ai/">Deep AI</a>
+      <a href="/#contact">문의</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.addEventListener('click',(e)=>{const a=e.target.closest('a');if(!a||!window.gtag)return;if(a.getAttribute('href')==='/#contact')gtag('event','blog_cta_click',{page:'deep-ai/agent-node-tool'});});
+</script>
+</body>
+</html>

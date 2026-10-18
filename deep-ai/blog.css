@@ -182,3 +182,20 @@ pre.code .f{color:#c6b2ff}
 .p-nav{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-block:26px 70px;font-size:14px;color:var(--muted)}
 .p-nav a:hover{color:#ffb3c6}
 body{min-height:100vh;display:flex;flex-direction:column}main{flex:1 0 auto}
+
+/* chat comparison */
+.chat-cmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:700px){.chat-cmp{grid-template-columns:minmax(0,1fr)}}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.chat .who{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.chat.good{border-color:color-mix(in srgb,var(--accent-2) 45%,transparent)}
+.chat.good .who{color:#c6b2ff}
+.bubble{border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.75;color:var(--ink-soft)}
+.bubble.q{background:rgba(239,237,245,.06);align-self:flex-end;max-width:92%}
+.bubble.a{background:rgba(164,135,255,.08);border:1px solid rgba(164,135,255,.16)}
+.chat.bad .bubble.a{background:rgba(255,58,82,.06);border-color:rgba(255,58,82,.18)}
+.bubble .src{display:block;margin-top:8px;font-size:12.5px;color:#c6b2ff}
+.chat .note{font-size:13px;color:var(--muted);line-height:1.6}
+.checklist{list-style:none;padding-left:0!important}
+.checklist li{position:relative;padding-left:1.8em}
+.checklist li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:14px;border-radius:4px;border:1.5px solid var(--accent-2)}

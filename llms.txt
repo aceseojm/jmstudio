@@ -22,6 +22,7 @@ JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds webs
 ## Deep AI 글
 
 - [Agent와 Node 그리고 Tool의 차이가 궁금해요](https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html): Tool은 한 가지 일을 하는 기능, Node는 워크플로의 한 단계, Agent는 목표를 받아 스스로 Tool을 고르며 반복하는 AI. 비교표, 공연 문의 응대 예시, 언제 무엇을 쓸지 정리 (2026-10-16)
+- [RAG는 왜 일반 챗봇보다 정확할까?](https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html): 일반 챗봇은 학습된 기억으로 답해 환각이 생길 수 있고, RAG(검색 증강 생성)는 지정한 자료에서 근거를 찾아 출처와 함께 답함. 작동 과정, 비교표, RAG가 틀리는 이유(낡은 자료, 잘못된 조각 나누기, 검색 실패, 모를 때 규칙 부재), 도입 체크리스트 (2026-10-19)
 
 ## 웹사이트 제작 패키지
 

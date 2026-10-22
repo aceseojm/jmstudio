@@ -24,6 +24,7 @@ JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds webs
 - [Agent와 Node 그리고 Tool의 차이가 궁금해요](https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html): Tool은 한 가지 일을 하는 기능, Node는 워크플로의 한 단계, Agent는 목표를 받아 스스로 Tool을 고르며 반복하는 AI. 비교표, 공연 문의 응대 예시, 언제 무엇을 쓸지 정리 (2026-10-16)
 - [RAG는 왜 일반 챗봇보다 정확할까?](https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html): 일반 챗봇은 학습된 기억으로 답해 환각이 생길 수 있고, RAG(검색 증강 생성)는 지정한 자료에서 근거를 찾아 출처와 함께 답함. 작동 과정, 비교표, RAG가 틀리는 이유(낡은 자료, 잘못된 조각 나누기, 검색 실패, 모를 때 규칙 부재), 도입 체크리스트 (2026-10-19)
 - [AI 자동화 비용은 무엇으로 정해질까?](https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html): AI 자동화 비용은 처음 한 번 드는 구축비와 매달 드는 운영비(AI 모델 사용료·서버·유지보수)로 나뉨. 견적을 좌우하는 요인(업무 범위, 연결할 시스템, 자료 정리 상태, 요구 정확도, AI의 판단 범위, 보안 환경), 토큰 기반 사용료, 비용을 줄이는 방법, 견적 요청 전 준비할 것 (2026-10-22)
+- [파인튜닝과 RAG, 무엇을 골라야 할까?](https://www.thejmstudio.co.kr/deep-ai/fine-tuning-vs-rag.html): 파인튜닝은 예시를 학습시켜 AI의 말투·형식·작업 습관을 바꾸고, RAG는 질문할 때마다 우리 자료를 찾아 근거로 건넴. 비교표(준비물, 자료 변경 시 대응, 출처 표시, 오류 원인 찾기), 고르는 순서(프롬프트 → RAG → 파인튜닝), 상황별 선택, 흔한 오해, 함께 쓰는 방법
 
 ## 웹사이트 제작 패키지
 

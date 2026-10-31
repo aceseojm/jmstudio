@@ -33,6 +33,7 @@ JM Studio is an independent studio in Seongdong-gu, Seoul, Korea. It builds webs
 - [AI로 자동화할 수 있는 업무 10가지](https://www.thejmstudio.co.kr/deep-ai/ai-automation-examples.html): AI 업무 자동화 사례 가이드. 자동화하기 좋은 일의 조건(반복, 분명한 규칙, 글·데이터 입력, 고칠 수 있음), 고객 응대(반복 문의 답변, 문의 분류·전달, 신청 확인 안내), 홍보·콘텐츠(홍보 문구, 번역, 다시 쓰기), 운영·행정(회의록, 보고서 초안, 설문 분석, 정산 자료) 10가지와 업무별 권장 권한 단계, 시작 5단계, 자동화하지 않는 게 좋은 일, FAQ.
 - [n8n, Make, Zapier 무엇을 고를까?](https://www.thejmstudio.co.kr/deep-ai/n8n-make-zapier.html): 노코드 자동화 툴 비교 가이드(2026년 10월 공식 페이지 기준, 요금 금액 제외). 세 도구의 특징, 사용 난이도, 사용량을 세는 방식(Zapier 태스크, Make 크레딧, n8n 실행 횟수), 셀프 호스팅, 국내 서비스 연결, 고르는 질문 5가지, 운영 체크리스트, FAQ.
 - [AI가 똑똑해졌는데 자동화 툴이 아직 필요할까?](https://www.thejmstudio.co.kr/deep-ai/ai-agent-vs-workflow.html): AI 에이전트와 워크플로 자동화 비교. AI에게 시키는 것만으로 충분한 일, 워크플로가 여전히 필요한 이유 4가지(트리거, 일관성, 기록·재시도, 비용·속도 예측), 정해진 흐름은 워크플로가 판단은 AI가 맡는 함께 쓰기, 업무별 판단 기준 3가지와 예시 표, FAQ.
+- [홈페이지가 네이버 검색에 나오게 하려면?](https://www.thejmstudio.co.kr/deep-ai/naver-search-advisor.html): 네이버 서치어드바이저 사용법. 사이트 등록(호스트 단위)과 소유 확인(HTML 파일·meta 태그), robots.txt 설정, 사이트맵·RSS 제출, 제목·설명·대표 이미지 작성 기준, site: 검색과 콘텐츠 노출 및 클릭 리포트로 반영 확인, 검색에 안 나올 때 증상별 점검표, 체크리스트, FAQ. 2026년 10월 네이버 공식 가이드 기준.
 
 ## 웹사이트 제작 패키지
 

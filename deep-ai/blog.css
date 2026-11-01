@@ -199,3 +199,13 @@ body{min-height:100vh;display:flex;flex-direction:column}main{flex:1 0 auto}
 .checklist{list-style:none;padding-left:0!important}
 .checklist li{position:relative;padding-left:1.8em}
 .checklist li::before{content:"";position:absolute;left:0;top:.5em;width:14px;height:14px;border-radius:4px;border:1.5px solid var(--accent-2)}
+
+/* 주제 탭 */
+.b-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(20px,2.4vw,32px)}
+.b-tabs a{font-size:14px;font-weight:600;padding:9px 16px;border-radius:100px;border:1px solid var(--line);color:var(--ink-soft);transition:border-color .25s,color .25s,background .25s}
+.b-tabs a span{font-weight:500;color:var(--muted);margin-left:2px}
+.b-tabs a:hover{color:var(--head);border-color:color-mix(in srgb,var(--accent-2) 45%,transparent)}
+.b-tabs a[aria-current="true"]{background:color-mix(in srgb,var(--accent-2) 16%,transparent);border-color:color-mix(in srgb,var(--accent-2) 55%,transparent);color:var(--head)}
+.b-tabs a[aria-current="true"] span{color:var(--ink-soft)}
+.b-card[hidden]{display:none}
+.b-card .topic{font-size:12.5px;font-weight:600;color:#c9bdff}

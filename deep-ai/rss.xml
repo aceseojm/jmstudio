@@ -1,0 +1,1986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+ <channel>
+  <title>Deep AI — JM Studio</title>
+  <link>https://www.thejmstudio.co.kr/deep-ai/</link>
+  <atom:link href="https://www.thejmstudio.co.kr/deep-ai/rss.xml" rel="self" type="application/rss+xml" />
+  <description>AI 에이전트, RAG, 워크플로 자동화, 검색 노출까지. 도입을 고민할 때 알아야 할 개념을 쉬운 말로 정리하는 JM Studio의 블로그입니다.</description>
+  <language>ko</language>
+  <lastBuildDate>Sun, 01 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+   <title>사이트맵과 RSS, 무엇이 다르고 둘 다 필요할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/sitemap-vs-rss.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/sitemap-vs-rss.html</guid>
+   <pubDate>Sun, 01 Nov 2026 09:00:00 +0900</pubDate>
+   <description>사이트맵과 RSS는 둘 다 검색엔진에 페이지를 알리는 파일이지만 역할이 다릅니다. 각각의 개념과 차이, 둘 다 필요한 경우, robots.txt와의 관계, 구글과 네이버에 제출하는 방법을 공식 문서 기준으로 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>사이트맵은 사이트 전체의 주소 목록</strong>, <strong>RSS는 최근 새 글 소식</strong>입니다.</li>
+        <li>하나만 고른다면 사이트맵이 먼저입니다. 새 글이 꾸준히 올라오는 블로그라면 <strong>둘 다 두는 것이 좋습니다</strong>.</li>
+        <li>둘 다 검색엔진에 주는 <strong>힌트</strong>일 뿐, 제출한다고 검색 노출이나 순위가 보장되지는 않습니다.</li>
+      </ul>
+    </aside>
+
+    <div class="callout"><p><strong>기준일:</strong> 이 글은 2026년 10월 기준 <a href="https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview" rel="noopener" target="_blank">구글 검색 센터 문서</a>와 <a href="https://searchadvisor.naver.com/guide/request-feed" rel="noopener" target="_blank">네이버 서치어드바이저 가이드</a>를 바탕으로 썼습니다. 세부 기준은 바뀔 수 있으니 작업할 때 공식 문서를 함께 확인하세요.</p></div>
+
+    <h2 id="sitemap">사이트맵: 사이트 전체의 주소 목록</h2>
+    <p>사이트맵(<code>sitemap.xml</code>)은 <strong>검색엔진이 알아야 할 페이지 주소를 모두 적은 목록</strong>입니다. 메인 페이지, 서비스 소개, 가격 안내, 블로그 글까지 검색에 나오길 원하는 페이지를 빠짐없이 담습니다. 각 주소에는 마지막으로 내용이 바뀐 날짜(<code>lastmod</code>)를 함께 적을 수 있습니다.</p>
+    <pre class="code"><span class="c">&lt;!-- 사이트맵 예시 --&gt;</span>
+&lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://www.mysite.com/&lt;/loc&gt;
+    &lt;lastmod&gt;2026-10-01&lt;/lastmod&gt;
+  &lt;/url&gt;
+  &lt;url&gt;
+    &lt;loc&gt;https://www.mysite.com/service.html&lt;/loc&gt;
+    &lt;lastmod&gt;2026-09-15&lt;/lastmod&gt;
+  &lt;/url&gt;
+&lt;/urlset&gt;</pre>
+    <p>검색 로봇은 보통 링크를 따라가며 페이지를 찾습니다. 그래서 다른 페이지에서 링크가 잘 걸려 있지 않은 페이지나, 외부 링크가 거의 없는 새 사이트는 로봇이 놓치기 쉽습니다. 사이트맵은 이런 페이지를 검색엔진에 직접 알려 주는 지도 역할을 합니다.</p>
+    <p>구글 문서 기준으로 사이트맵 하나에는 <strong>주소 5만 개, 압축하지 않은 용량 50MB</strong>까지 담을 수 있고, 그보다 크면 여러 파일로 나눕니다. 네이버 가이드는 파일 크기를 10MB 이하로 안내합니다. 일반적인 회사 홈페이지라면 걱정할 필요가 없는 크기입니다.</p>
+
+    <h2 id="rss">RSS: 최근 새 글 소식</h2>
+    <p>RSS(<code>rss.xml</code>)는 <strong>최근에 올라온 글을 제목, 날짜, 요약이나 본문과 함께 담은 목록</strong>입니다. 원래는 사람이 RSS 리더(구독 앱)로 여러 블로그의 새 글을 한곳에서 받아 보려고 만든 형식이고, 검색엔진도 새 글을 빨리 찾는 데 활용합니다.</p>
+    <pre class="code"><span class="c">&lt;!-- RSS 항목 예시 --&gt;</span>
+&lt;item&gt;
+  &lt;title&gt;가을 신메뉴 출시 안내&lt;/title&gt;
+  &lt;link&gt;https://www.mysite.com/news/autumn.html&lt;/link&gt;
+  &lt;pubDate&gt;Fri, 31 Oct 2026 09:00:00 +0900&lt;/pubDate&gt;
+  &lt;description&gt;가을 한정 메뉴 3종을 소개합니다.&lt;/description&gt;
+&lt;/item&gt;</pre>
+    <p>RSS는 보통 최신 글 몇 개에서 몇십 개만 담습니다. 대신 내용이 자주 바뀌어서, 구글 블로그 글에 따르면 검색엔진은 사이트맵보다 RSS를 더 자주 가져갑니다. 네이버 가이드는 RSS에 요약만이 아니라 <strong>본문 전체</strong>를 담을 것을 권합니다.</p>
+
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="사이트맵은 메인, 서비스, 가격, 문의, 블로그 글까지 사이트의 모든 페이지 주소를 담은 목록입니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">사이트맵 · 전체 주소 목록</text>
+            <rect x="40" y="36" width="240" height="226" rx="12" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+            <text x="60" y="60" fill="#c9bdff" font-size="12" font-weight="700">sitemap.xml</text>
+            <g font-size="12" fill="#efedf5">
+              <rect x="56" y="70" width="208" height="26" rx="7" fill="#15151f"/><text x="68" y="88">/ 메인</text>
+              <rect x="56" y="100" width="208" height="26" rx="7" fill="#15151f"/><text x="68" y="118">/service 서비스 소개</text>
+              <rect x="56" y="130" width="208" height="26" rx="7" fill="#15151f"/><text x="68" y="148">/pricing 가격 안내</text>
+              <rect x="56" y="160" width="208" height="26" rx="7" fill="#15151f"/><text x="68" y="178">/contact 문의</text>
+              <rect x="56" y="190" width="208" height="26" rx="7" fill="#15151f"/><text x="68" y="208">/blog/글-1 … 글-100</text>
+            </g>
+            <text x="160" y="244" text-anchor="middle" fill="#8b879b" font-size="11.5">오래된 페이지까지 빠짐없이</text>
+            <text x="160" y="288" text-anchor="middle" fill="#bcb8c9" font-size="12">검색엔진: 가끔 확인</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="RSS는 최근 새 글 몇 개를 날짜와 본문과 함께 담은 소식 목록입니다. 새 글이 올라오면 맨 위에 추가됩니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">RSS · 최근 새 글 소식</text>
+            <rect x="40" y="36" width="240" height="226" rx="12" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+            <text x="60" y="60" fill="#ffb3c6" font-size="12" font-weight="700">rss.xml</text>
+            <g font-size="12">
+              <rect x="56" y="70" width="208" height="46" rx="7" fill="#15151f" stroke="#ff3a52"/>
+              <text x="68" y="89" fill="#ffb3c6" font-weight="700">NEW 새 글 제목</text><text x="68" y="106" fill="#bcb8c9" font-size="11">10.31 · 본문 전체</text>
+              <rect x="56" y="122" width="208" height="46" rx="7" fill="#15151f"/>
+              <text x="68" y="141" fill="#efedf5">지난 글 제목</text><text x="68" y="158" fill="#8b879b" font-size="11">10.30 · 본문 전체</text>
+              <rect x="56" y="174" width="208" height="46" rx="7" fill="#15151f"/>
+              <text x="68" y="193" fill="#efedf5">그 전 글 제목</text><text x="68" y="210" fill="#8b879b" font-size="11">10.29 · 본문 전체</text>
+            </g>
+            <text x="160" y="244" text-anchor="middle" fill="#8b879b" font-size="11.5">최근 글 위주로 짧게</text>
+            <text x="160" y="288" text-anchor="middle" fill="#bcb8c9" font-size="12">검색엔진 · 구독자: 자주 확인</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>사이트맵은 사이트 전체를 빠짐없이 담은 지도이고, RSS는 새로 올라온 글을 알리는 소식지입니다.</figcaption>
+    </figure>
+
+    <h2 id="compare">한눈에 비교</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">구분</th><th scope="col">사이트맵</th><th scope="col">RSS</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">담는 범위</th><td>검색에 나오길 원하는 모든 페이지</td><td>최근 글 몇 개에서 몇십 개</td></tr>
+          <tr><th scope="row">담는 내용</th><td>주소와 마지막 수정일</td><td>제목, 주소, 발행일, 요약이나 본문</td></tr>
+          <tr><th scope="row">주된 역할</th><td>사이트 전체를 빠짐없이 찾게 하기</td><td>새 글과 바뀐 글을 빨리 알리기</td></tr>
+          <tr><th scope="row">읽는 쪽</th><td>검색엔진</td><td>검색엔진과 RSS 리더 구독자</td></tr>
+          <tr><th scope="row">어울리는 사이트</th><td>거의 모든 사이트</td><td>블로그, 소식, 공지처럼 글이 꾸준히 올라오는 곳</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="both">둘 다 필요할까</h2>
+    <p>구글 검색 센터 블로그는 사이트맵이 <strong>사이트 전체</strong>를, RSS가 <strong>최근 변경</strong>을 알려 주므로 크롤링을 위해서는 <strong>둘을 함께 쓰는 것을 권장</strong>한다고 밝힌 적이 있습니다. 네이버 가이드는 RSS가 최신 글 위주라 많은 주소를 담기 어렵다며 <strong>사이트맵을 적극 활용하라</strong>고 권합니다. 정리하면 이렇습니다.</p>
+    <ul>
+      <li><strong>사이트맵은 기본입니다.</strong> 거의 모든 사이트에 두는 것이 좋습니다.</li>
+      <li><strong>RSS는 새 글이 꾸준히 올라올 때 더합니다.</strong> 블로그, 뉴스, 공지 게시판이 있다면 만들어 두세요. 소개 페이지 몇 개뿐인 사이트라면 꼭 필요하지는 않습니다.</li>
+    </ul>
+    <p>참고로 구글 문서는 페이지가 500개 이하이고 내부 링크로 잘 연결된 작은 사이트는 사이트맵이 꼭 필요하지 않을 수 있다고 설명합니다. 그래도 “대부분의 경우 사이트맵이 있으면 도움이 된다”고 덧붙이고 있고, 만드는 데 드는 수고도 크지 않으니 작은 사이트라도 두는 편을 권합니다.</p>
+
+    <h2 id="robots">robots.txt와의 관계</h2>
+    <p>robots.txt는 검색 로봇에게 <strong>어디를 수집해도 되는지</strong> 알려 주는 출입 규칙 파일입니다. 사이트맵이나 RSS와는 하는 일이 다르지만, robots.txt 안에 사이트맵 위치를 한 줄 적어 둘 수 있어서 함께 쓰입니다.</p>
+    <pre class="code">User-agent: *
+Allow: /
+Sitemap: https://www.mysite.com/sitemap.xml</pre>
+    <p>세 파일을 한 문장씩으로 정리하면 이렇습니다. robots.txt는 <strong>“들어와도 되는 곳”</strong>, 사이트맵은 <strong>“우리 집에 있는 방 전체 목록”</strong>, RSS는 <strong>“최근에 새로 생긴 방 소식”</strong>입니다. 사이트맵에 넣은 페이지를 robots.txt에서 막아 두면 서로 엇갈린 신호를 주게 되니 주의하세요.</p>
+
+    <h2 id="submit">구글과 네이버에 제출하기</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">검색엔진</th><th scope="col">사이트맵</th><th scope="col">RSS</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">구글</th><td>Search Console의 사이트맵 보고서에서 제출, 또는 robots.txt에 Sitemap 줄 추가</td><td>사이트맵 보고서에 RSS 주소를 제출 (구글은 RSS도 사이트맵 형식으로 받음)</td></tr>
+          <tr><th scope="row">네이버</th><td>서치어드바이저 웹마스터도구 “요청 → 사이트맵 제출”</td><td>같은 메뉴의 “요청 → RSS 제출”</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>제출할 때 공통으로 지킬 점은 두 가지입니다. 파일 안의 주소는 <code>/blog/post.html</code> 같은 상대 경로가 아니라 <strong><code>https://</code>로 시작하는 전체 주소</strong>로 적고, <strong>등록한 사이트와 같은 도메인</strong>의 주소만 넣습니다. 네이버 서치어드바이저 등록 절차는 <a href="https://www.thejmstudio.co.kr/deep-ai/naver-search-advisor.html">네이버 검색 노출 글</a>에 따로 정리했습니다.</p>
+
+    <h2 id="case">이 사이트의 사례</h2>
+    <p>JM Studio 홈페이지는 이렇게 운영하고 있습니다.</p>
+    <ul>
+      <li><strong>사이트맵:</strong> 메인, 서비스 소개, Deep AI 글까지 20여 개 페이지를 담고 있고, 새 글을 올릴 때마다 함께 갱신합니다. robots.txt에도 위치를 적어 두었습니다.</li>
+      <li><strong>RSS:</strong> Deep AI에 글이 꾸준히 쌓이면서 이번에 <a href="https://www.thejmstudio.co.kr/deep-ai/rss.xml">RSS 피드</a>를 추가했습니다. 네이버 권장에 맞춰 글마다 본문 전체를 담았고, 글 목록이 바뀌면 자동으로 다시 만들어지도록 작은 스크립트를 두었습니다.</li>
+      <li><strong>각 페이지:</strong> 블로그 페이지의 head에 RSS 위치를 알리는 태그(<code>&lt;link rel="alternate" type="application/rss+xml"&gt;</code>)를 넣어, RSS 리더나 검색엔진이 피드를 자동으로 찾을 수 있게 했습니다.</li>
+    </ul>
+    <p>워드프레스 같은 CMS나 홈페이지 빌더를 쓰고 있다면 사이트맵과 RSS가 이미 자동으로 만들어지고 있을 수도 있습니다. 주소창에 <code>내 도메인/sitemap.xml</code>이나 <code>내 도메인/rss.xml</code>, <code>/feed</code>를 입력해 확인해 보세요. 정확한 주소는 빌더마다 다르니 빌더의 도움말을 참고하세요.</p>
+
+    <h2 id="myth">흔한 오해</h2>
+    <div class="defs">
+      <div class="def n"><span class="ic">1</span><div><h3>제출하면 모든 페이지가 검색에 나온다<span>오해</span></h3><p>구글 문서는 사이트맵 제출이 <strong>힌트</strong>일 뿐이고, 모든 항목이 크롤링되고 색인된다고 보장하지 않는다고 밝힙니다. 노출 여부는 페이지 내용과 검색엔진의 판단에 달려 있습니다.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>RSS를 만들면 순위가 오른다<span>오해</span></h3><p>RSS는 새 글을 빨리 알리는 창구입니다. 순위를 직접 올려 주는 장치는 아닙니다.</p></div></div>
+      <div class="def n"><span class="ic">3</span><div><h3>사이트맵의 priority 값을 높이면 유리하다<span>오해</span></h3><p>사이트맵에는 페이지 중요도(<code>priority</code>)와 갱신 빈도(<code>changefreq</code>)를 적는 칸이 있지만, 구글 문서는 이 값들을 <strong>무시한다</strong>고 밝힙니다. 구글은 <code>lastmod</code>가 실제 수정일과 일관되게 맞을 때 이 값을 활용합니다. 내용이 바뀌지 않았는데 날짜만 매일 바꾸는 것은 피하세요.</p></div></div>
+    </div>
+
+    <h2 id="list">체크리스트</h2>
+    <ul class="checklist">
+      <li>사이트맵이 있고, 검색에 나와야 할 페이지가 모두 들어 있다</li>
+      <li>사이트맵의 주소가 모두 <code>https://</code>로 시작하는 전체 주소다</li>
+      <li>robots.txt에 사이트맵 위치가 적혀 있고, 사이트맵의 페이지를 막고 있지 않다</li>
+      <li>새 페이지를 만들면 사이트맵에도 추가된다</li>
+      <li><code>lastmod</code>는 내용이 실제로 바뀐 날짜다</li>
+      <li>블로그나 소식이 있다면 RSS를 두었고, 본문까지 담겨 있다</li>
+      <li>구글 Search Console과 네이버 서치어드바이저에 각각 제출했다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>사이트맵과 RSS 중 하나만 만든다면 무엇이 먼저인가요?</summary><p>사이트맵입니다. 사이트맵은 사이트의 모든 페이지 주소를 담을 수 있어서 검색엔진이 페이지를 빠짐없이 찾는 데 도움이 됩니다. 네이버 서치어드바이저 가이드도 RSS보다 사이트맵을 적극 활용하라고 권합니다. RSS는 블로그나 소식처럼 새 글이 꾸준히 올라오는 사이트에 더하면 좋습니다.</p></details>
+      <details><summary>페이지가 몇 개 안 되는 작은 홈페이지도 사이트맵이 필요한가요?</summary><p>구글 공식 문서는 페이지가 500개 이하이고 내부 링크로 잘 연결된 작은 사이트라면 사이트맵이 꼭 필요하지 않을 수 있다고 설명합니다. 다만 대부분의 경우 사이트맵이 있으면 도움이 된다고도 밝히고 있고, 네이버에는 사이트맵 제출 메뉴가 따로 있으니 만들어 두는 것을 권합니다.</p></details>
+      <details><summary>사이트맵을 제출하면 모든 페이지가 검색에 나오나요?</summary><p>아닙니다. 구글 공식 문서에 따르면 사이트맵 제출은 힌트를 주는 것이며, 사이트맵의 모든 항목이 크롤링되고 색인된다고 보장하지 않습니다. 검색 노출 여부는 페이지의 내용과 품질, 검색엔진의 판단에 달려 있습니다.</p></details>
+      <details><summary>RSS를 만들면 검색 순위가 오르나요?</summary><p>RSS가 순위를 직접 올려 주지는 않습니다. RSS는 최근에 바뀌거나 새로 올라온 글을 검색엔진에 빨리 알리는 창구입니다. 구글은 사이트맵과 RSS를 함께 쓰는 것이 크롤링에 가장 좋다고 안내합니다.</p></details>
+      <details><summary>사이트맵과 RSS는 어디에 제출하나요?</summary><p>구글은 Search Console의 사이트맵 보고서에서 사이트맵이나 RSS 주소를 제출할 수 있고, robots.txt에 Sitemap 줄을 적어 위치를 알릴 수도 있습니다. 네이버는 서치어드바이저 웹마스터도구의 요청 메뉴에서 사이트맵 제출과 RSS 제출을 각각 할 수 있습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>홈페이지가 네이버 검색에 나오게 하려면?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/naver-search-advisor.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/naver-search-advisor.html</guid>
+   <pubDate>Sat, 31 Oct 2026 09:00:00 +0900</pubDate>
+   <description>홈페이지가 네이버 검색에 안 나온다면 서치어드바이저부터 확인하세요. 사이트 등록과 소유 확인, robots.txt, 사이트맵·RSS 제출, 제목·설명·대표 이미지 작성법, 검색 반영 확인과 안 나올 때 점검할 것을 네이버 공식 가이드 기준으로 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>네이버 검색은 구글과 별개입니다. <strong>서치어드바이저에 사이트를 따로 등록</strong>하고 소유 확인을 해야 합니다.</li>
+        <li>등록 후에는 <strong>robots.txt 확인, 사이트맵 제출, 페이지마다 다른 제목과 설명</strong>이 기본입니다.</li>
+        <li>등록이 상위 노출을 보장하지는 않습니다. <strong>네이버가 사이트를 잘 찾고 읽게 돕는 출발점</strong>입니다.</li>
+      </ul>
+    </aside>
+
+    <div class="callout"><p><strong>기준일:</strong> 이 글은 2026년 10월 기준 네이버 서치어드바이저 공식 웹마스터 가이드를 바탕으로 썼습니다. 메뉴 이름과 화면은 바뀔 수 있으니 작업할 때 <a href="https://searchadvisor.naver.com/guide" rel="noopener" target="_blank">공식 가이드</a>를 함께 확인하세요.</p></div>
+
+    <h2 id="why">왜 네이버에 따로 등록해야 할까</h2>
+    <p>검색엔진은 각자 로봇을 보내 웹페이지를 모으고(수집), 정리해 두었다가(색인), 검색어에 맞춰 보여 줍니다(노출). 구글에 잘 나오는 사이트라도 네이버는 <strong>자기 로봇(이름은 Yeti)으로 따로 수집</strong>합니다. 그래서 구글 서치 콘솔에 등록했더라도 네이버 서치어드바이저에는 따로 등록하는 것이 좋습니다.</p>
+    <p>서치어드바이저에 등록하면 네이버에게 “이 사이트는 제 것이고, 여기 페이지 목록이 있습니다”라고 알려 줄 수 있고, 내 사이트가 네이버 검색에 얼마나 노출되고 클릭되는지도 볼 수 있습니다. 검색 노출의 기본 개념은 <a href="https://www.thejmstudio.co.kr/deep-ai/seo-vs-geo.html">SEO와 GEO 글</a>에 정리했습니다.</p>
+
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="서치어드바이저 등록 5단계: 사이트 등록, 소유 확인, robots.txt 확인, 사이트맵과 RSS 제출, 검색 반영 확인" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">등록 5단계</text>
+            <g font-size="12.5">
+              <rect x="30" y="36" width="260" height="38" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <text x="48" y="60" fill="#c9bdff" font-weight="700">1</text><text x="70" y="60" fill="#efedf5">사이트 등록 (도메인 단위)</text>
+              <rect x="30" y="84" width="260" height="38" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <text x="48" y="108" fill="#c9bdff" font-weight="700">2</text><text x="70" y="108" fill="#efedf5">소유 확인 (HTML 파일 또는 meta)</text>
+              <rect x="30" y="132" width="260" height="38" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <text x="48" y="156" fill="#c9bdff" font-weight="700">3</text><text x="70" y="156" fill="#efedf5">robots.txt 확인 (Yeti 허용)</text>
+              <rect x="30" y="180" width="260" height="38" rx="10" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+              <text x="48" y="204" fill="#c9bdff" font-weight="700">4</text><text x="70" y="204" fill="#c9bdff" font-weight="700">사이트맵 · RSS 제출</text>
+              <rect x="30" y="228" width="260" height="38" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+              <text x="48" y="252" fill="#ffb3c6" font-weight="700">5</text><text x="70" y="252" fill="#ffb3c6" font-weight="700">검색 반영 확인 (site: 검색)</text>
+            </g>
+            <text x="160" y="290" text-anchor="middle" fill="#8b879b" font-size="12">한 번 해 두면 이후엔 관리만</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="검색 결과에 보이기까지: 로봇이 방문해 수집하고, 색인한 뒤, 검색어에 맞춰 노출되고, 사용자가 클릭합니다. 수집에는 robots.txt와 사이트맵이, 노출과 클릭에는 제목과 설명이 영향을 줍니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">검색 결과에 보이기까지</text>
+            <g font-size="13" text-anchor="middle">
+              <rect x="24" y="40" width="120" height="44" rx="10" fill="#17142a" stroke="#a487ff"/><text x="84" y="67" fill="#c9bdff" font-weight="700">수집</text>
+              <rect x="24" y="104" width="120" height="44" rx="10" fill="#17142a" stroke="#a487ff"/><text x="84" y="131" fill="#c9bdff" font-weight="700">색인</text>
+              <rect x="24" y="168" width="120" height="44" rx="10" fill="#2a1a24" stroke="#ff3a52"/><text x="84" y="195" fill="#ffb3c6" font-weight="700">노출</text>
+              <rect x="24" y="232" width="120" height="44" rx="10" fill="#2a1a24" stroke="#ff3a52"/><text x="84" y="259" fill="#ffb3c6" font-weight="700">클릭</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.5" fill="none">
+              <path d="M84 86 V100"/><path d="M79 95 L84 101 L89 95"/>
+              <path d="M84 150 V164"/><path d="M79 159 L84 165 L89 159"/>
+              <path d="M84 214 V228"/><path d="M79 223 L84 229 L89 223"/>
+            </g>
+            <g font-size="11.5" fill="#bcb8c9">
+              <text x="160" y="60">robots.txt 허용</text><text x="160" y="76">사이트맵 · RSS</text>
+              <text x="160" y="124">HTML로 된 본문</text><text x="160" y="140">noindex 없음</text>
+              <text x="160" y="188">페이지마다 다른 제목</text><text x="160" y="204">주제에 맞는 내용</text>
+              <text x="160" y="252">알기 쉬운 설명</text><text x="160" y="268">대표 이미지</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <figcaption>서치어드바이저 등록 순서와, 페이지가 검색 결과에 보이기까지 각 단계에 영향을 주는 요소입니다.</figcaption>
+    </figure>
+
+    <h2 id="steps">등록 5단계</h2>
+    <h3>1. 사이트 등록</h3>
+    <p><a href="https://searchadvisor.naver.com/" rel="noopener" target="_blank">네이버 서치어드바이저</a>에 네이버 아이디로 로그인한 뒤, 웹마스터도구에서 사이트 주소를 등록합니다. 공식 가이드에 따르면 등록은 <strong>호스트(도메인) 단위</strong>만 지원합니다. <code>https://www.mysite.com</code>이나 <code>https://blog.mysite.com</code>은 되지만 <code>https://www.mysite.com/myid</code>처럼 하위 경로는 따로 등록할 수 없습니다.</p>
+    <h3>2. 소유 확인</h3>
+    <p>내 사이트가 맞는지 확인하는 단계입니다. 방법은 두 가지입니다.</p>
+    <ul>
+      <li><strong>HTML 파일 업로드:</strong> 서치어드바이저가 주는 파일을 사이트 최상위 폴더에 올립니다.</li>
+      <li><strong>meta 태그:</strong> 메인 페이지의 <code>&lt;head&gt;</code> 안에 서치어드바이저가 주는 태그 한 줄을 넣습니다. 이 사이트도 이 방법으로 소유 확인을 했습니다.</li>
+    </ul>
+    <p>홈페이지 빌더를 쓴다면 설정 화면에 네이버 인증 코드를 넣는 칸이 있는 경우가 많습니다. 직접 수정할 권한이 없다면 제작 업체나 기술 담당자에게 요청하세요.</p>
+    <h3>3. robots.txt 확인</h3>
+    <p>robots.txt는 검색 로봇에게 어디를 수집해도 되는지 알려 주는 파일로, 사이트 최상위에 둡니다(<code>/robots.txt</code>). 모든 검색엔진의 수집을 허용하는 가장 기본적인 설정은 다음과 같습니다. 마지막 줄처럼 사이트맵 위치도 함께 적어 두면 좋습니다.</p>
+    <pre class="code">User-agent: *
+Allow: /
+Sitemap: https://www.mysite.com/sitemap.xml</pre>
+    <p>공식 가이드는 로봇을 차단해야 할 때도 <strong>IP로 막지 말고 robots.txt를 쓰라</strong>고 권합니다. 로봇의 IP 대역은 바뀔 수 있기 때문입니다. 관리자 페이지처럼 노출되면 안 되는 곳은 robots.txt로 수집을 막되, 정말 민감한 내용은 로그인 같은 다른 방법으로 보호해야 합니다.</p>
+    <h3>4. 사이트맵·RSS 제출</h3>
+    <p>사이트맵(<code>sitemap.xml</code>)은 사이트에서 수집할 페이지 목록입니다. 웹마스터도구의 <strong>“요청 → 사이트맵 제출”</strong> 메뉴에서 주소를 제출합니다. 네이버는 제출된 사이트맵과 RSS를 주기적으로 다시 방문하므로, 새 페이지를 알리는 창구가 됩니다.</p>
+    <ul>
+      <li>사이트맵 안의 모든 주소는 <strong>소유 확인한 사이트와 같은 도메인</strong>이어야 하고, 상대 경로가 아닌 전체 주소로 적어야 합니다.</li>
+      <li>RSS는 최신 글을 본문까지 담는 형식이라 블로그나 소식 페이지가 있을 때 유용합니다. 다만 공식 가이드는 많은 주소를 담기 어려운 RSS보다 <strong>사이트맵을 적극 활용하라</strong>고 권합니다.</li>
+    </ul>
+    <h3>5. 검색 반영 확인</h3>
+    <p>공식 가이드에 따르면 검색로봇이 방문한 뒤 <strong>최대 1주일 이내</strong>에 검색에 반영됩니다. 네이버 검색창에 <code>site:www.mysite.com</code>을 입력하면 내 사이트 페이지 중 검색에 반영된 것을 볼 수 있습니다.</p>
+
+    <h2 id="markup">제목·설명·대표 이미지 쓰는 법</h2>
+    <p>네이버 공식 가이드에서 강조하는 내용을 정리하면 다음과 같습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">요소</th><th scope="col">이렇게</th><th scope="col">이건 피하기</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">메인 페이지 제목</th><td>단체명, 서비스명 같은 브랜드 이름</td><td>검색 노출만을 위해 자주 바꾸기, 지나치게 길게</td></tr>
+          <tr><th scope="row">각 페이지 제목</th><td>페이지 주제를 정확히 설명하는 고유한 제목</td><td>모든 페이지에 같은 제목, 같은 키워드 반복</td></tr>
+          <tr><th scope="row">설명(description)</th><td>내용을 간추린 1~2문장</td><td>본문 통째로 붙이기, 제목과 똑같이, 키워드 나열</td></tr>
+          <tr><th scope="row">대표 이미지(og:image)</th><td>그 페이지만의 이미지, 150×150보다 크게</td><td>모든 페이지에 같은 로고나 배너</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>대표 이미지는 네이버 검색 결과에서 섬네일로 쓰일 수 있습니다. 공식 가이드는 크기 외에도 파일 용량이 너무 작지 않을 것(5,000바이트 이상), 가로:세로 비율이 3:1을 넘지 않을 것을 권합니다. 여러 페이지에 반복되는 이미지는 검색엔진이 쓰지 않을 수 있습니다.</p>
+    <p>네이버 블로그나 인스타그램, 유튜브 같은 채널이 있다면, 메인 페이지에 <strong>연관 채널 구조화 데이터</strong>(schema.org의 Organization과 sameAs)를 넣어 함께 알릴 수 있습니다. 공식 가이드는 이것이 검색 결과 노출을 보장하지는 않는다고 밝히고 있습니다.</p>
+
+    <h2 id="check">반영 확인과 리포트</h2>
+    <p>웹마스터도구의 <strong>콘텐츠 노출 및 클릭</strong> 리포트에서 내 사이트가 네이버 검색 결과에 얼마나 노출되고 클릭되었는지, 어떤 검색어로 들어왔는지 볼 수 있습니다. 알아 둘 점이 있습니다.</p>
+    <ul>
+      <li>웹 검색 영역의 노출과 클릭만 셉니다. 블로그 검색 영역이나 검색 광고 영역은 포함되지 않습니다.</li>
+      <li>데이터는 약 1주 전 검색을 기준으로 업데이트되고, 최근 90일까지 볼 수 있습니다. 오늘 고친 내용의 효과는 시간이 지나야 보입니다.</li>
+    </ul>
+    <p>웹마스터도구에는 사이트의 기본 상태를 빠르게 확인하는 <strong>사이트 간단 체크</strong> 기능도 있습니다. 처음 등록할 때 한 번 돌려 보면 좋습니다.</p>
+
+    <h2 id="trouble">안 나올 때 점검할 것</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">증상</th><th scope="col">확인할 것</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">소유 확인이 안 됨</th><td>방화벽이 네이버 로봇을 막는지, 메인 페이지가 자바스크립트로 다른 주소로 넘어가는지, frame 안에 태그를 넣었는지</td></tr>
+          <tr><th scope="row">메인 페이지가 안 나옴</th><td>robots.txt와 방화벽 설정, 메인 페이지에 <code>noindex</code>가 있는지</td></tr>
+          <tr><th scope="row">일부 페이지만 나옴</th><td>사이트맵 주소가 전체 주소인지, <code>nofollow</code>가 있는지, 링크가 자바스크립트로만 되어 있는지</td></tr>
+          <tr><th scope="row">내용이 반영 안 됨</th><td>본문이 전부 자바스크립트로 그려지는지, frame으로 감쌌는지</td></tr>
+          <tr><th scope="row">노출이 적음</th><td>같은 내용의 사이트를 여러 개 만들었는지, 모든 페이지 제목이 같은지</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>특히 링크와 본문이 자바스크립트로만 만들어진 사이트는 로봇이 내용을 제대로 읽지 못할 수 있습니다. 공식 가이드도 표준 HTML 링크(<code>&lt;a href&gt;</code>)와 HTML로 된 본문을 권합니다. 이런 구조 문제는 홈페이지 제작 방식과 관련이 있어서, 고치려면 제작자의 도움이 필요할 수 있습니다.</p>
+    <div class="callout"><p><strong>알아 둘 점:</strong> 서치어드바이저 등록은 네이버가 사이트를 <strong>찾고 읽을 수 있게</strong> 하는 일입니다. 어떤 검색어에서 몇 번째에 나올지는 콘텐츠와 검색엔진의 판단에 달려 있습니다. “등록만 하면 상위 노출”이라는 말은 사실이 아닙니다.</p></div>
+
+    <h2 id="list">체크리스트</h2>
+    <ul class="checklist">
+      <li>서치어드바이저에 사이트를 등록하고 소유 확인을 마쳤다</li>
+      <li>robots.txt가 검색 로봇의 수집을 허용하고, 사이트맵 위치가 적혀 있다</li>
+      <li>사이트맵을 제출했고, 새 페이지를 만들면 사이트맵에도 추가한다</li>
+      <li>메인 페이지 제목에 단체명이나 서비스명이 들어가 있다</li>
+      <li>페이지마다 제목과 설명이 다르다</li>
+      <li>중요한 페이지에 noindex가 없다</li>
+      <li><code>site:</code> 검색으로 반영 여부를 확인했다</li>
+      <li>구글 서치 콘솔에도 따로 등록했다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>서치어드바이저에 등록하면 바로 네이버 검색에 나오나요?</summary><p>네이버 공식 가이드에 따르면 검색로봇이 방문한 뒤 최대 1주일 이내에 콘텐츠가 검색에 반영됩니다. 다만 등록은 네이버가 사이트를 잘 찾고 읽게 돕는 일이고, 원하는 키워드에서 상위에 노출되는 것을 보장하지는 않습니다.</p></details>
+      <details><summary>구글 서치 콘솔에 등록했으면 네이버는 안 해도 되나요?</summary><p>따로 해야 합니다. 구글 서치 콘솔과 네이버 서치어드바이저는 별개의 서비스라서, 두 검색에 모두 잘 나오게 하려면 각각 사이트를 등록하고 사이트맵을 제출하는 것이 좋습니다.</p></details>
+      <details><summary>사이트 소유 확인은 어떻게 하나요?</summary><p>서치어드바이저가 주는 HTML 파일을 사이트에 올리거나, 메인 페이지의 head 안에 meta 태그를 넣는 두 가지 방법이 있습니다. 홈페이지 빌더를 쓰는 경우 설정 화면에 네이버 인증 코드를 넣는 칸이 따로 있기도 하니 빌더의 도움말을 확인하세요.</p></details>
+      <details><summary>사이트맵과 RSS를 둘 다 제출해야 하나요?</summary><p>사이트맵은 꼭 제출하는 것이 좋습니다. 네이버도 사이트 내 모든 URL을 담을 수 있는 사이트맵을 적극 활용하라고 권장합니다. 새 글을 자주 올리는 블로그나 소식 페이지가 있다면 RSS도 함께 제출하면 새 콘텐츠를 알리는 데 도움이 됩니다.</p></details>
+      <details><summary>네이버 블로그가 있는데 홈페이지도 등록해야 하나요?</summary><p>홈페이지를 검색에 노출하고 싶다면 등록하는 것이 좋습니다. 네이버 블로그와 홈페이지는 별개의 채널입니다. 홈페이지 메인 페이지에 연관 채널 구조화 데이터를 넣어 블로그와 SNS를 함께 알릴 수 있지만, 검색 결과에 함께 보이는 것은 보장되지 않습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>AI가 똑똑해졌는데 자동화 툴이 아직 필요할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/ai-agent-vs-workflow.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/ai-agent-vs-workflow.html</guid>
+   <pubDate>Fri, 30 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 성능이 좋아졌으니 n8n, Make, Zapier 같은 자동화 툴은 필요 없을까요? AI에게 시키는 것만으로 충분한 일과 워크플로 자동화가 여전히 필요한 이유 4가지, 둘을 함께 쓰는 방법과 업무별 판단 기준을 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>사람이 필요할 때 시키는 일은 이제 <strong>AI에게 바로 시키는 것</strong>으로 충분한 경우가 많습니다.</li>
+        <li>아무도 시키지 않아도, 매번 같은 방식으로, 기록을 남기며 돌아야 하는 일은 여전히 <strong>워크플로 자동화</strong>가 잘 맞습니다.</li>
+        <li>요즘의 답은 둘 중 하나가 아니라 <strong>정해진 흐름은 워크플로가, 판단이 필요한 단계만 AI가</strong> 맡는 것입니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="change">무엇이 달라졌나</h2>
+    <p>몇 년 전만 해도 “문서를 요약해서 메일로 보내기” 같은 일을 하려면 자동화 툴에 AI 단계를 끼워 넣어야 했습니다. 지금은 사정이 다릅니다.</p>
+    <ul>
+      <li><strong>AI에게 시키면 끝나는 일이 늘었습니다.</strong> 회의록 정리, 홍보 문구 초안, 설문 요약처럼 사람이 필요할 때 요청하고 결과를 확인하는 일은 AI 채팅만으로 충분합니다. 이런 일까지 자동화 툴로 엮을 필요는 없습니다.</li>
+      <li><strong>AI가 다른 서비스에 직접 연결되기 시작했습니다.</strong> MCP 같은 연결 방식이 퍼지면서 AI가 메일, 캘린더, 문서 같은 서비스를 직접 읽고 쓰는 경우가 늘고 있습니다. 간단한 연결은 AI 안에서 끝나기도 합니다.</li>
+      <li><strong>작은 자동화는 AI가 코드로 만들어 주기도 합니다.</strong> 간단한 스크립트라면 개발자가 아니어도 AI의 도움으로 만들 수 있습니다. 다만 만든 코드를 누가 관리할지는 따로 생각해야 합니다.</li>
+    </ul>
+    <p>그래서 “툴이 필요 없어졌다”기보다 <strong>“툴이 꼭 필요한 일의 범위가 좁아졌다”</strong>가 더 정확합니다. 그렇다면 남은 범위는 어디일까요?</p>
+
+    <h2 id="why">워크플로가 여전히 필요한 이유 4가지</h2>
+    <div class="defs">
+      <div class="def t"><span class="ic">1</span><div><h3>아무도 시키지 않아도 돈다<span>트리거</span></h3><p>AI 채팅은 기본적으로 사람이 말을 걸어야 움직입니다. 워크플로는 <strong>문의가 접수될 때, 매주 월요일 아침에, 결제가 완료될 때</strong>처럼 정해진 사건이나 시간에 맞춰 스스로 시작합니다. 새벽에 들어온 문의도 바로 처리됩니다.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>매번 똑같이 돈다<span>일관성</span></h3><p>AI는 같은 요청에도 결과가 조금씩 달라질 수 있습니다. 문구 초안에는 장점이지만, 신청 확인 메일이나 정산 집계처럼 <strong>매번 같아야 하는 일</strong>에는 위험이 됩니다. 규칙으로 정할 수 있는 단계는 규칙대로 도는 편이 안전합니다.</p></div></div>
+      <div class="def a"><span class="ic">3</span><div><h3>기록이 남고 실패를 잡는다<span>운영</span></h3><p>워크플로 툴은 언제 무엇이 실행됐는지, 어디서 실패했는지 기록하고, 실패하면 다시 시도하거나 담당자에게 알릴 수 있습니다. 업무에서는 <strong>“잘 됐는지 확인할 수 있다”</strong>는 점이 똑똑함만큼 중요합니다.</p></div></div>
+      <div class="def t"><span class="ic">4</span><div><h3>비용과 속도를 예측할 수 있다<span>효율</span></h3><p>모든 단계를 AI가 판단하게 하면 실행할 때마다 AI 사용료가 들고 시간도 더 걸립니다. 날짜 비교나 시트에 한 줄 추가하기처럼 <strong>규칙으로 충분한 일에 AI를 쓰는 것은 낭비</strong>에 가깝습니다(<a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 자동화 비용 글</a> 참고).</p></div></div>
+    </div>
+    <p>네 가지 모두 AI 성능이 좋아진다고 사라지는 문제가 아닙니다. AI가 똑똑해질수록 “판단”은 더 잘하겠지만, “언제 시작하고, 매번 같게 돌고, 기록을 남기는 일”은 여전히 구조의 몫입니다.</p>
+
+    <h2 id="both">요즘의 답: 함께 쓰기</h2>
+    <p>실제로 잘 만든 자동화는 대부분 둘을 섞습니다. <strong>뼈대는 워크플로가 잡고, 판단이 필요한 한두 단계에만 AI를 넣는 방식</strong>입니다. <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">Agent·Node·Tool 글</a>의 말로 하면, 워크플로라는 Node의 흐름 안에 Agent가 한 칸을 맡는 구조입니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="AI에게 시키기와 자동으로 돌리기의 차이: AI에게 시키기는 사람이 요청하면 AI가 처리하고 사람이 결과를 받습니다. 자동으로 돌리기는 사건이나 시간이 시작하고 워크플로가 정해진 단계를 실행해 기록을 남깁니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">누가 시작하나</text>
+            <text x="20" y="54" fill="#c9bdff" font-size="13" font-weight="700">AI에게 시키기</text>
+            <g font-size="11.5" text-anchor="middle">
+              <rect x="20" y="66" width="84" height="40" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.4"/><text x="62" y="91" fill="#ffb3c6">사람이 요청</text>
+              <rect x="118" y="66" width="84" height="40" rx="10" fill="#17142a" stroke="#a487ff"/><text x="160" y="91" fill="#c9bdff">AI가 처리</text>
+              <rect x="216" y="66" width="84" height="40" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.4"/><text x="258" y="91" fill="#ffb3c6">사람이 확인</text>
+            </g>
+            <text x="20" y="128" fill="#8b879b" font-size="11">필요할 때 한 번씩 · 결과가 매번 조금 다를 수 있음</text>
+            <path d="M20 148 H300" stroke="rgba(239,237,245,.15)"/>
+            <text x="20" y="178" fill="#efedf5" font-size="13" font-weight="700">자동으로 돌리기</text>
+            <g font-size="11.5" text-anchor="middle">
+              <rect x="20" y="190" width="84" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="62" y="215" fill="#efedf5">사건 · 시간</text>
+              <rect x="118" y="190" width="84" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="215" fill="#efedf5">정해진 단계</text>
+              <rect x="216" y="190" width="84" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="258" y="215" fill="#efedf5">결과 + 기록</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.4"><path d="M105 86 H117"/><path d="M203 86 H215"/><path d="M105 210 H117"/><path d="M203 210 H215"/></g>
+            <text x="20" y="252" fill="#8b879b" font-size="11">아무도 시키지 않아도 · 매번 같은 방식으로</text>
+            <text x="160" y="288" text-anchor="middle" fill="#8b879b" font-size="12">둘은 경쟁이 아니라 역할이 다릅니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="함께 쓰는 문의 자동화 예시: 문의 접수가 트리거, 스팸 거르기는 규칙, 분류와 답변 초안은 AI, 담당자 배정과 기록은 규칙, 확인 후 답변은 사람이 맡습니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">예시 · 함께 쓰는 문의 자동화</text>
+            <g font-size="12.5" text-anchor="middle">
+              <rect x="40" y="36" width="190" height="34" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="135" y="58" fill="#efedf5">문의 접수 (트리거)</text>
+              <rect x="40" y="84" width="190" height="34" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="135" y="106" fill="#efedf5">스팸 · 중복 거르기</text>
+              <rect x="40" y="132" width="190" height="34" rx="9" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/><text x="135" y="154" fill="#c9bdff" font-weight="700">분류 · 답변 초안</text>
+              <rect x="40" y="180" width="190" height="34" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="135" y="202" fill="#efedf5">담당자 배정 · 기록</text>
+              <rect x="40" y="228" width="190" height="34" rx="9" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/><text x="135" y="250" fill="#ffb3c6" font-weight="700">확인 후 답변</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.4" fill="none">
+              <path d="M135 71 V83"/><path d="M135 119 V131"/><path d="M135 167 V179"/><path d="M135 215 V227"/>
+            </g>
+            <g font-size="11.5" font-weight="700">
+              <text x="242" y="58" fill="#bcb8c9">트리거</text>
+              <text x="242" y="106" fill="#bcb8c9">규칙</text>
+              <text x="242" y="154" fill="#c9bdff">AI</text>
+              <text x="242" y="202" fill="#bcb8c9">규칙</text>
+              <text x="242" y="250" fill="#ffb3c6">사람</text>
+            </g>
+            <text x="160" y="290" text-anchor="middle" fill="#8b879b" font-size="12">AI는 판단이 필요한 한 칸만</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>AI에게 시키는 일과 자동으로 돌리는 일의 차이, 그리고 둘을 함께 쓰는 문의 자동화 예시입니다.</figcaption>
+    </figure>
+    <p>자동화 툴 쪽도 이 방향으로 움직이고 있습니다. n8n, Make, Zapier 모두 공식 페이지에서 AI 에이전트 기능을 소개하고 있고, AI 서비스 쪽은 외부 서비스 연결 기능을 늘리고 있습니다. 둘이 서로 가까워지는 흐름입니다. 세 툴의 차이는 <a href="https://www.thejmstudio.co.kr/deep-ai/n8n-make-zapier.html">n8n, Make, Zapier 비교 글</a>에 정리했습니다.</p>
+
+    <h2 id="judge">우리 업무는 어느 쪽일까</h2>
+    <p>다음 세 가지를 물어보면 대부분 정리됩니다.</p>
+    <ol>
+      <li><strong>누가 시작하나?</strong> 사람이 필요할 때 시작한다면 AI에게 시키기, 사건이나 시간이 시작한다면 워크플로입니다.</li>
+      <li><strong>매번 같아야 하나?</strong> 매번 같아야 하는 단계는 규칙으로, 상황마다 판단이 필요한 단계는 AI로 처리합니다.</li>
+      <li><strong>틀리면 얼마나 곤란한가?</strong> 되돌리기 어렵거나 영향이 큰 일은 마지막에 사람이 확인합니다(<a href="https://www.thejmstudio.co.kr/deep-ai/ai-agent-autonomy.html">AI 에이전트 권한 글</a> 참고).</li>
+    </ol>
+    <p>아래는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-examples.html">AI로 자동화할 수 있는 업무 10가지</a>에서 다룬 일 중 일부를 이 기준으로 나눈 예시입니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">업무</th><th scope="col">맞는 방법</th><th scope="col">이유</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">회의록 정리</th><td>AI에게 시키기</td><td>필요할 때 한 번, 사람이 바로 확인</td></tr>
+          <tr><th scope="row">홍보 문구 초안</th><td>AI에게 시키기</td><td>매번 달라도 되고, 사람이 다듬음</td></tr>
+          <tr><th scope="row">신청 확인 안내</th><td>워크플로</td><td>신청이 시작, 매번 같아야 함</td></tr>
+          <tr><th scope="row">문의 분류·전달</th><td>워크플로 + AI</td><td>접수가 시작, 분류에는 판단 필요</td></tr>
+          <tr><th scope="row">주간 보고 초안</th><td>워크플로 + AI</td><td>정해진 시간에 자료 모으고 AI가 요약</td></tr>
+          <tr><th scope="row">영수증 정산</th><td>워크플로 + AI</td><td>AI가 영수증을 읽고, 집계는 규칙으로</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 툴이 필요한지보다 먼저 물을 것은 <strong>“이 일은 누가 시작하고, 매번 같아야 하는가”</strong>입니다. 답에 따라 AI에게 시키기, 워크플로, 둘의 조합 중 하나가 정해집니다.</p></div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>ChatGPT나 Claude만으로 업무 자동화를 할 수 있나요?</summary><p>사람이 필요할 때 시키는 일은 충분히 할 수 있습니다. 회의록 정리, 문구 초안, 자료 요약처럼 요청하고 결과를 받아 확인하는 일이 그렇습니다. 다만 아무도 요청하지 않아도 정해진 때나 이벤트에 맞춰 매번 같은 방식으로 돌아가야 하는 일은 워크플로 자동화가 더 잘 맞습니다.</p></details>
+      <details><summary>AI 에이전트와 워크플로 자동화는 무엇이 다른가요?</summary><p>워크플로 자동화는 사람이 미리 정한 순서대로 매번 같은 단계를 실행합니다. AI 에이전트는 목표를 받아 다음 행동을 스스로 고릅니다. 워크플로는 예측 가능하고 기록과 관리가 쉬우며, 에이전트는 예상하지 못한 상황에 유연합니다. 실제 업무에서는 워크플로 안의 일부 단계에 AI를 넣어 함께 쓰는 경우가 많습니다.</p></details>
+      <details><summary>그래도 n8n 같은 툴을 배워야 하나요?</summary><p>반복 업무를 자동으로 돌리고 싶다면 하나쯤 익혀 두면 도움이 됩니다. 다만 툴 사용법보다 어떤 일을 AI에게 시키고, 어떤 일을 정해진 흐름으로 돌리고, 어떤 일을 사람이 할지 나누는 판단이 더 중요합니다. 이 판단은 툴이 바뀌어도 그대로 쓸 수 있습니다.</p></details>
+      <details><summary>모든 단계를 AI 에이전트에게 맡기면 안 되나요?</summary><p>가능은 하지만 권하지 않습니다. AI는 같은 요청에도 결과가 조금씩 달라질 수 있고, 단계마다 AI를 부르면 비용과 시간이 늘어납니다. 규칙으로 정할 수 있는 단계는 규칙으로, 판단이 필요한 단계만 AI로 처리하는 것이 안정적이고 경제적입니다.</p></details>
+      <details><summary>앞으로 자동화 툴은 사라질까요?</summary><p>단정하기는 어렵습니다. 다만 지금은 AI 서비스가 외부 서비스 연결 기능을 늘리고, 자동화 툴이 AI 에이전트 기능을 넣으면서 둘이 서로 가까워지는 흐름입니다. 이름과 형태는 바뀌어도 정해진 흐름을 안정적으로 돌리는 역할과 판단을 맡는 역할은 계속 필요할 가능성이 큽니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>n8n, Make, Zapier 무엇을 고를까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/n8n-make-zapier.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/n8n-make-zapier.html</guid>
+   <pubDate>Thu, 29 Oct 2026 09:00:00 +0900</pubDate>
+   <description>n8n, Make, Zapier는 무엇이 다를까요? 사용 난이도, 사용량을 세는 방식, 직접 설치(셀프 호스팅) 여부, AI 기능, 데이터 관리까지 세 노코드 자동화 툴의 차이와 우리 팀에 맞는 도구를 고르는 질문 5가지를 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>Zapier</strong>는 시작이 가장 쉽고, <strong>Make</strong>는 갈래가 많은 흐름을 화면에서 보며 만들기 좋고, <strong>n8n</strong>은 직접 설치와 복잡한 AI 워크플로에 강한 편입니다.</li>
+        <li>사용량을 세는 단위가 달라서 <strong>단계가 많은 자동화</strong>일수록 도구 간 차이가 커질 수 있습니다.</li>
+        <li>기능 비교보다 <strong>쓰는 앱, 자동화 규모, 다룰 데이터, 관리할 사람</strong>을 기준으로 고르는 것이 좋습니다.</li>
+      </ul>
+    </aside>
+
+    <div class="callout"><p><strong>기준일:</strong> 이 글은 2026년 10월 기준 각 서비스의 공식 페이지를 바탕으로 썼습니다. 요금제와 기능은 자주 바뀌므로 도입 전에 공식 페이지를 다시 확인하세요. 요금 금액은 일부러 적지 않았습니다.</p></div>
+
+    <h2 id="what">노코드 자동화 툴은 무엇을 하나</h2>
+    <p>세 도구의 기본 구조는 같습니다. <strong>“무엇이 일어나면(트리거) → 이것을 한다(동작)”</strong>를 단계별로 이어 붙입니다. 예를 들어 “문의 폼이 접수되면 → AI가 분류하고 → 스프레드시트에 저장하고 → 담당자에게 알린다”처럼요. 화면에 보이는 단계 하나하나가 <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">Agent·Node·Tool 글</a>에서 설명한 Node에 해당합니다.</p>
+    <p>최근에는 세 도구 모두 AI 단계와 AI 에이전트 기능을 넣고 있어서, <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-examples.html">AI로 자동화할 수 있는 업무 10가지</a>에서 소개한 일 대부분을 셋 중 어느 도구로도 만들 수 있습니다. 차이는 <strong>얼마나 쉽게, 얼마나 자유롭게, 어떤 비용 구조로</strong> 만드느냐에 있습니다.</p>
+
+    <h2 id="three">세 도구 한 줄 소개</h2>
+    <div class="defs">
+      <div class="def t"><span class="ic">Z</span><div><h3>Zapier<span>재피어</span></h3><p>가장 오래 널리 쓰인 자동화 서비스 중 하나입니다. 공식 페이지에서 9,000개가 넘는 앱과 연결된다고 소개합니다. 단계를 위에서 아래로 쌓는 단순한 방식이라 <strong>처음 쓰는 사람도 빨리 시작</strong>할 수 있습니다. AI 에이전트, 챗봇, Copilot 같은 AI 기능도 함께 제공합니다.</p></div></div>
+      <div class="def n"><span class="ic">M</span><div><h3>Make<span>메이크</span></h3><p>시나리오라고 부르는 자동화를 <strong>화면 위에 모듈을 이어 그리듯</strong> 만듭니다. 조건에 따라 흐름을 여러 갈래로 나누거나 목록을 하나씩 처리하는 흐름을 눈으로 보며 만들기 좋습니다. AI 에이전트와 AI 어시스턴트 기능도 있습니다.</p></div></div>
+      <div class="def a"><span class="ic">n</span><div><h3>n8n<span>엔에이트엔</span></h3><p>클라우드로 쓸 수도 있고, <strong>우리 서버에 직접 설치(셀프 호스팅)</strong>해서 쓸 수도 있습니다. 공식 문서에 따르면 직접 설치하는 Community 버전은 무료입니다. 중간에 코드를 넣기 쉽고, AI Agent 노드, MCP 연결, 도구 실행 전 사람 승인 같은 <strong>AI 워크플로 기능</strong>이 강한 편입니다.</p></div></div>
+    </div>
+
+    <h2 id="diff">무엇이 다를까</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">기준</th><th scope="col">Zapier</th><th scope="col">Make</th><th scope="col">n8n</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">시작 난이도</th><td>가장 쉬운 편</td><td>중간</td><td>중간 이상</td></tr>
+          <tr><th scope="row">만드는 화면</th><td>단계를 차례로 쌓기</td><td>모듈을 이어 그리기</td><td>노드를 이어 그리기</td></tr>
+          <tr><th scope="row">사용량 세는 단위</th><td>완료된 작업 단계(태스크)</td><td>모듈이 한 동작(크레딧)</td><td>워크플로 실행 1회</td></tr>
+          <tr><th scope="row">직접 설치</th><td>클라우드 서비스</td><td>클라우드 서비스</td><td>가능(클라우드도 있음)</td></tr>
+          <tr><th scope="row">코드 넣기</th><td>가능</td><td>가능</td><td>자유로운 편</td></tr>
+          <tr><th scope="row">잘 맞는 경우</th><td>빠르게 시작, 단순한 연결</td><td>갈래가 많은 흐름</td><td>데이터 직접 관리, 복잡한 AI 흐름</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>표의 난이도와 “잘 맞는 경우”는 일반적인 경향입니다. 같은 도구라도 만드는 자동화와 쓰는 사람에 따라 느낌이 다를 수 있습니다.</p>
+
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="세 도구의 일반적인 경향: 시작하기 쉬운 쪽부터 Zapier, Make, n8n 순서이고, 직접 다룰 수 있는 범위는 반대 순서로 넓어집니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">일반적인 경향</text>
+            <g text-anchor="middle">
+              <rect x="40" y="44" width="240" height="56" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <text x="160" y="68" fill="#efedf5" font-size="14" font-weight="700">Zapier</text>
+              <text x="160" y="88" fill="#8b879b" font-size="11.5">빠르게 시작 · 단순한 연결</text>
+              <rect x="40" y="116" width="240" height="56" rx="10" fill="#17142a" stroke="#a487ff"/>
+              <text x="160" y="140" fill="#c9bdff" font-size="14" font-weight="700">Make</text>
+              <text x="160" y="160" fill="#bcb8c9" font-size="11.5">갈래가 많은 흐름을 화면에서</text>
+              <rect x="40" y="188" width="240" height="56" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+              <text x="160" y="212" fill="#ffb3c6" font-size="14" font-weight="700">n8n</text>
+              <text x="160" y="232" fill="#bcb8c9" font-size="11.5">직접 설치 · 코드 · AI 워크플로</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.5" fill="none">
+              <path d="M22 48 V240"/><path d="M17 235 L22 241 L27 235"/>
+              <path d="M298 240 V48"/><path d="M293 53 L298 47 L303 53"/>
+            </g>
+            <text x="12" y="144" text-anchor="middle" fill="#8b879b" font-size="11" transform="rotate(-90 12 144)">배우는 데 드는 시간</text>
+            <text x="310" y="144" text-anchor="middle" fill="#8b879b" font-size="11" transform="rotate(90 310 144)">시작하기 쉬움</text>
+            <text x="160" y="276" text-anchor="middle" fill="#8b879b" font-size="12">아래로 갈수록 자유도는 커지고</text>
+            <text x="160" y="293" text-anchor="middle" fill="#8b879b" font-size="12">관리할 일도 늘어납니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="사용량을 세는 방식 예시: 폼 접수, AI 분류, 시트 저장, 담당자 알림으로 이어지는 같은 자동화를 Zapier와 Make는 단계마다 세고, n8n은 한 번 실행을 1회로 셉니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">예시 · 같은 자동화, 다른 셈법</text>
+            <g font-size="11" text-anchor="middle">
+              <rect x="16" y="40" width="64" height="34" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="48" y="61" fill="#efedf5">폼 접수</text>
+              <rect x="90" y="40" width="64" height="34" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="122" y="61" fill="#efedf5">AI 분류</text>
+              <rect x="164" y="40" width="64" height="34" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="196" y="61" fill="#efedf5">시트 저장</text>
+              <rect x="238" y="40" width="66" height="34" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="271" y="61" fill="#efedf5">담당자 알림</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.4">
+              <path d="M81 57 H89"/><path d="M155 57 H163"/><path d="M229 57 H237"/>
+            </g>
+            <text x="16" y="108" fill="#efedf5" font-size="12.5" font-weight="700">Zapier · Make</text>
+            <text x="16" y="126" fill="#8b879b" font-size="11">작업한 단계마다 셉니다</text>
+            <g>
+              <circle cx="122" cy="150" r="9" fill="#17142a" stroke="#a487ff"/>
+              <circle cx="196" cy="150" r="9" fill="#17142a" stroke="#a487ff"/>
+              <circle cx="271" cy="150" r="9" fill="#17142a" stroke="#a487ff"/>
+              <circle cx="48" cy="150" r="9" fill="none" stroke="rgba(239,237,245,.25)" stroke-dasharray="3 3"/>
+            </g>
+            <text x="16" y="182" fill="#8b879b" font-size="10.5">트리거를 세는지, AI 단계를 얼마로 세는지는 도구마다 다름</text>
+            <text x="16" y="216" fill="#ffb3c6" font-size="12.5" font-weight="700">n8n</text>
+            <text x="16" y="234" fill="#8b879b" font-size="11">흐름 전체가 한 번 돌면 1회</text>
+            <rect x="16" y="244" width="288" height="22" rx="11" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.4"/>
+            <text x="160" y="259" text-anchor="middle" fill="#ffb3c6" font-size="11">실행 1회</text>
+            <text x="160" y="290" text-anchor="middle" fill="#8b879b" font-size="12">단계가 많을수록 차이가 커집니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>세 도구의 일반적인 경향과 사용량을 세는 방식의 예시입니다. 정확한 계산 방식은 단계 종류와 요금제에 따라 다르므로 각 서비스의 공식 요금 페이지를 확인하세요.</figcaption>
+    </figure>
+
+    <h3>사용량을 세는 방식</h3>
+    <p>비용에 가장 큰 영향을 주는 차이입니다. 공식 요금 페이지 기준으로 정리하면 다음과 같습니다.</p>
+    <ul>
+      <li><strong>Zapier:</strong> 성공적으로 끝난 작업 단계를 태스크로 셉니다. 실패한 단계나 필터 같은 기본 도구는 세지 않고, AI 단계는 쓰는 모델과 도구 호출에 따라 다르게 셉니다.</li>
+      <li><strong>Make:</strong> 모듈이 수행한 동작마다 크레딧을 씁니다. 대부분 동작은 1크레딧이고, 일부 AI 기능은 더 씁니다.</li>
+      <li><strong>n8n:</strong> 워크플로가 한 번 실행된 것을 1회로 셉니다. 단계가 몇 개든 실행 횟수만 셉니다. 직접 설치한 경우에는 실행 횟수 대신 서버 비용과 관리 시간이 듭니다.</li>
+    </ul>
+    <p>그래서 <strong>단계가 적고 자주 돌지 않는 자동화</strong>는 어느 도구든 부담이 크지 않지만, <strong>단계가 많고 자주 도는 자동화</strong>는 도구에 따라 사용량이 크게 달라질 수 있습니다. 비용을 정하는 다른 요소는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 자동화 비용 글</a>에 정리했습니다.</p>
+
+    <h3>직접 설치(셀프 호스팅)</h3>
+    <p>n8n은 우리 서버에 직접 설치할 수 있어서 <strong>데이터가 우리가 관리하는 서버 안에서 처리</strong>되도록 만들 수 있습니다. 개인정보나 내부 자료를 다루는 자동화에서 장점이 될 수 있습니다. 대신 설치, 업데이트, 백업, 보안 점검을 누군가 맡아야 합니다. n8n 공식 문서도 직접 설치에는 기술 지식이 필요하다고 안내합니다. 관리할 사람이 없다면 클라우드 버전이 더 안전한 선택일 수 있습니다.</p>
+
+    <h3>국내 서비스 연결</h3>
+    <p>세 도구 모두 해외 서비스를 중심으로 연결 모듈을 갖추고 있습니다. 쓰는 국내 서비스(메신저, 예약·결제 서비스, 그룹웨어 등)가 기본 연결 목록에 없을 수 있으니 미리 확인하세요. 목록에 없어도 해당 서비스가 API나 웹훅을 제공하면 HTTP 요청 단계로 연결할 수 있는 경우가 많지만, 설정이 조금 더 어렵습니다.</p>
+
+    <h2 id="choose">고르는 질문 5가지</h2>
+    <ol>
+      <li><strong>쓰는 앱이 연결되는가?</strong> 지금 쓰는 메일, 폼, 스프레드시트, 메신저, 예약 서비스가 기본 연결 목록에 있는지 먼저 확인합니다. 가장 먼저 걸러지는 기준입니다.</li>
+      <li><strong>누가 만들고 관리하는가?</strong> 기술에 익숙하지 않은 담당자가 직접 만들고 고칠 거라면 시작이 쉬운 도구가 좋습니다. 외부 파트너나 개발자가 함께한다면 선택 폭이 넓어집니다.</li>
+      <li><strong>흐름이 얼마나 복잡한가?</strong> “A가 오면 B를 한다” 정도라면 어느 도구든 충분합니다. 조건에 따라 여러 갈래로 나뉘거나 AI가 여러 도구를 골라 쓰는 흐름이라면 Make나 n8n이 편할 수 있습니다.</li>
+      <li><strong>얼마나 자주, 몇 단계로 도는가?</strong> 예상 실행 횟수와 단계 수를 대략 적어 보고, 각 도구의 셈법으로 사용량을 비교해 봅니다.</li>
+      <li><strong>어떤 데이터를 다루는가?</strong> 고객 개인정보나 민감한 내부 자료가 흐른다면 데이터가 어디서 처리되고 얼마나 보관되는지 확인합니다. 직접 설치가 필요한지도 이때 판단합니다(<a href="https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html">개인정보 글</a> 참고).</li>
+    </ol>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 처음이라면 <strong>쓰는 앱이 연결되는 도구 중 가장 쉬운 것</strong>으로 업무 하나를 자동화해 보세요. 도구는 나중에 바꿀 수 있지만, 자동화에 익숙해지는 경험은 그대로 남습니다.</p></div>
+
+    <h2 id="tips">어떤 도구든 지킬 것</h2>
+    <ul class="checklist">
+      <li>자동화 계정은 개인이 아닌 단체 명의로 만들고, 관리자를 두 명 이상 둔다</li>
+      <li>자동화마다 목적, 연결된 앱, 단계, 담당자를 문서로 남긴다</li>
+      <li>오류가 나면 담당자에게 알림이 가도록 설정한다</li>
+      <li>사용량을 주기적으로 확인해 예상치 못한 초과를 막는다</li>
+      <li>개인정보는 필요한 만큼만 넘기고, 외부로 나가는 결과는 사람이 확인한다</li>
+    </ul>
+    <p>특히 문서화는 도구를 바꿀 때 큰 차이를 만듭니다. 세 도구 사이에 자동화를 그대로 옮기는 기능은 없어서 대부분 새로 만들어야 하는데, 흐름이 정리되어 있으면 다시 만드는 일이 훨씬 수월합니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>n8n, Make, Zapier 중 무엇이 가장 좋나요?</summary><p>모두에게 가장 좋은 도구는 없습니다. 빠르게 시작하는 것이 중요하면 Zapier, 여러 갈래로 나뉘는 흐름을 화면에서 보며 만들고 싶다면 Make, 직접 설치해 데이터를 관리하거나 복잡한 AI 워크플로를 만들고 싶다면 n8n이 잘 맞는 편입니다. 쓰는 앱, 자동화 규모, 다룰 데이터, 관리할 사람을 기준으로 고르는 것이 좋습니다.</p></details>
+      <details><summary>n8n은 무료인가요?</summary><p>n8n 공식 문서에 따르면 직접 설치해 쓰는 Community 버전은 무료입니다. 다만 서버 비용과 설치·업데이트·백업을 맡을 사람이 필요합니다. n8n이 관리해 주는 클라우드 버전은 유료 요금제로 운영됩니다. 요금과 조건은 바뀔 수 있으니 공식 요금 페이지를 확인하세요.</p></details>
+      <details><summary>개발자가 없어도 쓸 수 있나요?</summary><p>세 도구 모두 코드 없이 화면에서 단계를 연결해 만들 수 있습니다. 처음 쓰는 사람에게는 Zapier가 가장 진입이 쉬운 편이고, Make와 n8n은 익숙해지는 데 시간이 조금 더 걸립니다. n8n을 직접 설치해 쓰려면 서버를 다룰 수 있는 기술 지식이 필요합니다.</p></details>
+      <details><summary>자동화 툴 요금은 어떻게 계산되나요?</summary><p>세는 단위가 다릅니다. Zapier는 완료된 작업 단계를 태스크로, Make는 모듈이 수행한 동작을 크레딧으로 세고, n8n은 워크플로가 한 번 실행된 것을 1회로 셉니다. 그래서 단계가 많은 자동화일수록 도구 간 사용량 차이가 커질 수 있습니다. 정확한 계산 방식과 요금은 각 서비스의 공식 요금 페이지에서 확인하세요.</p></details>
+      <details><summary>나중에 다른 도구로 옮길 수 있나요?</summary><p>옮길 수는 있지만 자동으로 변환되지는 않아 대부분 새로 만들어야 합니다. 그래서 처음부터 자동화마다 목적, 연결된 앱, 단계, 담당자를 문서로 남겨 두면 도구를 바꿀 때 부담이 훨씬 줄어듭니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>AI로 자동화할 수 있는 업무 10가지</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/ai-automation-examples.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/ai-automation-examples.html</guid>
+   <pubDate>Wed, 28 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI로 무엇을 자동화할 수 있을까요? 반복 문의 응대, 문의 분류, 홍보 문구 초안, 번역, 회의록 정리, 보고서 초안, 설문 분석, 정산 자료 정리까지 예술 단체와 작은 비즈니스가 바로 쓸 수 있는 AI 업무 자동화 사례 10가지와 시작하는 순서를 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>자동화하기 좋은 일은 <strong>자주 반복되고, 규칙이 분명하고, 틀려도 쉽게 고칠 수 있는 일</strong>입니다.</li>
+        <li>고객 응대, 홍보·콘텐츠, 운영·행정에서 <strong>AI가 초안을 만들고 사람이 확인하는 일</strong>부터 시작하면 안전합니다.</li>
+        <li>한 번에 바꾸지 말고 <strong>업무 하나를 골라 작게</strong> 시작한 뒤, 효과를 확인하며 넓혀 갑니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="fit">자동화하기 좋은 일의 조건</h2>
+    <p>AI 자동화는 “사람이 하던 일을 통째로 넘기는 것”보다 <strong>반복되는 부분을 덜어 내고 사람은 판단에 집중하는 것</strong>에 가깝습니다. 다음 네 가지에 많이 해당할수록 자동화하기 좋은 일입니다.</p>
+    <ul>
+      <li><strong>자주 반복된다:</strong> 매일, 매주 비슷한 형태로 돌아오는 일</li>
+      <li><strong>규칙이 분명하다:</strong> “이런 문의는 이 담당자에게”처럼 기준을 말로 설명할 수 있는 일</li>
+      <li><strong>입력이 글이나 데이터다:</strong> 메일, 폼, 문서, 스프레드시트, 녹음처럼 AI가 읽을 수 있는 형태</li>
+      <li><strong>틀려도 쉽게 고칠 수 있다:</strong> 결과를 사람이 확인하거나 되돌릴 수 있는 일</li>
+    </ul>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="어디부터 자동화할까: 가로축은 얼마나 자주 하는지, 세로축은 규칙이 얼마나 분명한지. 자주 하고 규칙이 분명한 일은 먼저 자동화, 자주 하지만 판단이 필요한 일은 AI 초안과 사람 확인, 가끔 하고 규칙이 분명한 일은 템플릿으로, 가끔 하고 판단이 필요한 일은 사람이" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">어디부터 자동화할까</text>
+            <rect x="40" y="36" width="132" height="104" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <rect x="176" y="36" width="132" height="104" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+            <rect x="40" y="144" width="132" height="104" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <rect x="176" y="144" width="132" height="104" rx="10" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+            <g text-anchor="middle">
+              <text x="106" y="84" fill="#efedf5" font-size="13" font-weight="700">템플릿으로</text>
+              <text x="106" y="104" fill="#8b879b" font-size="11">양식·예시 문구 준비</text>
+              <text x="242" y="84" fill="#ffb3c6" font-size="13" font-weight="700">먼저 자동화</text>
+              <text x="242" y="104" fill="#bcb8c9" font-size="11">문의 분류, 확인 안내</text>
+              <text x="106" y="192" fill="#efedf5" font-size="13" font-weight="700">사람이</text>
+              <text x="106" y="212" fill="#8b879b" font-size="11">기획, 캐스팅, 심사</text>
+              <text x="242" y="192" fill="#c9bdff" font-size="13" font-weight="700">AI 초안 + 사람 확인</text>
+              <text x="242" y="212" fill="#bcb8c9" font-size="11">홍보 문구, 보고서</text>
+            </g>
+            <text x="174" y="270" text-anchor="middle" fill="#bcb8c9" font-size="11.5">가끔 한다  ←  얼마나 자주  →  자주 한다</text>
+            <text x="20" y="142" text-anchor="middle" fill="#bcb8c9" font-size="11.5" transform="rotate(-90 20 142)">판단 필요  ←  규칙  →  분명</text>
+            <text x="160" y="292" text-anchor="middle" fill="#8b879b" font-size="12">오른쪽 위부터 시작합니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="문의 자동화 흐름 예시: 문의 접수, AI가 분류하고 요약, 담당자에게 알림과 답변 초안, 사람이 확인하고 답변. 사람이 확인하는 단계가 마지막에 있습니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">예시 · 문의 자동화 흐름</text>
+            <g font-size="13" text-anchor="middle">
+              <rect x="40" y="38" width="200" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <text x="140" y="63" fill="#efedf5">문의 폼 · 메일 접수</text>
+              <rect x="40" y="98" width="200" height="40" rx="10" fill="#17142a" stroke="#a487ff"/>
+              <text x="140" y="123" fill="#c9bdff" font-weight="700">AI가 분류 · 요약</text>
+              <rect x="40" y="158" width="200" height="40" rx="10" fill="#17142a" stroke="#a487ff"/>
+              <text x="140" y="183" fill="#c9bdff" font-weight="700">담당자 알림 + 답변 초안</text>
+              <rect x="40" y="218" width="200" height="40" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+              <text x="140" y="243" fill="#ffb3c6" font-weight="700">사람이 확인하고 답변</text>
+            </g>
+            <g stroke="rgba(239,237,245,.4)" stroke-width="1.5" fill="none">
+              <path d="M140 80 V94"/><path d="M135 89 L140 95 L145 89"/>
+              <path d="M140 140 V154"/><path d="M135 149 L140 155 L145 149"/>
+              <path d="M140 200 V214"/><path d="M135 209 L140 215 L145 209"/>
+            </g>
+            <g font-size="11.5" font-weight="700">
+              <text x="252" y="123" fill="#c9bdff">AI</text>
+              <text x="252" y="183" fill="#c9bdff">AI</text>
+              <text x="252" y="243" fill="#ffb3c6">사람</text>
+            </g>
+            <text x="160" y="288" text-anchor="middle" fill="#8b879b" font-size="12">반복은 AI가, 판단은 사람이</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>자동화 순서를 정하는 기준과 문의 자동화의 흐름 예시입니다. 처음에는 마지막 단계에 늘 사람이 있습니다.</figcaption>
+    </figure>
+
+    <h2 id="cs">고객 응대 자동화 3가지</h2>
+    <h3>1. 반복 문의에 답하기</h3>
+    <p>공연 시간, 위치, 주차, 환불 규정처럼 매번 같은 질문에 홈페이지나 메신저 챗봇이 답합니다. 우리 자료를 근거로 답하는 RAG 방식이면 정확도를 높일 수 있습니다. 만드는 순서는 <a href="https://www.thejmstudio.co.kr/deep-ai/website-ai-chatbot.html">홈페이지 AI 챗봇 글</a>, 자료 준비는 <a href="https://www.thejmstudio.co.kr/deep-ai/chatbot-data-prep.html">챗봇 자료 정리 글</a>에 정리했습니다.</p>
+    <p><strong>사람이 할 일:</strong> 챗봇이 답하지 못한 질문 확인, 자료 업데이트</p>
+    <h3>2. 문의 분류하고 담당자에게 넘기기</h3>
+    <p>문의 폼이나 메일로 들어온 내용을 AI가 읽고 “대관 / 수강 / 협업 / 항의”처럼 분류한 뒤, 요약과 함께 담당자에게 알림을 보냅니다. 답변 초안까지 붙여 주면 담당자는 확인하고 보내기만 하면 됩니다.</p>
+    <p><strong>사람이 할 일:</strong> 답변 확인과 발송, 분류가 틀린 경우 바로잡기</p>
+    <h3>3. 신청·예약 확인 안내 보내기</h3>
+    <p>수강 신청이나 대관 신청이 들어오면 접수 확인 메일을 보내고, 일정이 다가오면 준비물과 오시는 길을 담은 안내를 보냅니다. 엄밀히는 AI보다 정해진 규칙에 따른 자동화에 가깝지만, 신청 내용에 맞춰 안내 문구를 다듬는 데 AI를 함께 쓸 수 있습니다.</p>
+    <p><strong>사람이 할 일:</strong> 안내 문구와 일정 정보를 처음 한 번 확인</p>
+
+    <h2 id="content">홍보·콘텐츠 자동화 3가지</h2>
+    <h3>4. 홍보 문구 초안 만들기</h3>
+    <p>공연·전시 정보를 넣으면 인스타그램 캡션, 뉴스레터, 보도자료의 초안을 채널별 분량과 말투에 맞춰 만듭니다. 단체의 말투를 보여 주는 지난 글 몇 편을 예시로 주면 결과가 훨씬 자연스러워집니다.</p>
+    <p><strong>사람이 할 일:</strong> 사실 확인(날짜, 장소, 출연진, 가격), 단체다운 표현으로 다듬기</p>
+    <h3>5. 번역 초안 만들기</h3>
+    <p>작품 소개, 아티스트 노트, 해외 관객 안내를 영어나 다른 언어로 옮기는 초안을 만듭니다. 고유명사와 작품 제목의 공식 표기를 미리 정해 두면 일관성이 좋아집니다.</p>
+    <p><strong>사람이 할 일:</strong> 고유명사와 뉘앙스 확인, 중요한 글은 해당 언어를 아는 사람의 검토</p>
+    <h3>6. 콘텐츠 다시 쓰기</h3>
+    <p>긴 인터뷰나 공연 해설을 요약하고, 블로그 글을 SNS 카드 문구로, 프로그램북 내용을 홈페이지 소개 글로 바꿉니다. 한 번 만든 콘텐츠를 여러 채널에 맞게 다시 쓰는 일이 줄어듭니다.</p>
+    <p><strong>사람이 할 일:</strong> 원문 의도가 바뀌지 않았는지 확인</p>
+
+    <h2 id="ops">운영·행정 자동화 4가지</h2>
+    <h3>7. 회의록 정리하기</h3>
+    <p>회의 녹음이나 메모를 넣으면 결정 사항, 할 일, 담당자, 기한을 정리합니다. 정리된 할 일을 업무 도구나 공유 문서로 바로 보낼 수도 있습니다.</p>
+    <p><strong>사람이 할 일:</strong> 결정 사항과 담당자가 맞는지 확인. 녹음 전 참석자 동의 받기</p>
+    <h3>8. 보고서 초안 만들기</h3>
+    <p>지원사업 결과보고서, 사업 실적 정리처럼 형식이 정해진 문서의 초안을 실적 자료와 사진 설명, 관객 반응을 바탕으로 만듭니다. 빈 화면에서 시작하지 않아도 됩니다.</p>
+    <p><strong>사람이 할 일:</strong> 수치와 사실 확인, 제출 기관의 양식과 규정 확인. 최종 문서는 반드시 사람이 책임지고 작성</p>
+    <h3>9. 설문 응답 분석하기</h3>
+    <p>관객 설문이나 수강생 후기의 주관식 응답을 주제별로 묶고, 자주 나온 의견과 대표 문장을 뽑아 요약합니다. 응답을 하나씩 읽고 분류하는 시간을 줄일 수 있습니다.</p>
+    <p><strong>사람이 할 일:</strong> 분류가 맞는지 표본으로 확인, 결론은 사람이 판단. 응답자 개인정보는 빼고 분석</p>
+    <h3>10. 영수증·정산 자료 정리하기</h3>
+    <p>영수증 사진이나 PDF에서 날짜, 거래처, 금액, 항목을 뽑아 스프레드시트로 정리합니다. 정산 시즌에 영수증을 하나씩 옮겨 적는 일을 덜 수 있습니다.</p>
+    <p><strong>사람이 할 일:</strong> 금액과 항목을 원본과 대조. 돈과 관련된 결과는 그대로 믿지 않기</p>
+
+    <h2 id="table">한눈에 보기</h2>
+    <p>각 업무를 AI에게 어디까지 맡길지는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-agent-autonomy.html">AI 에이전트 권한 4단계</a>(알려주기 → 초안 만들기 → 실행 후 보고 → 혼자 처리)를 기준으로 정리했습니다. 처음에는 한 단계 낮게 시작하는 것이 안전합니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">업무</th><th scope="col">AI가 하는 일</th><th scope="col">처음 권장 단계</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">반복 문의 답변</th><td>자료에서 찾아 답하기</td><td>실행 후 보고</td></tr>
+          <tr><th scope="row">문의 분류·전달</th><td>읽고 분류, 요약, 답변 초안</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">신청 확인 안내</th><td>정해진 안내 발송</td><td>실행 후 보고</td></tr>
+          <tr><th scope="row">홍보 문구</th><td>채널별 초안 작성</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">번역</th><td>번역 초안</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">콘텐츠 다시 쓰기</th><td>요약, 형식 바꾸기</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">회의록</th><td>결정·할 일 정리</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">보고서</th><td>양식에 맞춘 초안</td><td>초안 만들기</td></tr>
+          <tr><th scope="row">설문 분석</th><td>주제별 묶기, 요약</td><td>알려주기</td></tr>
+          <tr><th scope="row">정산 자료</th><td>영수증 항목 추출</td><td>초안 만들기</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="start">어디서부터 시작할까</h2>
+    <ol>
+      <li><strong>일주일 동안 반복 업무를 적습니다.</strong> 무엇을, 얼마나 자주, 얼마나 오래 하는지 간단히 적으면 자동화할 후보가 보입니다.</li>
+      <li><strong>하나만 고릅니다.</strong> 자주 하고, 규칙이 분명하고, 시간이 많이 드는 일 하나를 고릅니다. 위 그림의 오른쪽 위에 있는 일입니다.</li>
+      <li><strong>사람이 확인하는 단계를 넣어 작게 만듭니다.</strong> 처음에는 AI가 초안을 만들고 사람이 확인해서 내보내는 구조로 시작합니다.</li>
+      <li><strong>효과를 확인합니다.</strong> 실제로 시간이 줄었는지, 고치는 데 시간이 더 들지는 않는지 몇 주 동안 지켜봅니다.</li>
+      <li><strong>넓혀 갑니다.</strong> 결과가 안정적이면 확인 범위를 줄이거나 다음 업무로 넘어갑니다.</li>
+    </ol>
+    <p>홍보 문구나 회의록처럼 문서를 다루는 일은 ChatGPT 같은 AI 서비스만으로도 바로 시작할 수 있습니다. 메일, 폼, 스프레드시트, 메신저를 이어 자동으로 흘러가게 하려면 워크플로 자동화가 필요합니다. 구조는 <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">Agent·Node·Tool 글</a>, 비용을 정하는 요소는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 자동화 비용 글</a>에 정리했습니다.</p>
+
+    <h2 id="not">자동화하지 않는 게 좋은 일</h2>
+    <ul>
+      <li><strong>관계가 중요한 대화:</strong> 후원자·협력 기관과의 연락, 항의와 민원 응대는 사람이 직접 하는 것이 좋습니다.</li>
+      <li><strong>최종 판단:</strong> 캐스팅, 심사, 채용, 작품 방향처럼 사람과 예술에 대한 판단은 AI의 몫이 아닙니다.</li>
+      <li><strong>돈이 나가는 일:</strong> 지급, 환불 처리, 계약은 AI가 정리를 도울 수는 있어도 실행은 사람이 합니다.</li>
+      <li><strong>민감한 정보:</strong> 건강, 신분, 금융 정보가 담긴 자료는 외부 AI 서비스에 넣기 전에 꼭 따져 봅니다(<a href="https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html">개인정보 글</a> 참고).</li>
+    </ul>
+    <div class="callout"><p><strong>한 줄 정리:</strong> AI 자동화의 목표는 사람을 빼는 것이 아니라 <strong>사람이 꼭 해야 하는 일에 시간을 돌려주는 것</strong>입니다.</p></div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>AI 업무 자동화는 무엇부터 시작하면 좋나요?</summary><p>자주 반복되고 규칙이 분명하며, 틀려도 쉽게 고칠 수 있는 일부터 시작하는 것이 좋습니다. 일주일 동안 반복하는 업무를 적어 보고, 그중 시간이 가장 많이 드는 일 하나를 골라 사람이 확인하는 단계를 넣어 작게 시작합니다.</p></details>
+      <details><summary>개발자가 없어도 AI 업무 자동화를 할 수 있나요?</summary><p>간단한 자동화는 가능합니다. 문서 초안이나 요약은 ChatGPT 같은 AI 서비스로 바로 할 수 있고, 메일·폼·스프레드시트를 잇는 자동화는 노코드 자동화 도구로 만들 수 있습니다. 여러 시스템을 연결하거나 개인정보를 다루는 자동화는 설계와 점검이 더 필요합니다.</p></details>
+      <details><summary>AI가 만든 결과를 그대로 써도 되나요?</summary><p>대부분의 업무에서는 초안으로 보고 사람이 확인한 뒤 쓰는 것이 좋습니다. 특히 날짜·금액·이름 같은 사실 정보와 외부로 나가는 글은 반드시 확인합니다. 결과가 안정적으로 맞는 것이 확인된 일부터 사람이 확인하는 범위를 줄여 갑니다.</p></details>
+      <details><summary>작은 단체나 1인 비즈니스도 AI 자동화가 도움이 되나요?</summary><p>도움이 될 수 있습니다. 인원이 적을수록 한 사람이 문의 응대, 홍보, 행정을 모두 맡는 경우가 많아 반복 업무를 덜어 낼 때 체감이 클 수 있습니다. 처음부터 큰 시스템을 만들기보다 업무 하나를 골라 작게 시작하는 것이 좋습니다.</p></details>
+      <details><summary>AI 자동화에 고객 정보를 넣어도 되나요?</summary><p>필요한 정보만 최소한으로 넣고, 사용하는 AI 서비스의 데이터 처리 방식과 보관 기간을 확인해야 합니다. 개인정보를 외부 AI 서비스로 보내는 경우 개인정보 처리방침에 반영해야 할 수 있으므로, 개인정보가 들어가는 자동화는 설계 단계에서 따로 점검하는 것이 좋습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>챗봇에 넣을 자료는 어떻게 정리할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/chatbot-data-prep.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/chatbot-data-prep.html</guid>
+   <pubDate>Wed, 28 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 챗봇의 답은 넣은 자료만큼 정확합니다. 챗봇에 넣을 자료와 빼야 할 자료, AI가 자료를 조각으로 읽는 방식, 자료 정리 원칙 7가지, 파일 형식과 업데이트 관리, 도입 전 체크리스트까지 RAG 챗봇 데이터 준비 방법을 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>RAG 챗봇은 자료를 외우는 것이 아니라 <strong>질문마다 자료에서 찾아 답합니다.</strong> 자료가 틀리면 답도 틀립니다.</li>
+        <li>넣을 것은 <strong>FAQ·이용 안내·규정의 최신본</strong>, 뺄 것은 <strong>개인정보·내부 문서·지난 자료·확정되지 않은 초안</strong>입니다.</li>
+        <li>정리의 핵심은 <strong>주제마다 최신본 하나, 한 문서에 한 주제, 질문과 답의 형태</strong>입니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="why">왜 자료가 답을 정할까</h2>
+    <p>홈페이지 상담용 챗봇은 대부분 <a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">RAG 방식</a>으로 만듭니다. 질문이 오면 우리 자료에서 관련 부분을 찾고, 그 내용을 근거로 답을 만드는 방식입니다. 흔히 “챗봇 학습 데이터”라고 부르지만, RAG 챗봇에서는 AI가 자료를 외우는 것이 아니라 <strong>답할 때마다 펼쳐 보는 참고 자료</strong>에 가깝습니다(차이는 <a href="https://www.thejmstudio.co.kr/deep-ai/fine-tuning-vs-rag.html">파인튜닝 vs RAG 글</a>에 정리했습니다).</p>
+    <p>그래서 자료의 상태가 곧 답의 상태입니다. 보면대에 지난 시즌 악보를 올려 두면, 연주자는 틀린 음을 아주 정확하게 연주합니다. AI 모델이 아무리 좋아도 자료가 오래되었거나 서로 다르면 챗봇은 그럴듯하게 틀린 답을 합니다.</p>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 챗봇의 정확도를 가장 크게 올리는 일은 더 좋은 AI 모델을 고르는 것보다 <strong>자료를 정리하는 것</strong>인 경우가 많습니다.</p></div>
+
+    <h2 id="how">AI는 자료를 조각으로 읽습니다</h2>
+    <p>RAG 챗봇은 긴 문서를 통째로 읽지 않습니다. 문서를 문단 단위의 작은 <strong>조각</strong>으로 나눠 두었다가, 질문이 오면 질문과 가장 관련 있는 조각 몇 개만 꺼내 답을 만듭니다. 자료를 정리하는 원칙 대부분이 여기서 나옵니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="문서가 네 개의 조각으로 나뉘어 있고, 질문 '당일 취소 되나요?'에 맞는 조각 하나만 꺼내져 답의 근거가 됩니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">문서는 조각으로 나뉘어 검색됩니다</text>
+            <rect x="16" y="38" width="150" height="222" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <text x="28" y="58" fill="#efedf5" font-size="11.5" font-weight="700">이용 안내 문서</text>
+            <g font-size="11" fill="#bcb8c9">
+              <rect x="26" y="68" width="130" height="40" rx="6" fill="#1b1a26" stroke="rgba(239,237,245,.18)" stroke-dasharray="4 3"/><text x="36" y="92">운영 시간</text>
+              <rect x="26" y="114" width="130" height="40" rx="6" fill="#1b1a26" stroke="rgba(239,237,245,.18)" stroke-dasharray="4 3"/><text x="36" y="138">오시는 길 · 주차</text>
+              <rect x="26" y="160" width="130" height="40" rx="6" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/><text x="36" y="184" fill="#ffb3c6" font-weight="700">취소 · 환불 규정</text>
+              <rect x="26" y="206" width="130" height="40" rx="6" fill="#1b1a26" stroke="rgba(239,237,245,.18)" stroke-dasharray="4 3"/><text x="36" y="230">관람 연령</text>
+            </g>
+            <rect x="186" y="62" width="122" height="48" rx="10" fill="#17142a" stroke="#a487ff"/>
+            <text x="247" y="82" text-anchor="middle" fill="#c9bdff" font-size="11">질문</text>
+            <text x="247" y="99" text-anchor="middle" fill="#efedf5" font-size="12" font-weight="700">당일 취소 되나요?</text>
+            <path d="M247 112 V170 H172" fill="none" stroke="#a487ff" stroke-width="1.6" stroke-dasharray="5 4"/>
+            <path d="M178 165 L170 170 L178 175" fill="none" stroke="#a487ff" stroke-width="1.6"/>
+            <path d="M158 190 Q170 224 180 224" fill="none" stroke="#ff3a52" stroke-width="1.6"/>
+            <path d="M175 219 L182 224 L175 229" fill="none" stroke="#ff3a52" stroke-width="1.6"/>
+            <rect x="186" y="200" width="122" height="48" rx="10" fill="#1d1420" stroke="#ff3a52"/>
+            <text x="247" y="220" text-anchor="middle" fill="#ffb3c6" font-size="11">답의 근거</text>
+            <text x="247" y="237" text-anchor="middle" fill="#efedf5" font-size="12" font-weight="700">이 조각 하나</text>
+            <text x="160" y="286" text-anchor="middle" fill="#8b879b" font-size="12">조각 하나만 읽어도 뜻이 통해야 합니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="정리 전: 환불규정_최종.hwp, 환불규정_최종2.pdf, 포스터.jpg, 카톡 공지 캡처처럼 흩어진 자료. 정리 후: 이용 안내, 취소·환불 규정, 공연·프로그램 안내 세 문서에 각각 수정일이 표시됨" font-family="Pretendard, system-ui, sans-serif">
+            <text x="80" y="22" text-anchor="middle" fill="#ffb3c6" font-size="13" font-weight="700">정리 전</text>
+            <text x="240" y="22" text-anchor="middle" fill="#c9bdff" font-size="13" font-weight="700">정리 후</text>
+            <g font-size="11" fill="#bcb8c9">
+              <rect x="14" y="40" width="132" height="34" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" transform="rotate(-3 80 57)"/><text x="24" y="61" transform="rotate(-3 80 57)">환불규정_최종.hwp</text>
+              <rect x="18" y="86" width="132" height="34" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" transform="rotate(2 84 103)"/><text x="28" y="107" transform="rotate(2 84 103)">환불규정_최종2.pdf</text>
+              <rect x="12" y="132" width="132" height="34" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" transform="rotate(-2 78 149)"/><text x="22" y="153" transform="rotate(-2 78 149)">가을공연_포스터.jpg</text>
+              <rect x="16" y="178" width="132" height="34" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" transform="rotate(3 82 195)"/><text x="26" y="199" transform="rotate(3 82 195)">카톡 공지 캡처</text>
+              <rect x="14" y="224" width="132" height="34" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" transform="rotate(-1 80 241)"/><text x="24" y="245" transform="rotate(-1 80 241)">작년 FAQ.docx</text>
+            </g>
+            <g>
+              <rect x="174" y="52" width="134" height="56" rx="9" fill="#17142a" stroke="#a487ff"/>
+              <text x="186" y="76" fill="#efedf5" font-size="12" font-weight="700">이용 안내</text><text x="186" y="95" fill="#8b879b" font-size="10.5">수정 2026.10.01</text>
+              <rect x="174" y="118" width="134" height="56" rx="9" fill="#17142a" stroke="#a487ff"/>
+              <text x="186" y="142" fill="#efedf5" font-size="12" font-weight="700">취소 · 환불 규정</text><text x="186" y="161" fill="#8b879b" font-size="10.5">수정 2026.09.01</text>
+              <rect x="174" y="184" width="134" height="56" rx="9" fill="#17142a" stroke="#a487ff"/>
+              <text x="186" y="208" fill="#efedf5" font-size="12" font-weight="700">공연 · 프로그램</text><text x="186" y="227" fill="#8b879b" font-size="10.5">수정 2026.10.15</text>
+            </g>
+            <text x="160" y="286" text-anchor="middle" fill="#8b879b" font-size="12">주제마다 최신본 하나, 날짜와 함께</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>왼쪽은 RAG 챗봇이 자료를 찾는 방식, 오른쪽은 정리 전후의 자료 모습입니다. 흩어진 파일을 주제별 최신본으로 모으는 것이 정리의 시작입니다.</figcaption>
+    </figure>
+
+    <h2 id="what">넣을 자료와 뺄 자료</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">넣을 자료</th><th scope="col">빼야 할 자료</th></tr></thead>
+        <tbody>
+          <tr><td>자주 묻는 질문과 답</td><td>개인정보가 담긴 문서 (명단, 신청서, 상담 기록)</td></tr>
+          <tr><td>이용 안내: 운영 시간, 위치, 주차, 관람 연령</td><td>내부 회의록, 메모, 정산 자료</td></tr>
+          <tr><td>규정: 예매 취소·환불, 수강 변경, 대관 조건</td><td>계약서, 개별 견적서</td></tr>
+          <tr><td>공연·전시·프로그램 소개와 출연진</td><td>확정되지 않은 일정과 초안</td></tr>
+          <tr><td>단체 소개, 연락처, 문의 방법</td><td>지난 시즌 자료 (보관은 따로)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>기준은 하나입니다. <strong>관객에게 그대로 보여 줘도 괜찮은 최신 정보인가.</strong> 챗봇이 참고하는 자료는 답변에 그대로 인용될 수 있습니다. 개인정보를 다루는 원칙은 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html">AI 챗봇과 개인정보 글</a>에서 자세히 볼 수 있습니다.</p>
+
+    <h2 id="rules">자료 정리 원칙 7가지</h2>
+    <ol>
+      <li><strong>주제마다 최신본 하나만.</strong> “최종”, “최종2”, “진짜최종”이 함께 있으면 챗봇은 어느 쪽을 믿어야 할지 모릅니다. 같은 주제는 하나만 남기고 지난 버전은 챗봇이 보지 않는 곳에 보관합니다.</li>
+      <li><strong>한 문서에 한 주제.</strong> 환불 규정과 주차 안내가 한 문단에 섞이면 찾기도, 고치기도 어렵습니다.</li>
+      <li><strong>질문과 답의 형태로.</strong> “당일 취소가 되나요?” 같은 실제 질문을 소제목으로 두고 바로 아래에 답을 씁니다. 질문과 자료가 잘 맞아떨어집니다.</li>
+      <li><strong>조각 하나만 읽어도 통하게.</strong> “위 내용 참고”, “앞서 말한 기준” 같은 표현 대신 필요한 내용을 그 문단에 직접 씁니다. AI는 앞뒤 문단을 함께 보지 못할 수 있습니다.</li>
+      <li><strong>이미지 속 글자는 글로.</strong> 포스터, 안내판 사진, 스캔 문서의 내용은 글로 옮깁니다. 표는 칸을 합치지 않은 단순한 형태가 좋습니다.</li>
+      <li><strong>날짜와 적용 기간 표시.</strong> “2026 가을 시즌 기준”, “2026년 9월 1일 수정”처럼 언제의 정보인지 밝힙니다. 챗봇이 답할 때 함께 알려 줄 수도 있습니다.</li>
+      <li><strong>용어 통일.</strong> “대관”, “공간 대여”, “렌탈”이 섞여 있으면 하나로 정하고, 다른 표현은 “공간 대여(대관)”처럼 함께 적어 둡니다.</li>
+    </ol>
+
+    <h2 id="before">정리 전과 후</h2>
+    <p>같은 질문이라도 자료 상태에 따라 챗봇의 답이 이렇게 달라집니다. 아래는 이해를 돕기 위한 예시입니다.</p>
+    <div class="chat-cmp">
+      <div class="chat bad">
+        <span class="who">정리하지 않은 자료</span>
+        <div class="bubble q">공연 당일에도 취소할 수 있나요?</div>
+        <div class="bubble a">공연 하루 전까지 취소할 수 있습니다. 공연 당일에도 수수료를 내면 취소할 수 있습니다.</div>
+        <p class="note">작년 규정과 올해 규정이 함께 들어 있어 두 내용을 섞어 답했습니다.</p>
+      </div>
+      <div class="chat good">
+        <span class="who">정리한 자료</span>
+        <div class="bubble q">공연 당일에도 취소할 수 있나요?</div>
+        <div class="bubble a">2026 가을 시즌은 공연 하루 전 오후 5시까지 취소할 수 있고, 공연 당일에는 취소가 어렵습니다. 부득이한 사정이 있다면 담당자에게 문의해 주세요.<span class="src">출처: 취소·환불 규정 (2026.09.01 수정)</span></div>
+        <p class="note">최신본 하나만 있어 답이 분명하고, 출처와 날짜를 함께 보여 줍니다.</p>
+      </div>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">정리 전</th><th scope="col">정리 후</th></tr></thead>
+        <tbody>
+          <tr><td>환불규정_최종_진짜최종.hwp</td><td>취소·환불 규정 (2026 가을 시즌, 9월 1일 수정)</td></tr>
+          <tr><td>“자세한 내용은 문의 주세요”</td><td>기준을 글로 쓰고, 예외만 담당자 연결</td></tr>
+          <tr><td>“위 내용을 참고하세요”</td><td>필요한 내용을 그 문단에 다시 씀</td></tr>
+          <tr><td>운영 시간은 포스터 이미지에만</td><td>본문에 “화–일 오전 11시–오후 7시”처럼 글로</td></tr>
+          <tr><td>“일정은 추후 공지 예정”</td><td>확정된 뒤에 넣고, 그 전에는 “미정”으로 명시</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="format">파일 형식은 무엇이 좋을까</h2>
+    <p>워드, 구글 문서, 텍스트로 된 PDF, 웹페이지처럼 <strong>글자를 선택하고 복사할 수 있는 형식</strong>이면 대부분 쓸 수 있습니다. 한글(HWP) 파일은 사용하는 도구에 따라 다른 형식으로 바꿔야 할 수 있습니다. 주의할 것은 세 가지입니다.</p>
+    <ul>
+      <li><strong>스캔 PDF와 이미지:</strong> 글자를 그대로 읽기 어렵습니다. 내용을 글로 옮겨 둡니다.</li>
+      <li><strong>복잡한 표:</strong> 칸이 합쳐진 표는 변환하면서 순서가 뒤섞일 수 있습니다. 변환 후 내용을 꼭 확인합니다.</li>
+      <li><strong>홈페이지 내용:</strong> 이미 홈페이지에 정리된 안내가 있다면 그대로 자료로 쓸 수 있습니다. 홈페이지와 챗봇이 같은 원본을 보면 관리도 한 번에 끝납니다.</li>
+    </ul>
+    <p>참고로 이 원칙들은 검색엔진과 AI 검색이 홈페이지를 읽을 때도 거의 그대로 통합니다(<a href="https://www.thejmstudio.co.kr/deep-ai/seo-vs-geo.html">SEO와 GEO 글</a> 참고). 잘 정리한 자료는 챗봇과 검색 모두에 쓰입니다.</p>
+
+    <h2 id="keep">만든 뒤의 관리</h2>
+    <p>RAG 챗봇의 장점은 <strong>자료만 바꾸면 답이 바뀐다</strong>는 것입니다. 반대로 말하면 자료를 바꾸지 않으면 답도 바뀌지 않습니다.</p>
+    <ul>
+      <li><strong>담당자 정하기:</strong> 일정·가격·규정이 바뀔 때 챗봇 자료도 함께 고칠 사람을 정합니다.</li>
+      <li><strong>순서 정하기:</strong> 홈페이지 공지를 올릴 때 챗봇 자료도 함께 바꾸는 식으로, 바뀌는 순간의 순서를 정해 둡니다.</li>
+      <li><strong>시즌마다 점검:</strong> 시즌이 바뀔 때 지난 자료를 내리고 새 자료를 넣습니다.</li>
+      <li><strong>대화 기록 보기:</strong> 챗봇이 답하지 못했거나 틀린 질문을 모아 자료의 빈 곳을 채웁니다. 도입 순서 전체는 <a href="https://www.thejmstudio.co.kr/deep-ai/website-ai-chatbot.html">홈페이지 AI 챗봇 글</a>에 정리했습니다.</li>
+    </ul>
+
+    <h2 id="check">도입 전 체크리스트</h2>
+    <ul class="checklist">
+      <li>자주 받는 질문 목록이 있고, 각 질문에 답할 자료가 있다</li>
+      <li>주제마다 최신본이 하나만 있고, 지난 자료는 따로 보관했다</li>
+      <li>개인정보, 내부 문서, 확정되지 않은 내용은 뺐다</li>
+      <li>이미지와 스캔 문서 속 정보를 글로 옮겼다</li>
+      <li>문서마다 적용 기간이나 수정일이 적혀 있다</li>
+      <li>같은 대상을 부르는 용어가 하나로 통일되어 있다</li>
+      <li>자료가 바뀔 때 업데이트할 담당자와 순서가 정해져 있다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>챗봇에 넣을 자료는 얼마나 많아야 하나요?</summary><p>양보다 정확성이 중요합니다. 자주 받는 질문에 답할 수 있는 최신 자료가 있다면 작게 시작할 수 있습니다. 오래되거나 서로 다른 자료를 많이 넣으면 오히려 틀린 답이 늘어납니다.</p></details>
+      <details><summary>한글(HWP) 파일이나 PDF도 챗봇 자료로 쓸 수 있나요?</summary><p>글자를 선택하고 복사할 수 있는 문서라면 대부분 쓸 수 있지만, 사용하는 도구에 따라 HWP는 다른 형식으로 바꿔야 할 수 있습니다. 스캔한 PDF나 이미지 안의 글자는 그대로 읽기 어려워 글로 옮기는 것이 좋고, 표가 복잡한 문서는 변환 후 내용이 제대로 읽히는지 확인해야 합니다.</p></details>
+      <details><summary>자료를 넣으면 AI가 그 자료를 학습하나요?</summary><p>RAG 방식의 챗봇은 자료로 AI 모델을 다시 학습시키지 않고, 질문이 올 때마다 자료에서 관련 부분을 찾아 참고해서 답합니다. 흔히 학습 데이터라고 부르지만 실제로는 참고 자료에 가깝습니다. 다만 사용하는 AI 서비스가 입력된 데이터를 어떻게 다루는지는 서비스의 데이터 정책과 설정에서 따로 확인해야 합니다.</p></details>
+      <details><summary>일정이나 규정이 바뀌면 챗봇을 다시 만들어야 하나요?</summary><p>RAG 방식이라면 챗봇을 다시 만들 필요 없이 자료만 업데이트하면 답변에 반영됩니다. 그래서 자료가 바뀔 때 누가, 어떤 순서로 업데이트할지 미리 정해 두는 것이 중요합니다.</p></details>
+      <details><summary>자료끼리 내용이 서로 다르면 어떻게 되나요?</summary><p>챗봇이 어느 쪽을 근거로 삼을지 알 수 없어 두 내용을 섞거나 오래된 쪽으로 답할 수 있습니다. 같은 주제는 최신본 하나만 남기고, 지난 자료는 챗봇이 참고하지 않는 곳에 따로 보관하는 것이 좋습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>SEO와 GEO, 무엇이 다를까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/seo-vs-geo.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/seo-vs-geo.html</guid>
+   <pubDate>Tue, 27 Oct 2026 09:00:00 +0900</pubDate>
+   <description>SEO와 GEO(생성형 엔진 최적화)는 무엇이 다를까요? 검색 결과에 노출되는 SEO와 AI 답변에 인용되는 GEO의 차이, 둘이 겹치는 부분, AI가 인용하기 쉬운 글의 특징, 홈페이지에서 바로 할 수 있는 AI 검색 최적화 체크리스트를 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>SEO</strong>는 검색 결과 목록에 노출되는 것, <strong>GEO</strong>는 AI가 답할 때 근거로 인용되는 것입니다.</li>
+        <li>둘의 기반은 대부분 같습니다. <strong>검색엔진이 잘 읽는 페이지</strong>가 AI에게도 잘 읽힙니다.</li>
+        <li>GEO에서 더할 것은 <strong>질문에 바로 답하는 구성, 근거와 날짜, 명확한 구조</strong>입니다. 노출을 보장하는 방법은 없습니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="what">SEO와 GEO, 한 문장씩</h2>
+    <div class="defs">
+      <div class="def n"><span class="ic">S</span><div><h3>SEO<span>Search Engine Optimization · 검색 엔진 최적화</span></h3><p>구글·네이버 검색 결과 목록에 우리 페이지가 <strong>잘 노출되고 클릭되도록</strong> 하는 일입니다. 극장 로비 게시판에 우리 공연 포스터를 눈에 잘 띄는 자리에 붙이는 것과 비슷합니다.</p></div></div>
+      <div class="def a"><span class="ic">G</span><div><h3>GEO<span>Generative Engine Optimization · 생성형 엔진 최적화</span></h3><p>ChatGPT, 구글 AI 개요 같은 생성형 AI가 질문에 답할 때 우리 페이지를 <strong>근거로 삼고 출처로 인용하도록</strong> 하는 일입니다. 관객이 도슨트에게 “이 근처에 볼 만한 공연 있어요?”라고 물었을 때, 도슨트가 우리 공연을 정확하게 소개해 주는 것과 비슷합니다.</p></div></div>
+    </div>
+    <p>GEO라는 말은 2023년 생성형 검색을 다룬 연구 논문에서 쓰이면서 알려졌습니다. 비슷한 뜻으로 AEO(답변 엔진 최적화), AI 검색 최적화라는 말도 씁니다. 이름은 달라도 묻는 것은 하나입니다. <strong>AI가 답을 만들 때 우리 정보를 정확히 가져가는가.</strong></p>
+
+    <h2 id="diff">무엇이 같고 무엇이 다를까</h2>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="SEO는 검색 결과 목록에서 우리 링크가 몇 번째에 보이는지가 중요하고, GEO는 AI 답변 속에 우리 정보가 출처와 함께 인용되는지가 중요합니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="80" y="22" text-anchor="middle" fill="#c9bdff" font-size="13" font-weight="700">SEO · 검색 결과</text>
+            <text x="240" y="22" text-anchor="middle" fill="#ffb3c6" font-size="13" font-weight="700">GEO · AI 답변</text>
+            <g>
+              <rect x="12" y="36" width="136" height="44" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <rect x="22" y="47" width="80" height="7" rx="3" fill="#8b879b"/><rect x="22" y="61" width="112" height="6" rx="3" fill="#3b3555"/>
+              <rect x="12" y="88" width="136" height="44" rx="8" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+              <rect x="22" y="99" width="70" height="7" rx="3" fill="#a487ff"/><rect x="22" y="113" width="112" height="6" rx="3" fill="#5b4a8f"/>
+              <text x="140" y="104" text-anchor="end" fill="#c9bdff" font-size="11" font-weight="700">우리</text>
+              <rect x="12" y="140" width="136" height="44" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <rect x="22" y="151" width="90" height="7" rx="3" fill="#8b879b"/><rect x="22" y="165" width="112" height="6" rx="3" fill="#3b3555"/>
+              <rect x="12" y="192" width="136" height="44" rx="8" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+              <rect x="22" y="203" width="60" height="7" rx="3" fill="#8b879b"/><rect x="22" y="217" width="112" height="6" rx="3" fill="#3b3555"/>
+            </g>
+            <g>
+              <rect x="172" y="36" width="136" height="200" rx="10" fill="#1d1420" stroke="#ff3a52" stroke-width="1.6"/>
+              <text x="184" y="58" fill="#efedf5" font-size="11.5" font-weight="700">AI 답변</text>
+              <rect x="184" y="70" width="112" height="6" rx="3" fill="#8b879b"/>
+              <rect x="184" y="84" width="100" height="6" rx="3" fill="#8b879b"/>
+              <rect x="184" y="98" width="70" height="6" rx="3" fill="#ff3a52"/><rect x="258" y="98" width="38" height="6" rx="3" fill="#8b879b"/>
+              <rect x="184" y="112" width="108" height="6" rx="3" fill="#8b879b"/>
+              <rect x="184" y="126" width="84" height="6" rx="3" fill="#8b879b"/>
+              <line x1="184" y1="150" x2="296" y2="150" stroke="rgba(239,237,245,.25)"/>
+              <text x="184" y="170" fill="#bcb8c9" font-size="11">출처</text>
+              <rect x="184" y="180" width="112" height="20" rx="6" fill="#2a1a24" stroke="#ff3a52"/><text x="194" y="194" fill="#ffb3c6" font-size="11" font-weight="700">우리 페이지</text>
+              <rect x="184" y="206" width="112" height="20" rx="6" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            </g>
+            <text x="80" y="262" text-anchor="middle" fill="#bcb8c9" font-size="12">몇 번째에 보이는가</text>
+            <text x="240" y="262" text-anchor="middle" fill="#bcb8c9" font-size="12">답 속에 인용되는가</text>
+            <text x="160" y="288" text-anchor="middle" fill="#8b879b" font-size="12">사람은 링크를 고르고, AI는 내용을 골라 옮깁니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="SEO와 GEO가 겹치는 기반: 색인되는 페이지, 좋은 내용, 명확한 구조. SEO에서 더 중요한 것: 클릭되는 제목과 설명, 다른 사이트 링크. GEO에서 더 중요한 것: 질문에 바로 답하기, 근거와 날짜, 출처" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">겹치는 부분이 더 큽니다</text>
+            <circle cx="118" cy="150" r="98" fill="rgba(164,135,255,.10)" stroke="#a487ff" stroke-width="1.6"/>
+            <circle cx="202" cy="150" r="98" fill="rgba(255,58,82,.10)" stroke="#ff3a52" stroke-width="1.6"/>
+            <g text-anchor="middle">
+              <text x="62" y="96" fill="#c9bdff" font-size="13.5" font-weight="700">SEO</text>
+              <text x="258" y="96" fill="#ffb3c6" font-size="13.5" font-weight="700">GEO</text>
+              <g fill="#bcb8c9" font-size="12">
+                <text x="58" y="140">클릭되는</text><text x="58" y="156">제목·설명</text>
+                <text x="58" y="186">다른 사이트</text><text x="58" y="202">링크</text>
+                <text x="262" y="140">질문에</text><text x="262" y="156">바로 답하기</text>
+                <text x="262" y="186">근거·날짜</text><text x="262" y="202">출처</text>
+              </g>
+              <g fill="#efedf5" font-size="12.5" font-weight="700">
+                <text x="160" y="118">색인되는</text><text x="160" y="134">페이지</text>
+                <text x="160" y="162">좋은 내용</text>
+                <text x="160" y="190">명확한</text><text x="160" y="206">구조</text>
+              </g>
+            </g>
+            <text x="160" y="288" text-anchor="middle" fill="#8b879b" font-size="12">기반은 같고, 마지막 한 걸음이 다릅니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>왼쪽은 결과가 보이는 방식의 차이, 오른쪽은 해야 할 일의 겹침입니다. GEO는 SEO를 대신하는 것이 아니라 그 위에 더하는 것에 가깝습니다.</figcaption>
+    </figure>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">구분</th><th scope="col">SEO</th><th scope="col">GEO</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">어디에 보이나</th><td>검색 결과 목록</td><td>AI의 답변 본문과 출처</td></tr>
+          <tr><th scope="row">누가 고르나</th><td>사람이 링크를 보고 고름</td><td>AI가 내용을 골라 요약·인용</td></tr>
+          <tr><th scope="row">성공의 모습</th><td>상위 노출, 클릭</td><td>정확한 인용, 출처 링크</td></tr>
+          <tr><th scope="row">단위</th><td>페이지</td><td>문단, 문장, 표</td></tr>
+          <tr><th scope="row">기반</th><td colspan="2">색인되는 페이지, 좋은 내용, 명확한 구조, 신뢰할 수 있는 정보</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>구글은 AI 개요와 AI 모드에 나오기 위한 <strong>별도의 요구 사항이나 특별한 최적화는 없다</strong>고 안내합니다. 검색에 색인되고 스니펫으로 보일 수 있는 페이지면 되고, 새로운 AI용 파일이나 특별한 구조화 데이터도 필요 없다고 밝힙니다(<a href="https://developers.google.com/search/docs/appearance/ai-features?hl=ko" target="_blank" rel="noopener">Google 검색 센터 안내</a>). 즉 <strong>GEO의 출발점은 결국 SEO</strong>입니다.</p>
+
+    <h2 id="cite">AI가 인용하기 쉬운 글의 특징</h2>
+    <p>AI가 출처를 고르는 방식은 공개되어 있지 않고 서비스마다 다릅니다. 다만 AI는 페이지 전체가 아니라 <strong>질문에 맞는 문단을 찾아 옮기기</strong> 때문에, 다음과 같은 글이 가져가기 쉽습니다.</p>
+    <ul>
+      <li><strong>질문을 제목으로:</strong> “주차할 수 있나요?”, “환불 기준은?”처럼 사람들이 실제로 묻는 말로 소제목을 씁니다.</li>
+      <li><strong>답을 먼저:</strong> 소제목 바로 아래 첫 문장에 결론을 쓰고, 설명은 그다음에 붙입니다.</li>
+      <li><strong>한 문단에 한 가지:</strong> 문단 하나만 떼어 읽어도 뜻이 통하게 씁니다. “위에서 말한 것처럼” 같은 표현은 줄입니다.</li>
+      <li><strong>표와 목록:</strong> 비교, 순서, 조건은 표나 목록으로 정리합니다.</li>
+      <li><strong>근거와 날짜:</strong> 수치나 규정에는 출처를, 글에는 작성일과 수정일을 밝힙니다.</li>
+      <li><strong>이름을 정확하게:</strong> 단체명, 공연명, 장소, 지역을 줄임말 없이 일관되게 씁니다. AI가 “누구의 정보인지” 헷갈리지 않게 하기 위해서입니다.</li>
+    </ul>
+    <div class="chat-cmp">
+      <div class="chat bad">
+        <span class="who">이미지 포스터만 있는 홈페이지</span>
+        <div class="bubble q">마포구에 초등학생 연극 수업 하는 곳 있어?</div>
+        <div class="bubble a">마포구에는 여러 문화센터와 구립 시설에서 어린이 연극 프로그램을 운영합니다. 정확한 일정은 각 기관에 문의해 보세요.</div>
+        <p class="note">수업 안내가 포스터 이미지 안에만 있으면 AI가 내용을 읽고 인용하기 어렵습니다.</p>
+      </div>
+      <div class="chat good">
+        <span class="who">질문형 안내 페이지가 있는 홈페이지</span>
+        <div class="bubble q">마포구에 초등학생 연극 수업 하는 곳 있어?</div>
+        <div class="bubble a">○○극단이 마포구 망원동에서 초등학생 대상 주말 연극 수업을 운영합니다. 학기별로 모집하며 수업 시간과 신청 방법은 극단 홈페이지에 안내되어 있습니다.<span class="src">출처: ○○극단 › 어린이 연극 수업 안내</span></div>
+        <p class="note">대상·지역·운영 방식이 글로 정리되어 있으면 AI가 그대로 옮기고 출처로 연결하기 쉽습니다.</p>
+      </div>
+    </div>
+    <p>위 대화는 이해를 돕기 위한 예시입니다. 같은 질문이라도 AI 서비스와 시점에 따라 답은 달라집니다. 중요한 것은 <strong>우리 정보가 AI가 읽을 수 있는 글로 존재하는가</strong>입니다.</p>
+
+    <h2 id="site">홈페이지에서 할 수 있는 일</h2>
+    <h3>1. 검색엔진에 등록하고 사이트맵 제출하기</h3>
+    <p><a href="https://search.google.com/search-console" target="_blank" rel="noopener">구글 서치 콘솔</a>과 <a href="https://searchadvisor.naver.com/" target="_blank" rel="noopener">네이버 서치어드바이저</a>에 사이트를 등록하고 sitemap.xml을 제출합니다. 색인되지 않은 페이지는 검색 결과에도, 검색 기반 AI 답변에도 나오기 어렵습니다.</p>
+    <h3>2. 중요한 정보는 글자로 쓰기</h3>
+    <p>공연 일정, 수업 안내, 가격 기준을 이미지나 PDF에만 넣지 말고 페이지 본문에 글로도 씁니다. 이미지에는 대체 텍스트(alt)를 붙입니다.</p>
+    <h3>3. 자주 묻는 질문 페이지 만들기</h3>
+    <p>실제로 받은 문의를 질문과 답으로 정리합니다. 사람에게도 도움이 되고, AI가 질문에 맞는 답을 찾기에도 좋은 형태입니다. 챗봇을 만들 때도 같은 자료를 그대로 쓸 수 있습니다(<a href="https://www.thejmstudio.co.kr/deep-ai/website-ai-chatbot.html">홈페이지 AI 챗봇 글</a> 참고).</p>
+    <h3>4. 구조화 데이터 넣기</h3>
+    <p>단체 정보, 공연·행사, 자주 묻는 질문 등을 schema.org 형식으로 표시하면 검색엔진이 페이지의 의미를 이해하기 쉬워집니다. AI 기능에 꼭 필요한 것은 아니지만 검색 결과를 풍부하게 보여 주는 데 도움이 됩니다. 이때 구조화 데이터의 내용은 화면에 보이는 내용과 같아야 합니다.</p>
+    <h3>5. 정보를 최신으로 유지하기</h3>
+    <p>지난 시즌 일정이 남아 있으면 사람도 AI도 틀린 정보를 가져갑니다. 바뀐 내용은 고치고 수정일을 표시합니다.</p>
+    <h3>6. 다른 곳에서도 같은 정보로 언급되기</h3>
+    <p>네이버 플레이스, 예매처, 언론 기사, SNS 소개에 단체명과 기본 정보를 일관되게 적어 둡니다. 여러 곳에서 같은 정보가 확인되면 사람에게도 AI에게도 믿을 만한 정보가 됩니다.</p>
+
+    <h2 id="llms">llms.txt는 꼭 필요할까</h2>
+    <p>llms.txt는 사이트의 핵심 내용을 AI가 읽기 쉬운 텍스트로 정리해 두자는 <strong>제안된 형식</strong>입니다(<a href="https://llmstxt.org/" target="_blank" rel="noopener">llmstxt.org</a>). 만드는 부담이 적어 도입하는 사이트가 늘고 있지만, 아직 표준이 아니고 주요 AI 서비스가 이 파일을 읽는다고 공식적으로 밝힌 경우도 드뭅니다. 구글은 AI 기능에 나오기 위해 별도의 AI용 파일을 만들 필요는 없다고 안내합니다.</p>
+    <div class="callout"><p><strong>한 줄 정리:</strong> llms.txt는 해 두면 손해 없는 <strong>보너스</strong>이고, 본문을 잘 쓰는 일을 대신하지 못합니다.</p></div>
+
+    <h2 id="measure">효과는 어떻게 확인할까</h2>
+    <ul>
+      <li><strong>검색 노출:</strong> 구글 서치 콘솔과 네이버 서치어드바이저에서 어떤 검색어로 노출·클릭되는지 봅니다.</li>
+      <li><strong>AI에서 온 방문:</strong> GA4 같은 분석 도구에서 ChatGPT, Perplexity 등 AI 서비스에서 넘어온 방문이 있는지 살펴봅니다.</li>
+      <li><strong>직접 물어보기:</strong> 고객이 할 법한 질문을 몇 가지 정해 두고, 주요 AI 서비스에 주기적으로 물어 우리 정보가 정확하게 나오는지 확인합니다.</li>
+      <li><strong>문의로 이어지는지:</strong> 결국 중요한 것은 노출이 아니라 문의와 예약입니다. 유입된 방문이 문의로 이어지는지 함께 봅니다.</li>
+    </ul>
+    <p>검색 유입은 글이 쌓이고 시간이 지나야 늘어납니다. 한두 달 결과로 판단하기보다 꾸준히 기록하며 보는 것이 좋습니다.</p>
+
+    <h2 id="check">체크리스트</h2>
+    <ul class="checklist">
+      <li>구글 서치 콘솔과 네이버 서치어드바이저에 등록하고 사이트맵을 제출했다</li>
+      <li>공연·수업·가격 같은 핵심 정보가 이미지가 아닌 글로도 있다</li>
+      <li>실제 문의를 바탕으로 한 자주 묻는 질문 페이지가 있다</li>
+      <li>소제목이 사람들이 묻는 질문의 형태이고, 첫 문장에 답이 있다</li>
+      <li>페이지마다 제목과 설명이 다르고 내용을 정확히 요약한다</li>
+      <li>단체명·장소·연락처가 홈페이지와 외부 채널에서 일관된다</li>
+      <li>지난 정보가 남아 있지 않고, 수정일이 표시되어 있다</li>
+      <li>휴대폰에서도 빠르고 읽기 편하다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>SEO와 GEO는 무엇이 다른가요?</summary><p>SEO(검색 엔진 최적화)는 검색 결과 목록에 우리 페이지가 잘 노출되고 클릭되도록 하는 일입니다. GEO(생성형 엔진 최적화)는 ChatGPT나 AI 검색이 질문에 답할 때 우리 페이지의 내용을 근거로 삼고 출처로 인용하도록 하는 일입니다. 목표는 다르지만 기반이 되는 작업은 대부분 겹칩니다.</p></details>
+      <details><summary>GEO를 하려면 SEO와 다른 작업을 따로 해야 하나요?</summary><p>대부분은 같은 작업입니다. 구글은 AI 개요와 AI 모드에 나오기 위한 별도의 요구 사항이나 특별한 최적화는 없고, 검색에 색인되고 스니펫으로 보일 수 있는 페이지면 된다고 안내합니다. 검색엔진이 잘 읽는 페이지를 만든 뒤, 질문에 바로 답하는 구성과 출처·날짜처럼 인용하기 쉬운 요소를 더하는 것이 현실적인 순서입니다.</p></details>
+      <details><summary>llms.txt를 꼭 만들어야 하나요?</summary><p>필수는 아닙니다. llms.txt는 AI가 사이트를 이해하기 쉽도록 핵심 내용을 정리해 두자는 제안된 형식으로, 아직 표준이 아니고 주요 AI 서비스가 읽는다고 공식적으로 밝힌 경우도 드뭅니다. 구글도 AI 기능에 나오기 위해 별도의 AI용 파일은 필요 없다고 안내합니다. 만드는 부담이 적으니 해 두되, 기대는 크게 하지 않는 것이 좋습니다.</p></details>
+      <details><summary>ChatGPT나 AI 검색 답변에 우리 회사가 나오게 할 수 있나요?</summary><p>보장할 수 있는 방법은 없습니다. AI가 출처를 고르는 방식은 공개되어 있지 않고 서비스마다 다릅니다. 다만 검색엔진에 잘 색인되고, 질문에 명확히 답하며, 근거와 날짜가 분명한 페이지가 인용될 가능성을 높일 수 있습니다.</p></details>
+      <details><summary>SEO와 GEO의 효과는 어떻게 확인하나요?</summary><p>구글 서치 콘솔과 네이버 서치어드바이저에서 노출·클릭과 검색어를 확인하고, GA4 같은 분석 도구에서 AI 서비스에서 넘어온 방문을 살펴봅니다. 주요 질문을 AI 서비스에 직접 물어보고 우리 페이지가 언급되거나 출처로 나오는지 주기적으로 확인하는 것도 도움이 됩니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>홈페이지에 AI 챗봇을 달고 싶다면: 종류, 비용, 도입 순서</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/website-ai-chatbot.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/website-ai-chatbot.html</guid>
+   <pubDate>Mon, 26 Oct 2026 09:00:00 +0900</pubDate>
+   <description>홈페이지에 AI 챗봇을 달고 싶다면 무엇부터 해야 할까요? 시나리오형·생성형·RAG형·에이전트형 챗봇의 차이, 챗봇 빌더·메신저 연결·맞춤 구축 중 만드는 방법 고르기, 비용을 정하는 요소, 도입 5단계와 좋은 챗봇의 조건을 한 번에 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>홈페이지 챗봇은 <strong>시나리오형, 생성형, RAG형, 에이전트형</strong> 네 가지로 나뉩니다. 상담용이라면 우리 자료로 답하는 <strong>RAG형</strong>이 기본입니다.</li>
+        <li>만드는 방법은 <strong>챗봇 빌더 서비스, 메신저 연결, 맞춤 구축</strong> 세 가지. 범위와 연결할 시스템에 따라 고릅니다.</li>
+        <li>도입은 <strong>질문 모으기 → 범위 정하기 → 자료 정리 → 시험 → 공개 후 개선</strong>의 5단계로 진행합니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="can">홈페이지 AI 챗봇으로 할 수 있는 일</h2>
+    <p>홈페이지 챗봇은 <strong>밤에도 주말에도 대답하는 안내 데스크</strong>입니다. 예술 단체와 작은 비즈니스에서 특히 쓸모 있는 일은 이렇습니다.</p>
+    <ul>
+      <li><strong>반복 문의 응대:</strong> 공연 시간, 위치·주차, 관람 연령, 운영 시간처럼 매번 같은 질문에 바로 답합니다.</li>
+      <li><strong>규정 안내:</strong> 예매 취소·환불, 수강 변경, 대관 조건처럼 정확해야 하는 내용을 문서 근거와 함께 안내합니다.</li>
+      <li><strong>작품·전시 안내:</strong> 출연진, 작품 소개, 지난 공연 아카이브를 대화로 찾아 줍니다.</li>
+      <li><strong>문의 접수:</strong> 대관·협업·수강 문의를 받아 필요한 정보를 정리하고 담당자에게 넘깁니다.</li>
+      <li><strong>다국어 안내:</strong> 해외 관객의 질문에 그 나라 말로 답할 수 있습니다.</li>
+    </ul>
+
+    <h2 id="types">AI 챗봇의 네 가지 종류</h2>
+    <p>“챗봇”이라는 한 단어 아래 성격이 전혀 다른 것들이 섞여 있습니다. 무엇을 만들지 고르기 전에 이 넷을 구분하면 상담이 훨씬 빨라집니다.</p>
+    <div class="defs">
+      <div class="def t"><span class="ic">1</span><div><h3>시나리오형<span>버튼 챗봇</span></h3><p>미리 정한 질문과 답을 버튼으로 고르게 합니다. AI가 아니라 정해진 흐름이라 <strong>틀릴 일이 없지만</strong>, 준비하지 않은 질문에는 답하지 못합니다.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>생성형<span>AI 모델만 연결</span></h3><p>ChatGPT 같은 AI 모델을 그대로 연결합니다. 어떤 질문에도 자연스럽게 답하지만 <strong>우리 단체의 일정·규정을 모르기 때문에</strong> 그럴듯하게 틀릴 수 있습니다.</p></div></div>
+      <div class="def a"><span class="ic">3</span><div><h3>RAG형<span>우리 자료로 답하는 챗봇</span></h3><p>질문이 오면 우리 FAQ·안내문·규정에서 근거를 찾아 답합니다. <strong>자연스러우면서도 정확하고</strong>, 출처를 보여 줄 수 있습니다. 원리는 <a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">RAG 글</a>에, 파인튜닝과의 차이는 <a href="https://www.thejmstudio.co.kr/deep-ai/fine-tuning-vs-rag.html">파인튜닝 vs RAG 글</a>에 정리했습니다.</p></div></div>
+      <div class="def a"><span class="ic">4</span><div><h3>에이전트형<span>일까지 처리하는 챗봇</span></h3><p>답하는 데서 그치지 않고 예약 조회, 문의 등록 같은 일을 직접 처리합니다. 가장 강력하지만 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-agent-autonomy.html">어디까지 맡길지</a> 설계가 필요합니다. 에이전트의 구조는 <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">에이전트·노드·툴 글</a>에서 볼 수 있습니다.</p></div></div>
+    </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">종류</th><th scope="col">정확도</th><th scope="col">유연함</th><th scope="col">잘 맞는 곳</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">시나리오형</th><td>높음 (정해진 답만)</td><td>낮음</td><td>질문 종류가 몇 개로 정해진 곳</td></tr>
+          <tr><th scope="row">생성형</th><td>낮음 (우리 정보 모름)</td><td>높음</td><td>일반 상식 안내, 아이디어 대화</td></tr>
+          <tr><th scope="row">RAG형</th><td>높음 (자료 근거)</td><td>높음</td><td>대부분의 홈페이지 상담</td></tr>
+          <tr><th scope="row">에이전트형</th><td>설계에 따라</td><td>매우 높음</td><td>조회·접수까지 처리해야 하는 곳</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="build">만드는 방법 세 가지</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">방법</th><th scope="col">장점</th><th scope="col">한계</th><th scope="col">이럴 때</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">챗봇 빌더 서비스</th><td>가입해서 빠르게 시작</td><td>디자인·연결·답변 방식의 맞춤에 한계</td><td>FAQ 안내 정도로 작게 시작할 때</td></tr>
+          <tr><th scope="row">메신저 연결</th><td>고객이 이미 쓰는 카카오톡 등에서 응대</td><td>홈페이지 안 경험과는 따로 움직임</td><td>문의가 주로 메신저로 들어올 때</td></tr>
+          <tr><th scope="row">맞춤 구축</th><td>우리 자료·시스템·디자인에 맞춰 설계</td><td>구축 기간과 비용이 더 듦</td><td>자료 연결, 예약·결제 연동, 브랜드 경험이 중요할 때</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>셋 중 하나만 골라야 하는 것은 아닙니다. 같은 자료와 답변 규칙을 홈페이지와 카카오톡에 함께 연결할 수도 있고, 빌더 서비스로 작게 시작해 효과를 확인한 뒤 맞춤 구축으로 넘어갈 수도 있습니다.</p>
+
+    <h2 id="cost">비용은 무엇으로 정해질까</h2>
+    <p>홈페이지 챗봇 비용은 <strong>처음 한 번 드는 구축비</strong>와 <strong>매달 드는 운영비</strong>로 나뉩니다. 금액을 움직이는 것은 주로 다음 요소입니다.</p>
+    <ul>
+      <li><strong>챗봇 종류:</strong> 시나리오형 → RAG형 → 에이전트형으로 갈수록 설계할 것이 늘어납니다.</li>
+      <li><strong>답해야 할 범위:</strong> 질문 종류가 많고 정확도 요구가 높을수록 시험과 조정이 늘어납니다.</li>
+      <li><strong>자료의 정리 상태:</strong> 최신 자료가 한곳에 모여 있으면 빠르고, 흩어져 있으면 정리에 시간이 듭니다.</li>
+      <li><strong>연결할 시스템:</strong> 예약·결제·회원 시스템과 이어야 하면 연동 작업이 더해집니다.</li>
+      <li><strong>사용량:</strong> 대화가 많을수록 AI 모델 사용료가 늘어납니다.</li>
+    </ul>
+    <p>요소별로 비용이 어떻게 움직이는지, 줄이는 방법은 무엇인지는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 자동화 비용 글</a>에 자세히 정리했습니다.</p>
+
+    <h2 id="steps">도입 5단계</h2>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="도입 5단계: 1 자주 받는 질문 모으기, 2 범위 정하기, 3 자료 정리, 4 실제 질문으로 시험, 5 공개 후 개선" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">도입 5단계</text>
+            <g font-size="14.5" fill="#efedf5">
+              <rect x="30" y="38" width="260" height="38" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="72" y="62">자주 받는 질문 모으기</text>
+              <rect x="30" y="84" width="260" height="38" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="72" y="108">챗봇이 맡을 범위 정하기</text>
+              <rect x="30" y="130" width="260" height="38" rx="10" fill="#15151f" stroke="#a487ff"/><text x="72" y="154">답의 근거 자료 정리</text>
+              <rect x="30" y="176" width="260" height="38" rx="10" fill="#15151f" stroke="#a487ff"/><text x="72" y="200">실제 질문으로 시험</text>
+              <rect x="30" y="222" width="260" height="38" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="72" y="246">공개 후 기록으로 개선</text>
+            </g>
+            <g font-size="13" font-weight="700" fill="#fff" text-anchor="middle">
+              <circle cx="52" cy="57" r="11" fill="#3b3555"/><text x="52" y="62">1</text>
+              <circle cx="52" cy="103" r="11" fill="#3b3555"/><text x="52" y="108">2</text>
+              <circle cx="52" cy="149" r="11" fill="#5b4a8f"/><text x="52" y="154">3</text>
+              <circle cx="52" cy="195" r="11" fill="#5b4a8f"/><text x="52" y="200">4</text>
+              <circle cx="52" cy="241" r="11" fill="#ff3a52"/><text x="52" y="246">5</text>
+            </g>
+            <text x="160" y="286" text-anchor="middle" fill="#8b879b" font-size="12">5단계에서 찾은 빈틈은 2·3단계로 돌아가 채웁니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="범위 나누기: 챗봇이 답할 질문은 공연 시간, 위치와 주차, 환불 규정, 작품 정보. 사람에게 넘길 질문은 환불 처리, 대관 견적, 항의와 민원, 처음 보는 질문" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">2단계 · 범위 나누기</text>
+            <rect x="16" y="38" width="140" height="222" rx="12" fill="#17142a" stroke="#a487ff"/>
+            <rect x="164" y="38" width="140" height="222" rx="12" fill="#1d1420" stroke="#ff3a52"/>
+            <g text-anchor="middle">
+              <text x="86" y="66" fill="#c9bdff" font-size="13.5" font-weight="700">챗봇이 답할 질문</text>
+              <text x="234" y="66" fill="#ffb3c6" font-size="13.5" font-weight="700">사람에게 넘길 질문</text>
+              <g fill="#efedf5" font-size="13.5">
+                <text x="86" y="104">공연 시간</text><text x="86" y="140">위치 · 주차</text><text x="86" y="176">환불 규정 안내</text><text x="86" y="212">작품 · 출연진</text>
+                <text x="234" y="104">실제 환불 처리</text><text x="234" y="140">대관 견적</text><text x="234" y="176">항의 · 민원</text><text x="234" y="212">처음 보는 질문</text>
+              </g>
+            </g>
+            <text x="160" y="286" text-anchor="middle" fill="#8b879b" font-size="12">경계가 분명할수록 챗봇이 정확해집니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>도입 순서와 2단계의 범위 나누기 예시입니다. 질문을 먼저 모으고 범위를 정해야 자료 정리와 시험의 기준이 생깁니다.</figcaption>
+    </figure>
+    <ol>
+      <li><strong>자주 받는 질문을 모읍니다.</strong> 지난 몇 달 동안 이메일·전화·메신저로 받은 문의를 모아 자주 반복되는 질문을 추립니다. 이 목록이 챗봇의 설계도이자 시험지가 됩니다.</li>
+      <li><strong>챗봇이 맡을 범위를 정합니다.</strong> 챗봇이 답할 질문과 사람에게 넘길 질문을 나눕니다. 돈이 오가거나 본인 확인이 필요한 일은 사람에게 넘기는 것이 기본입니다.</li>
+      <li><strong>답의 근거 자료를 정리합니다.</strong> FAQ, 안내문, 규정의 최신본을 한곳에 모읍니다. 버전이 여러 개라면 하나로 정리하는 것이 정확도를 가장 크게 올립니다.</li>
+      <li><strong>실제 질문으로 시험합니다.</strong> 1단계에서 모은 질문을 그대로 물어보고, 틀리거나 어색한 답을 고칩니다. 공개 전에 담당자가 직접 써 보는 것이 중요합니다.</li>
+      <li><strong>공개하고 기록으로 개선합니다.</strong> 챗봇이 답하지 못한 질문과 사람에게 넘어간 질문을 주기적으로 살펴, 자료와 범위를 보완합니다.</li>
+    </ol>
+
+    <h2 id="good">좋은 홈페이지 챗봇의 조건</h2>
+    <ul class="checklist">
+      <li>첫 화면에서 무엇을 물어볼 수 있는지 알려 준다</li>
+      <li>모르는 것은 모른다고 말하고, 지어내지 않는다</li>
+      <li>규정·가격처럼 중요한 답에는 출처를 보여 준다</li>
+      <li>언제든 사람 담당자에게 연결하는 길이 있다</li>
+      <li>입력하지 말아야 할 개인정보를 안내한다 (<a href="https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html">개인정보 글</a> 참고)</li>
+      <li>휴대폰에서도 화면을 가리지 않고 편하게 쓸 수 있다</li>
+      <li>단체의 말투와 브랜드에 맞게 답한다</li>
+    </ul>
+
+    <h2 id="fail">챗봇이 외면받는 흔한 이유</h2>
+    <h3>모든 질문에 답하려고 한다</h3>
+    <p>범위가 넓을수록 틀리는 답도 늘어납니다. 한두 번 틀린 답을 받은 관객은 다시 챗봇을 쓰지 않습니다. 자주 받는 질문부터 정확하게 답하고, 나머지는 사람에게 넘기는 편이 신뢰를 지킵니다.</p>
+    <h3>자료가 업데이트되지 않는다</h3>
+    <p>지난 시즌 일정을 안내하는 챗봇은 없는 것보다 나쁩니다. 일정·가격·규정이 바뀔 때 자료도 함께 바꾸는 담당과 순서를 정해 두어야 합니다.</p>
+    <h3>사람에게 연결되는 길이 없다</h3>
+    <p>챗봇이 답하지 못하는 순간 관객이 갈 곳이 없으면 불만이 커집니다. 문의 폼, 전화, 메신저 등 사람에게 이어지는 출구를 항상 보이게 둡니다.</p>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 좋은 챗봇은 많이 아는 챗봇이 아니라 <strong>아는 것은 정확히, 모르는 것은 사람에게</strong> 넘기는 챗봇입니다.</p></div>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>홈페이지 AI 챗봇을 만드는 데 비용이 얼마나 드나요?</summary><p>챗봇의 종류와 만드는 방법, 답해야 할 범위, 연결할 자료와 시스템에 따라 크게 달라집니다. 처음 한 번 드는 구축비와 매달 드는 운영비(AI 모델 사용료, 서버, 유지보수)를 함께 보고 비교하는 것이 좋습니다.</p></details>
+      <details><summary>ChatGPT를 홈페이지에 그대로 붙이면 안 되나요?</summary><p>AI 모델만 연결하면 대화는 자연스럽지만 우리 단체의 규정·일정·가격을 모르기 때문에 그럴듯하게 틀린 답을 할 수 있습니다. 홈페이지 상담용이라면 우리 자료를 근거로 답하는 RAG 방식과, 답하지 못하는 질문을 사람에게 넘기는 경로를 함께 갖추는 것이 좋습니다.</p></details>
+      <details><summary>챗봇 빌더 서비스와 맞춤 구축 중 무엇을 골라야 하나요?</summary><p>자주 묻는 질문 안내처럼 범위가 단순하고 빠르게 시작하고 싶다면 챗봇 빌더 서비스가 맞습니다. 우리 자료를 깊이 연결해야 하거나, 예약·결제 같은 기존 시스템과 이어야 하거나, 디자인과 응대 방식을 세밀하게 정해야 한다면 맞춤 구축이 맞습니다.</p></details>
+      <details><summary>카카오톡 채널 챗봇과 홈페이지 챗봇 중 무엇이 좋나요?</summary><p>고객이 주로 어디서 문의하는지에 따라 정하면 됩니다. 이미 카카오톡으로 문의가 많이 온다면 메신저 연결이, 홈페이지에서 공연·작품 정보를 보다가 묻는 경우가 많다면 홈페이지 챗봇이 맞습니다. 같은 자료와 답변 규칙을 두 곳에 함께 연결할 수도 있습니다.</p></details>
+      <details><summary>챗봇을 만든 뒤에는 어떻게 관리하나요?</summary><p>일정, 가격, 규정이 바뀌면 근거 자료를 업데이트하고, 대화 기록에서 챗봇이 답하지 못했거나 틀린 질문을 주기적으로 살펴 자료와 답변 범위를 보완합니다. RAG 방식이라면 문서만 바꿔도 답변에 바로 반영됩니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>AI 에이전트에게 어디까지 맡겨도 될까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/ai-agent-autonomy.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/ai-agent-autonomy.html</guid>
+   <pubDate>Mon, 26 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 에이전트에게 어떤 업무를 어디까지 맡겨도 될까요? 되돌릴 수 있는지와 틀렸을 때의 영향으로 판단하는 기준, 알려주기·초안·실행 후 보고·자동 처리의 권한 4단계, 업무별 추천 단계, 사람 승인(휴먼 인 더 루프) 등 안전장치 6가지를 쉽게 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>맡길지 말지는 <strong>되돌릴 수 있는가</strong>, <strong>틀렸을 때 영향이 큰가</strong> 두 가지로 판단합니다.</li>
+        <li>권한은 <strong>알려주기 → 초안 만들기 → 실행 후 보고 → 혼자 처리</strong>의 4단계로 나누고, 처음에는 낮은 단계에서 시작합니다.</li>
+        <li>권한 최소화, 사람 승인, 한도, 기록, 멈춤 장치, 단계적 확대. <strong>안전장치 6가지</strong>를 갖추면 넓게 맡겨도 안전해집니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="intro">새로 온 무대 조감독에게 일을 맡기듯</h2>
+    <p><a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">첫 번째 글</a>에서 AI 에이전트를 “스스로 다음 행동을 고르는 무대감독”에 빗댔습니다. 이번에는 시점을 바꿔, 실력은 좋지만 <strong>우리 극장에 처음 온 조감독</strong>이라고 생각해 보겠습니다.</p>
+    <p>첫날부터 본공연의 모든 큐를 맡기는 감독은 없습니다. 처음에는 큐시트를 확인하고 빠진 것을 알려 달라고 합니다. 익숙해지면 리허설 큐를 맡기고, 본공연에서는 감독이 옆에서 확인합니다. 믿을 만하다는 기록이 쌓인 뒤에야 혼자 맡기죠. AI 에이전트도 같은 방식으로 맡기면 됩니다.</p>
+
+    <h2 id="criteria">맡길지 판단하는 두 가지 질문</h2>
+    <p>업무 하나하나에 대해 두 가지를 물어보세요.</p>
+    <div class="defs">
+      <div class="def n"><span class="ic">1</span><div><h3>틀렸을 때 되돌릴 수 있는가<span>가역성</span></h3><p>내부 메모를 잘못 분류했다면 다시 옮기면 됩니다. 하지만 이미 보낸 메일, 처리된 환불, 지워진 데이터는 되돌리기 어렵습니다. <strong>되돌리기 어려운 일일수록 사람이 확인</strong>해야 합니다.</p></div></div>
+      <div class="def a"><span class="ic">2</span><div><h3>틀렸을 때 영향이 얼마나 큰가<span>영향 범위</span></h3><p>담당자 한 명이 보는 정리 문서와 관객 수천 명에게 가는 공지는 무게가 다릅니다. 돈, 외부 고객, 개인정보, 단체의 평판이 걸린 일은 <strong>영향이 큰 일</strong>입니다.</p></div></div>
+    </div>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="판단 지도: 되돌릴 수 있고 영향이 작으면 넓게 맡기고, 되돌리기 어렵고 영향이 크면 사람이 결정한다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">판단 지도</text>
+            <rect x="40" y="40" width="128" height="104" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <rect x="172" y="40" width="128" height="104" rx="10" fill="#1d1420" stroke="#ff3a52"/>
+            <rect x="40" y="148" width="128" height="104" rx="10" fill="#17142a" stroke="#a487ff"/>
+            <rect x="172" y="148" width="128" height="104" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <g text-anchor="middle" fill="#efedf5">
+              <text x="104" y="86" font-size="15" font-weight="600">초안 후 승인</text><text x="104" y="108" font-size="11.5" fill="#8b879b">되돌릴 수 있지만</text><text x="104" y="124" font-size="11.5" fill="#8b879b">영향이 큼</text>
+              <text x="236" y="86" font-size="15" font-weight="600">사람이 결정</text><text x="236" y="108" font-size="11.5" fill="#8b879b">되돌리기 어렵고</text><text x="236" y="124" font-size="11.5" fill="#8b879b">영향이 큼</text>
+              <text x="104" y="194" font-size="15" font-weight="600">넓게 맡기기</text><text x="104" y="216" font-size="11.5" fill="#8b879b">되돌릴 수 있고</text><text x="104" y="232" font-size="11.5" fill="#8b879b">영향이 작음</text>
+              <text x="236" y="194" font-size="15" font-weight="600">실행 후 보고</text><text x="236" y="216" font-size="11.5" fill="#8b879b">되돌리기 어렵지만</text><text x="236" y="232" font-size="11.5" fill="#8b879b">영향이 작음</text>
+            </g>
+            <text x="20" y="146" fill="#8b879b" font-size="11" text-anchor="middle" transform="rotate(-90 20 146)">영향 작음 ← → 큼</text>
+            <text x="170" y="280" fill="#8b879b" font-size="11" text-anchor="middle">되돌리기 쉬움 ← → 어려움</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="권한 4단계: 1 알려주기, 2 초안 만들기, 3 실행 후 보고, 4 혼자 처리. 단계가 올라갈수록 AI의 자율성이 커진다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">권한 4단계</text>
+            <g font-size="15" fill="#efedf5">
+              <rect x="30" y="200" width="200" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="56" y="227">1  알려주기</text>
+              <rect x="56" y="148" width="200" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="82" y="175">2  초안 만들기</text>
+              <rect x="82" y="96" width="200" height="44" rx="10" fill="#15151f" stroke="#e7a6e8"/><text x="108" y="123">3  실행 후 보고</text>
+              <rect x="108" y="44" width="200" height="44" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="134" y="71">4  혼자 처리</text>
+            </g>
+            <text x="160" y="276" text-anchor="middle" fill="#8b879b" font-size="12">기록으로 믿음이 쌓이면 한 단계씩 올립니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>두 가지 질문으로 업무의 자리를 정하고, 그 자리에 맞는 권한 단계를 줍니다.</figcaption>
+    </figure>
+
+    <h2 id="levels">권한 4단계</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">단계</th><th scope="col">AI가 하는 일</th><th scope="col">사람이 하는 일</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1. 알려주기</th><td>읽고 찾고 요약해 알려 준다. 아무것도 바꾸지 않는다</td><td>보고를 보고 직접 처리</td></tr>
+          <tr><th scope="row">2. 초안 만들기</th><td>답장·문서·등록 내용을 준비해 둔다</td><td>확인하고 승인하거나 고친다</td></tr>
+          <tr><th scope="row">3. 실행 후 보고</th><td>정해진 범위 안에서 실행하고 결과를 알린다</td><td>보고를 훑어보고 예외만 처리</td></tr>
+          <tr><th scope="row">4. 혼자 처리</th><td>처음부터 끝까지 처리한다</td><td>기록을 주기적으로 점검</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>2단계처럼 AI가 일하는 중간에 사람이 확인하는 방식을 <strong>휴먼 인 더 루프(Human-in-the-loop)</strong>라고 부릅니다. 처음 도입할 때 가장 안전한 출발점이고, AI가 만든 결과를 사람이 고치는 과정 자체가 AI를 개선하는 자료가 됩니다.</p>
+
+    <h2 id="tasks">업무별 추천 단계</h2>
+    <p>예술 단체와 작은 비즈니스에서 자주 맡기는 업무를 기준으로 출발점을 정리했습니다. 업무 환경에 따라 달라질 수 있으니 시작점으로 참고하세요.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">업무</th><th scope="col">처음 단계</th><th scope="col">이유</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">들어온 문의 분류·담당자 배정</th><td>3. 실행 후 보고</td><td>잘못 분류해도 다시 옮기면 되고, 외부로 나가지 않음</td></tr>
+          <tr><th scope="row">회의록·자료 요약</th><td>3. 실행 후 보고</td><td>내부용이고 원본이 남아 있음</td></tr>
+          <tr><th scope="row">자주 묻는 질문 답변</th><td>2 → 3</td><td><a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">RAG</a>로 근거를 확인할 수 있다면 기록을 보며 3단계로</td></tr>
+          <tr><th scope="row">고객에게 보내는 답장·메일</th><td>2. 초안 만들기</td><td>보내면 되돌릴 수 없고 단체의 목소리가 됨</td></tr>
+          <tr><th scope="row">일정·예약 등록</th><td>2 → 3</td><td>되돌릴 수 있지만 겹치면 혼란이 큼</td></tr>
+          <tr><th scope="row">홈페이지·SNS 공지 게시</th><td>2. 초안 만들기</td><td>많은 사람이 보고 평판에 영향</td></tr>
+          <tr><th scope="row">환불·결제·계약</th><td>1. 알려주기</td><td>돈이 걸리고 되돌리기 어려움. 결정은 사람이</td></tr>
+          <tr><th scope="row">데이터 삭제·권한 변경</th><td>맡기지 않음</td><td>되돌리기 어렵고 영향 범위를 예측하기 어려움</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="guards">안전장치 6가지</h2>
+    <ol>
+      <li><strong>권한은 필요한 만큼만 줍니다.</strong> 메일을 읽고 분류만 하는 에이전트라면 보내기 권한은 주지 않습니다. 읽기 전용으로 시작하는 것이 기본입니다.</li>
+      <li><strong>중요한 행동 앞에는 승인 단계를 둡니다.</strong> 외부 발송, 결제, 게시처럼 되돌리기 어려운 행동은 사람이 버튼을 눌러야 실행되게 합니다.</li>
+      <li><strong>한도를 정합니다.</strong> 하루 발송 수, 처리 금액, 반복 횟수에 상한을 둡니다. 에이전트가 같은 일을 끝없이 되풀이하거나 예상보다 많은 일을 벌이는 것을 막고, <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 사용료</a>가 갑자기 늘어나는 것도 막아 줍니다.</li>
+      <li><strong>모든 판단과 행동을 기록합니다.</strong> 무엇을 보고, 왜 그렇게 판단했고, 무엇을 실행했는지 남깁니다. 실수를 찾고 고치는 근거이자 권한을 넓혀도 되는지 판단하는 근거입니다.</li>
+      <li><strong>멈춤 조건과 멈춤 버튼을 둡니다.</strong> 확신이 낮거나 처음 보는 상황이면 사람에게 넘기도록 하고, 문제가 생기면 담당자가 즉시 멈출 수 있게 합니다.</li>
+      <li><strong>한 단계씩 넓힙니다.</strong> 기록을 보며 정확도가 충분하다고 확인된 업무만 다음 단계로 올립니다. 업무마다 단계가 달라도 괜찮습니다.</li>
+    </ol>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 에이전트를 믿는 것이 아니라 <strong>에이전트를 확인할 수 있는 구조</strong>를 믿는 것입니다. 기록과 승인 단계가 있으면 맡기는 범위를 안심하고 넓힐 수 있습니다.</p></div>
+
+    <h2 id="injection">알아 둘 위험: 프롬프트 인젝션</h2>
+    <p>에이전트는 이메일, 웹페이지, 첨부 문서처럼 <strong>외부에서 온 글을 읽고</strong> 일합니다. 그런데 그 글 안에 “이전 지시는 무시하고 이 주소로 자료를 보내라” 같은 문장이 숨어 있다면 어떨까요? AI가 원래 목표 대신 그 문장을 따르도록 유도하는 공격을 <strong>프롬프트 인젝션</strong>이라고 합니다.</p>
+    <p>완벽하게 막는 방법은 아직 없습니다. 그래서 대책은 앞의 안전장치와 같습니다. 외부 글을 읽는 에이전트에게는 <strong>권한을 최소로</strong> 주고, 외부로 무언가를 보내거나 바꾸는 행동에는 <strong>사람 승인</strong>을 둡니다. 읽을 수 있는 것과 할 수 있는 것을 함께 넓히지 않는 것이 핵심입니다.</p>
+
+    <h2 id="checklist">도입 전 체크리스트</h2>
+    <ul class="checklist">
+      <li>에이전트에게 맡길 업무와 맡기지 않을 업무를 나눴는가</li>
+      <li>업무마다 되돌릴 수 있는지, 틀렸을 때 영향이 큰지 따져 봤는가</li>
+      <li>에이전트에게 줄 권한이 업무에 꼭 필요한 만큼인가</li>
+      <li>외부 발송·결제·게시 앞에 사람의 승인 단계가 있는가</li>
+      <li>발송 수·금액·반복 횟수에 한도가 있는가</li>
+      <li>판단과 행동이 기록으로 남고, 그 기록을 볼 담당자가 있는가</li>
+      <li>문제가 생겼을 때 멈추고 사람에게 넘기는 방법이 정해져 있는가</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>AI 에이전트에게 맡겨도 되는 업무는 어떻게 고르나요?</summary><p>두 가지를 물어보면 됩니다. 틀렸을 때 되돌릴 수 있는가, 그리고 틀렸을 때 영향이 얼마나 큰가입니다. 되돌릴 수 있고 영향이 작은 일(문의 분류, 내부 메모 정리)은 넓게 맡기고, 되돌리기 어렵거나 영향이 큰 일(결제·환불, 외부 발송, 데이터 삭제)은 사람이 승인하는 단계를 둡니다.</p></details>
+      <details><summary>휴먼 인 더 루프(Human-in-the-loop)란 무엇인가요?</summary><p>AI가 일하는 과정 중간에 사람이 확인하고 승인하는 단계를 두는 방식입니다. 예를 들어 AI 에이전트가 답장 초안을 만들면 담당자가 확인한 뒤 보내는 식입니다. 처음 도입할 때 가장 안전한 출발점입니다.</p></details>
+      <details><summary>AI 에이전트는 처음부터 완전 자동으로 운영해도 되나요?</summary><p>처음부터 완전 자동으로 시작하는 것은 권하지 않습니다. 알려주기나 초안 만들기 단계로 시작해 기록을 보며 정확도를 확인하고, 문제가 없는 업무부터 한 단계씩 권한을 넓히는 것이 안전합니다.</p></details>
+      <details><summary>프롬프트 인젝션이란 무엇이고 왜 위험한가요?</summary><p>AI가 읽는 이메일, 웹페이지, 문서 안에 숨겨진 지시문이 들어 있어 AI가 원래 목표 대신 그 지시를 따르게 되는 공격입니다. 에이전트가 외부 내용을 읽고 실제로 행동할 수 있을수록 위험이 커지므로, 권한을 최소로 주고 중요한 행동에는 사람 승인을 두는 것이 기본 대책입니다.</p></details>
+      <details><summary>AI 에이전트가 실수하면 어떻게 알 수 있나요?</summary><p>에이전트가 무엇을 보고 어떤 판단으로 무엇을 실행했는지 기록을 남기도록 설계해야 합니다. 기록이 있으면 실수를 빨리 찾고 원인을 고칠 수 있으며, 어떤 업무의 권한을 넓혀도 되는지 판단하는 근거도 됩니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>AI 챗봇을 만들 때 개인정보는 어떻게 다뤄야 할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/ai-chatbot-privacy.html</guid>
+   <pubDate>Mon, 26 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 챗봇을 만들 때 개인정보는 어떻게 다뤄야 할까요? 개인정보가 머무는 네 곳(입력 창·대화 기록·참고 자료·AI 모델 제공사), 안전하게 설계하는 7가지 원칙, 개인정보 처리방침에 적어야 할 처리위탁·국외 이전, 도입 전 체크리스트를 쉽게 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>AI 챗봇의 개인정보는 <strong>입력 창, 대화 기록, 참고 자료(RAG), AI 모델 제공사</strong> 네 곳에 머뭅니다. 곳마다 확인할 것이 다릅니다.</li>
+        <li>가장 효과적인 보호는 <strong>처음부터 덜 받는 것</strong>입니다. 필요 없는 정보는 묻지 않고, 들어온 정보는 가리고, 정해진 기간이 지나면 지웁니다.</li>
+        <li>해외 AI 모델을 쓴다면 <strong>처리위탁과 국외 이전</strong>을 검토해 개인정보 처리방침에 반영해야 할 수 있습니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="why">챗봇에서 개인정보가 특히 까다로운 이유</h2>
+    <p>일반 문의 폼은 이름, 연락처, 문의 내용처럼 <strong>받을 항목을 우리가 정합니다</strong>. 챗봇은 다릅니다. 입력 창이 자유로운 대화이기 때문에 이용자가 무엇을 적을지 미리 알 수 없습니다. “지난주 공연 때 넘어져서 병원에 다녀왔는데요”처럼, 묻지 않은 민감한 정보가 대화에 섞여 들어오기도 합니다.</p>
+    <p>게다가 그 대화는 한 곳에 머물지 않습니다. 우리 서버를 거쳐 AI 모델 제공사로 전달되고, 품질 확인을 위해 기록으로 남고, <a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">RAG</a>를 쓴다면 우리 자료와 함께 처리됩니다. 개인정보 보호를 설계한다는 것은 <strong>이 경로 전체를 그려 보고 지점마다 문을 다는 일</strong>입니다.</p>
+
+    <h2 id="where">개인정보가 머무는 네 곳</h2>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="질문이 들어오는 길: 1 이용자 입력 창, 우리 챗봇 서버, 2 대화 기록 저장" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">질문이 들어오는 길</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="30" y="44" width="260" height="44" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="71">이용자 입력 창</text>
+              <path d="M160 92v22" stroke="#8b879b" stroke-width="2" marker-end="url(#ah1)"/>
+              <rect x="30" y="120" width="260" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="147">우리 챗봇 서버</text>
+              <path d="M160 168v22" stroke="#8b879b" stroke-width="2" marker-end="url(#ah1)"/>
+              <rect x="30" y="196" width="260" height="44" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="223">대화 기록 저장</text>
+            </g>
+            <g font-size="13" font-weight="700" fill="#fff" text-anchor="middle"><circle cx="30" cy="44" r="12" fill="#ff3a52"/><text x="30" y="49">1</text><circle cx="30" cy="196" r="12" fill="#ff3a52"/><text x="30" y="201">2</text></g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">무엇이 들어오고, 얼마나 남는가</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="답이 만들어지는 길: 3 참고 자료 검색, 4 AI 모델 제공사, 답변" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">답이 만들어지는 길</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="30" y="44" width="260" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="71">참고 자료 검색 (RAG)</text>
+              <path d="M160 92v22" stroke="#8b879b" stroke-width="2" marker-end="url(#ah2)"/>
+              <rect x="30" y="120" width="260" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="147">AI 모델 제공사</text>
+              <path d="M160 168v22" stroke="#8b879b" stroke-width="2" marker-end="url(#ah2)"/>
+              <rect x="30" y="196" width="260" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="223">이용자에게 답변</text>
+            </g>
+            <g font-size="13" font-weight="700" fill="#fff" text-anchor="middle"><circle cx="30" cy="44" r="12" fill="#a487ff"/><text x="30" y="49">3</text><circle cx="30" cy="120" r="12" fill="#a487ff"/><text x="30" y="125">4</text></g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">무엇이 밖으로 나가고, 누가 보는가</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>챗봇 대화는 입력 창에서 AI 모델 제공사까지 여러 곳을 지납니다. 번호가 붙은 네 곳이 개인정보를 확인할 지점입니다.</figcaption>
+    </figure>
+    <div class="defs">
+      <div class="def n"><span class="ic">1</span><div><h3>입력 창<span>무엇이 들어오는가</span></h3><p>이용자가 직접 쓰는 곳입니다. 꼭 필요한 정보만 묻고, 주민등록번호·카드 번호·건강 정보처럼 <strong>입력하지 말아야 할 것을 미리 안내</strong>하는 것이 첫 번째 문입니다.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>대화 기록<span>얼마나 남는가</span></h3><p>응대 확인과 품질 개선을 위해 대화를 저장하는 곳입니다. <strong>보관 기간과 볼 수 있는 사람</strong>을 정하지 않으면, 개인정보가 담긴 대화가 기한 없이 쌓입니다.</p></div></div>
+      <div class="def t"><span class="ic">3</span><div><h3>참고 자료<span>무엇이 검색되는가</span></h3><p>RAG 챗봇이 답의 근거로 찾는 우리 자료입니다. 회원 명단이나 상담 기록이 섞여 있으면 <strong>다른 사람의 정보가 답변에 나올 수</strong> 있습니다.</p></div></div>
+      <div class="def t"><span class="ic">4</span><div><h3>AI 모델 제공사<span>어디로 나가는가</span></h3><p>질문과 참고 자료가 답을 만들기 위해 전달되는 곳입니다. 제공사가 <strong>입력 데이터를 학습에 쓰는지, 얼마나 보관하는지, 어느 나라에서 처리하는지</strong>를 확인해야 합니다.</p></div></div>
+    </div>
+
+    <h2 id="principles">안전하게 설계하는 7가지 원칙</h2>
+    <ol>
+      <li><strong>처음부터 덜 받습니다.</strong> 공연 일정·환불 규정 안내처럼 개인정보 없이 답할 수 있는 일부터 챗봇에 맡깁니다. 받지 않은 정보는 새어 나갈 일도 없습니다.</li>
+      <li><strong>입력 창에서 미리 알립니다.</strong> “주민등록번호, 카드 번호, 건강 정보는 입력하지 마세요” 같은 안내를 입력 창 가까이에 둡니다. 대화가 어떻게 쓰이고 얼마나 보관되는지도 짧게 알립니다.</li>
+      <li><strong>들어온 정보는 가립니다.</strong> 전화번호·이메일·카드 번호처럼 형식이 정해진 정보는 AI 모델에 보내거나 기록에 남기기 전에 자동으로 가리는(마스킹) 단계를 둘 수 있습니다.</li>
+      <li><strong>기록은 기간을 정해 지웁니다.</strong> 대화 기록의 보관 기간을 정하고, 기간이 지나면 자동으로 삭제하거나 개인정보를 지운 상태로만 남깁니다. 기록을 볼 수 있는 담당자도 정해 둡니다.</li>
+      <li><strong>참고 자료는 정리한 뒤 넣습니다.</strong> RAG에 넣을 자료에서 답에 필요 없는 개인정보를 먼저 지웁니다. 꼭 필요한 자료라면 질문한 사람이 볼 권한이 있는 문서만 검색되도록 나눕니다.</li>
+      <li><strong>AI 모델 제공사의 데이터 정책을 확인합니다.</strong> 같은 회사의 AI라도 개인용 서비스와 사업자용 API는 정책이 다를 수 있습니다. 학습 사용 여부, 보관 기간, 처리 국가를 약관과 데이터 정책에서 확인합니다.</li>
+      <li><strong>본인 확인이 필요한 일은 사람에게 넘깁니다.</strong> 환불 처리, 예매 변경처럼 본인 확인이 필요한 일은 챗봇이 직접 처리하기보다 담당자에게 연결하는 경로를 둡니다. AI가 사람의 확인 없이 중요한 결정을 내리지 않게 하는 것도 같은 원칙입니다.</li>
+    </ol>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 덜 받고, 미리 알리고, 가리고, 기한이 지나면 지운다. 이 네 가지만 지켜도 대부분의 위험이 줄어듭니다.</p></div>
+
+    <h2 id="example">같은 문의, 다른 설계</h2>
+    <p>공연장 홈페이지의 상담 챗봇에 관객이 이렇게 썼다고 해 봅시다.</p>
+    <div class="chat-cmp">
+      <div class="chat bad">
+        <span class="who">설계하지 않은 챗봇</span>
+        <div class="bubble q">예매 취소하고 싶어요. 김OO, 010-1234-5678이고 카드 끝자리는 1234예요.</div>
+        <div class="bubble a">네, 김OO 님. 010-1234-5678 번호로 예매 내역을 확인해 취소를 도와드리겠습니다.</div>
+        <p class="note">이름·전화번호·카드 정보가 그대로 AI 모델로 전달되고, 답변과 대화 기록에도 다시 남습니다.</p>
+      </div>
+      <div class="chat good">
+        <span class="who">설계한 챗봇</span>
+        <div class="bubble q">예매 취소하고 싶어요. 김OO, 010-****-****이고 카드 끝자리는 ****예요.</div>
+        <div class="bubble a">예매 취소는 본인 확인이 필요해 담당자가 도와드려요. 예매 확인 페이지에서 직접 취소하시거나 상담원 연결을 요청해 주세요. 취소 기한과 환불 기준은 아래 규정에서 확인하실 수 있어요.<span class="src">출처: 2026 시즌 예매 안내 › 취소·환불 규정</span></div>
+        <p class="note">전화번호와 카드 정보는 보내기 전에 가려지고, 본인 확인이 필요한 일은 정해진 경로로 넘깁니다.</p>
+      </div>
+    </div>
+    <p>두 챗봇 모두 친절합니다. 차이는 <strong>개인정보가 어디까지 흘러가느냐</strong>입니다. 설계한 챗봇은 규정 안내라는 자기 역할만 하고, 본인 확인이 필요한 일은 안전한 곳으로 넘깁니다.</p>
+
+    <h2 id="policy">개인정보 처리방침에 적을 것</h2>
+    <p>챗봇을 붙이면 개인정보 처리방침도 함께 살펴봐야 합니다. 특히 대화가 외부 AI 모델 제공사로 전달된다면 다음 항목을 검토해야 할 수 있습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">항목</th><th scope="col">무엇을 적나</th><th scope="col">챗봇에서는</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">처리 목적·항목</th><td>무엇을, 왜 처리하는지</td><td>상담 응대, 품질 개선 등 챗봇 대화의 이용 목적과 수집되는 항목</td></tr>
+          <tr><th scope="row">보유 기간</th><td>얼마나 보관하는지</td><td>대화 기록의 보관 기간과 삭제 방법</td></tr>
+          <tr><th scope="row">처리위탁</th><td>수탁자와 맡긴 업무</td><td>AI 모델 제공사, 클라우드·서버 업체 등</td></tr>
+          <tr><th scope="row">국외 이전</th><td>이전 국가, 항목, 시기·방법, 보유 기간 등</td><td>해외에서 처리되는 AI 모델이나 서버를 쓰는 경우</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>개인정보보호위원회는 2025년 8월 「생성형 인공지능(AI) 개발·활용을 위한 개인정보 처리 안내서」를 공개했습니다. 상용 AI 서비스를 가져다 쓰는 경우를 포함해 단계별로 확인할 사항을 정리한 자료이니, 도입 전에 <a href="https://www.pipc.go.kr/" target="_blank" rel="noopener">개인정보보호위원회 홈페이지</a>에서 최신 내용을 함께 확인하는 것을 권합니다.</p>
+    <div class="callout"><p><strong>참고:</strong> 이 글은 챗봇을 설계할 때 확인할 점을 정리한 안내이며 법률 자문이 아닙니다. 처리위탁·국외 이전의 구체적인 요건과 동의가 필요한지는 서비스 구조에 따라 달라지므로, 개인정보 보호법 원문과 개인정보보호위원회 안내를 확인하고 필요하면 전문가의 검토를 받으세요.</p></div>
+
+    <h2 id="checklist">도입 전 체크리스트</h2>
+    <p>챗봇을 만들기 전에 아래 질문에 답해 보세요. 답이 분명할수록 안전한 설계가 쉬워집니다.</p>
+    <ul class="checklist">
+      <li>챗봇이 맡을 일 중 개인정보 없이 답할 수 있는 일은 무엇인가</li>
+      <li>꼭 받아야 하는 개인정보는 무엇이고, 왜 필요한가</li>
+      <li>입력하지 말아야 할 정보를 입력 창에서 안내하고 있는가</li>
+      <li>대화 기록을 얼마나 보관하고, 누가 볼 수 있는가</li>
+      <li>RAG에 넣을 자료에 회원 정보나 상담 기록이 섞여 있지 않은가</li>
+      <li>연결할 AI 모델 제공사의 학습 사용 여부·보관 기간·처리 국가를 확인했는가</li>
+      <li>본인 확인이 필요한 일을 사람에게 넘기는 경로가 있는가</li>
+      <li>개인정보 처리방침에 챗봇 관련 내용을 반영했는가</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>AI 챗봇에 입력한 내용이 AI 학습에 쓰이나요?</summary><p>AI 모델 제공사와 이용 방식에 따라 다릅니다. 개인용 대화 서비스와 사업자용 API는 데이터 정책이 다른 경우가 많으므로, 챗봇에 연결할 모델 제공사의 약관과 데이터 정책에서 입력 데이터를 학습에 쓰는지, 얼마나 보관하는지를 도입 전에 확인해야 합니다.</p></details>
+      <details><summary>해외 AI 모델을 쓰면 개인정보 처리방침에 무엇을 적어야 하나요?</summary><p>챗봇 대화에 개인정보가 담겨 해외 AI 모델 제공사로 전달된다면, 처리위탁과 국외 이전에 해당하는지 검토하고 개인정보 처리방침에 수탁자와 위탁 업무, 이전되는 국가와 항목, 이전 시기와 방법, 보유 기간 등을 적어야 할 수 있습니다. 구체적인 요건은 개인정보 보호법과 개인정보보호위원회 안내를 확인하고, 필요하면 전문가 검토를 받는 것이 좋습니다.</p></details>
+      <details><summary>챗봇 대화 기록은 얼마나 보관해야 하나요?</summary><p>정해진 하나의 기간은 없고, 수집 목적에 필요한 만큼만 보관하는 것이 원칙입니다. 품질 개선이나 응대 확인에 필요한 기간을 정해 처리방침에 적고, 기간이 지나면 자동으로 지우거나 개인정보를 가린 뒤 보관하도록 설계하는 것이 좋습니다.</p></details>
+      <details><summary>RAG 챗봇에 넣는 자료에 개인정보가 있으면 어떻게 하나요?</summary><p>답변에 필요하지 않은 개인정보는 자료를 넣기 전에 지우거나 가리는 것이 가장 안전합니다. 회원 정보처럼 꼭 필요한 자료라면 질문한 사람이 볼 권한이 있는 문서만 검색되도록 권한별로 나눠야 합니다. 그렇지 않으면 다른 사람의 정보가 답변에 섞여 나올 수 있습니다.</p></details>
+      <details><summary>작은 단체도 이런 것까지 신경 써야 하나요?</summary><p>개인정보 보호법은 규모와 관계없이 개인정보를 처리하는 곳에 적용됩니다. 다만 처음부터 복잡하게 할 필요는 없습니다. 개인정보를 받지 않아도 되는 범위로 시작하고, 입력 창에 안내 문구를 넣고, 연결할 AI 모델의 데이터 정책을 확인하는 것만으로도 위험을 크게 줄일 수 있습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>파인튜닝과 RAG, 무엇을 골라야 할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/fine-tuning-vs-rag.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/fine-tuning-vs-rag.html</guid>
+   <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+   <description>파인튜닝(Fine-tuning)과 RAG의 차이를 쉽게 정리했습니다. 파인튜닝은 AI의 말투·형식·작업 습관을 바꾸고, RAG는 AI가 참고할 자료를 바꿉니다. 비교표, 우리 업무에 맞는 방법을 고르는 순서, 흔한 오해와 함께 쓰는 방법까지 담았습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>파인튜닝</strong>은 예시를 학습시켜 AI의 말투·형식·작업 습관을 바꾸고, <strong>RAG</strong>는 질문할 때마다 우리 자료를 찾아 근거로 건넵니다.</li>
+        <li>“우리 자료를 AI가 알게 하고 싶다”면 대부분 <strong>RAG가 먼저</strong>입니다. 자료가 바뀌어도 다시 학습할 필요가 없고 출처를 보여 줄 수 있습니다.</li>
+        <li>고르는 순서는 <strong>프롬프트 → RAG → 파인튜닝</strong>. 앞 단계로 해결되지 않는 부분만 다음 단계로 넘깁니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="what">연습으로 몸에 익힌 것, 보면대 위의 악보</h2>
+    <p>연주자를 떠올려 보겠습니다. 한 연주자가 바로크 음악의 장식음과 호흡을 오랜 연습으로 몸에 익혔습니다. 이제 어떤 바로크 곡을 받아도 그 시대의 어법으로 자연스럽게 연주합니다. 이것이 <strong>파인튜닝</strong>입니다. 연습으로 <strong>연주하는 방식 자체</strong>가 바뀐 것이죠.</p>
+    <p>그런데 오늘 저녁 공연의 곡 순서나 바뀐 악보의 마디까지 연습으로 외워 두려 하면 곤란해집니다. 순서가 바뀔 때마다 다시 연습해야 하고, 기억이 흐려진 부분은 그럴듯하게 즉흥으로 메우게 되니까요. 그래서 연주자는 그날의 악보를 <strong>보면대 위에 펼쳐 두고</strong> 봅니다. 이것이 <strong>RAG</strong>입니다.</p>
+    <div class="defs">
+      <div class="def n"><span class="ic">F</span><div><h3>파인튜닝<span>Fine-tuning</span></h3><p>이미 만들어진 AI 모델에 질문과 모범 답으로 이루어진 <strong>예시를 추가로 학습</strong>시켜, 모델의 말투·형식·작업 방식을 바꾸는 방법입니다. 바뀐 습관은 모델 안에 남습니다.</p></div></div>
+      <div class="def t"><span class="ic">R</span><div><h3>RAG<span>검색 증강 생성</span></h3><p>모델은 그대로 두고, 질문이 들어올 때마다 <strong>우리 자료에서 관련 내용을 찾아</strong> 근거로 함께 건네는 방법입니다. 자세한 원리는 <a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">지난 글</a>에 정리했습니다.</p></div></div>
+    </div>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 파인튜닝은 AI가 <strong>어떻게</strong> 답할지를, RAG는 AI가 <strong>무엇을 근거로</strong> 답할지를 바꿉니다.</p></div>
+
+    <h2 id="how">각각 어떻게 동작할까</h2>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="파인튜닝: 질문과 모범 답 예시를 모아 모델을 추가 학습시키면 말투와 형식이 몸에 밴 모델이 된다" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a33a62"/></marker></defs>
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">파인튜닝 · 미리 한 번</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="30" y="44" width="260" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="71">질문 + 모범 답 예시 묶음</text>
+              <path d="M160 92v22" stroke="#a33a62" stroke-width="2" marker-end="url(#ah1)"/>
+              <rect x="30" y="120" width="260" height="44" rx="10" fill="#15151f" stroke="#a33a62"/><text x="160" y="147">모델을 추가로 학습</text>
+              <path d="M160 168v22" stroke="#a33a62" stroke-width="2" marker-end="url(#ah1)"/>
+              <rect x="30" y="196" width="260" height="44" rx="10" fill="#15151f" stroke="#a33a62"/><text x="160" y="223">습관이 바뀐 새 모델</text>
+            </g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">내용이 바뀌면 다시 학습해야 합니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="RAG: 질문이 오면 우리 자료에서 관련 내용을 찾아 근거와 함께 답한다" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a487ff"/></marker></defs>
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">RAG · 질문할 때마다</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="30" y="44" width="260" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="71">질문</text>
+              <path d="M160 92v22" stroke="#a487ff" stroke-width="2" marker-end="url(#ah2)"/>
+              <rect x="30" y="120" width="260" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="147">우리 자료에서 관련 문단 찾기</text>
+              <path d="M160 168v22" stroke="#a487ff" stroke-width="2" marker-end="url(#ah2)"/>
+              <rect x="30" y="196" width="260" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="223">근거와 출처를 담은 답</text>
+            </g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">자료만 바꾸면 바로 반영됩니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>파인튜닝은 미리 한 번 학습해 모델을 바꾸고, RAG는 질문이 올 때마다 자료를 찾아 건넵니다.</figcaption>
+    </figure>
+    <p>파인튜닝에 필요한 것은 문서 더미가 아니라 <strong>“이런 질문에는 이렇게 답한다”는 예시</strong>입니다. 예시의 질이 곧 결과의 질이라, 좋은 예시를 충분히 모으고 다듬는 데 대부분의 시간이 듭니다. 반면 RAG에 필요한 것은 <strong>잘 정리된 최신 자료</strong>입니다. 규정집, FAQ, 공연 안내문, 아카이브처럼 이미 가지고 있는 문서가 그대로 재료가 됩니다.</p>
+
+    <h2 id="compare">한눈에 비교</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">기준</th><th scope="col">파인튜닝</th><th scope="col">RAG</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">바꾸는 것</th><td>AI의 말투·형식·작업 습관</td><td>AI가 참고하는 자료</td></tr>
+          <tr><th scope="row">준비물</th><td>질문과 모범 답 예시 묶음</td><td>정리된 문서와 자료</td></tr>
+          <tr><th scope="row">내용이 바뀌면</th><td>예시를 고쳐 다시 학습</td><td>문서만 바꾸면 바로 반영</td></tr>
+          <tr><th scope="row">출처 표시</th><td>어렵다</td><td>어떤 문서에서 찾았는지 보여 줄 수 있다</td></tr>
+          <tr><th scope="row">틀렸을 때 원인 찾기</th><td>모델 안을 들여다보기 어렵다</td><td>찾아온 자료를 확인해 고칠 수 있다</td></tr>
+          <tr><th scope="row">잘 맞는 일</th><td>고유한 문체, 정해진 형식의 분류·추출을 대량으로</td><td>규정·안내·아카이브를 근거로 한 답변</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>표에서 보듯 둘은 경쟁 관계라기보다 <strong>맡는 일이 다른 도구</strong>입니다. 그래서 “어느 쪽이 더 좋은가”보다 “지금 풀려는 문제가 지식의 문제인가, 습관의 문제인가”를 먼저 묻는 것이 좋습니다.</p>
+
+    <h2 id="order">고르는 순서: 프롬프트 → RAG → 파인튜닝</h2>
+    <p>사실 파인튜닝과 RAG를 고르기 전에 확인할 단계가 하나 더 있습니다. <strong>프롬프트</strong>, 즉 AI에게 주는 지시문입니다. 원하는 말투와 형식을 구체적으로 적고 좋은 예시 몇 개를 함께 주는 것만으로 해결되는 경우가 생각보다 많습니다. 가장 빠르고, 고치기도 가장 쉽습니다.</p>
+    <ol>
+      <li><strong>프롬프트로 시작합니다.</strong> 역할, 말투, 답변 형식, 하지 말아야 할 것을 적고 모범 답 예시를 몇 개 붙여 봅니다. 여기서 원하는 결과가 나오면 그걸로 충분합니다.</li>
+      <li><strong>답이 우리 자료에 달려 있다면 RAG를 더합니다.</strong> 우리 단체의 규정, 일정, 작품 정보처럼 AI가 원래 알 수 없거나 자주 바뀌는 내용이라면 자료를 연결합니다.</li>
+      <li><strong>그래도 남는 습관의 문제만 파인튜닝으로 풉니다.</strong> 지시문과 예시로는 말투나 형식이 안정적으로 나오지 않을 때, 같은 작업을 대량으로 반복해 가벼운 모델로 바꿔 비용을 줄이고 싶을 때 검토합니다.</li>
+    </ol>
+    <div class="callout"><p><strong>왜 이 순서일까:</strong> 뒤로 갈수록 준비할 것이 많아지고, 한 번 정한 것을 바꾸는 비용도 커집니다. 앞 단계에서 효과를 확인하고 넘어가면 꼭 필요한 곳에만 비용을 쓸 수 있습니다. 비용 이야기는 <a href="https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html">AI 자동화 비용 글</a>에서 더 자세히 다뤘습니다.</p></div>
+
+    <h2 id="cases">상황별로 골라 보기</h2>
+    <div class="defs">
+      <div class="def a"><span class="ic">1</span><div><h3>공연 환불 규정과 일정 문의에 답하고 싶다</h3><p>답이 우리 단체의 문서에 달려 있고, 시즌마다 내용이 바뀝니다. <strong>RAG</strong>가 맞습니다. 규정이 바뀌면 문서만 고치면 되고, 답과 함께 근거 문서를 보여 줄 수 있습니다.</p></div></div>
+      <div class="def a"><span class="ic">2</span><div><h3>보도자료를 우리 단체의 문체로 쓰고 싶다</h3><p>지식보다 습관의 문제입니다. 먼저 <strong>프롬프트</strong>에 문체의 특징과 지난 보도자료 몇 편을 예시로 넣어 봅니다. 그래도 결과가 들쭉날쭉하고, 같은 형식의 글을 꾸준히 많이 쓴다면 그때 파인튜닝을 검토합니다.</p></div></div>
+      <div class="def a"><span class="ic">3</span><div><h3>들어오는 문의를 유형별로 자동 분류하고 싶다</h3><p>대부분 <strong>프롬프트</strong>만으로 시작할 수 있습니다. 분류해야 할 양이 아주 많아 사용료가 부담된다면, 지금까지 분류한 기록을 예시로 삼아 작은 모델을 <strong>파인튜닝</strong>해 비용을 줄이는 방법이 있습니다.</p></div></div>
+      <div class="def a"><span class="ic">4</span><div><h3>작품 아카이브를 바탕으로 우리 말투로 안내하고 싶다</h3><p>지식과 습관이 모두 필요한 경우입니다. <strong>RAG</strong>로 근거를 찾고 프롬프트로 말투를 맞추는 것으로 시작하고, 부족한 부분이 분명해지면 파인튜닝을 더해 <strong>함께 쓸</strong> 수 있습니다.</p></div></div>
+    </div>
+
+    <h2 id="myths">흔한 오해 세 가지</h2>
+    <h3>“파인튜닝하면 AI가 우리 자료를 정확히 외운다”</h3>
+    <p>파인튜닝은 사실을 정확히 저장하는 방법이 아닙니다. 학습한 내용의 분위기와 패턴은 잘 따라 하지만, 날짜나 금액 같은 세부 사항은 그럴듯하게 틀리게 말할 수 있습니다. 게다가 어디서 나온 답인지 보여 주기도 어렵습니다. 정확한 사실이 중요한 일이라면 RAG가 맞습니다.</p>
+    <h3>“파인튜닝이 더 고급 기술이다”</h3>
+    <p>더 깊이 손대는 방법인 것은 맞지만, 그렇다고 더 좋은 결과를 보장하지는 않습니다. 예시 데이터가 부족하거나 질이 낮으면 오히려 성능이 떨어지기도 합니다. 문제에 맞는 도구를 고르는 것이 중요합니다.</p>
+    <h3>“둘 중 하나만 골라야 한다”</h3>
+    <p>둘은 맡는 일이 달라 함께 쓸 수 있습니다. RAG가 근거를 찾고, 파인튜닝한 모델이 정해진 형식과 말투로 답을 쓰는 식입니다. 다만 처음부터 둘 다 하기보다는 앞의 순서대로 하나씩 더해 가는 것이 안전합니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>파인튜닝과 RAG의 가장 큰 차이는 무엇인가요?</summary><p>파인튜닝은 예시를 학습시켜 AI 모델 자체의 말투·형식·작업 습관을 바꾸는 방법이고, RAG는 모델은 그대로 두고 질문할 때마다 우리 자료에서 관련 내용을 찾아 근거로 건네는 방법입니다. 파인튜닝은 ‘어떻게 답할지’를, RAG는 ‘무엇을 근거로 답할지’를 바꿉니다.</p></details>
+      <details><summary>우리 회사 자료를 AI가 알게 하려면 파인튜닝을 해야 하나요?</summary><p>대부분은 RAG가 더 잘 맞습니다. 파인튜닝으로 사실을 넣으면 내용이 바뀔 때마다 다시 학습해야 하고, 출처를 보여 주기 어려우며, 학습한 내용도 그럴듯하게 틀리게 말할 수 있습니다. 자주 바뀌는 규정·안내·아카이브는 RAG로 연결하는 편이 정확하고 관리하기 쉽습니다.</p></details>
+      <details><summary>파인튜닝은 언제 필요한가요?</summary><p>지시문과 예시만으로는 원하는 말투나 형식이 안정적으로 나오지 않을 때, 같은 형식의 분류·추출 작업을 대량으로 반복해 가벼운 모델로 비용을 줄이고 싶을 때 검토할 만합니다. 이때는 질문과 모범 답으로 이루어진 좋은 예시 데이터를 충분히 모을 수 있는지가 먼저입니다.</p></details>
+      <details><summary>파인튜닝과 RAG를 함께 쓸 수도 있나요?</summary><p>가능합니다. RAG로 우리 자료에서 근거를 찾고, 파인튜닝한 모델이 정해진 형식과 말투로 답을 쓰는 식입니다. 다만 처음부터 둘 다 하기보다 프롬프트와 RAG로 시작해 효과를 확인하고, 그래도 부족한 부분이 있을 때 파인튜닝을 더하는 순서를 권합니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>AI 자동화 비용은 무엇으로 정해질까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/ai-automation-cost.html</guid>
+   <pubDate>Thu, 22 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 자동화·AI 챗봇·RAG·AI 에이전트 구축 비용이 무엇으로 정해지는지 쉽게 정리했습니다. 처음 한 번 드는 구축비와 매달 드는 운영비의 차이, 견적을 좌우하는 여섯 가지 요인, 비용을 줄이는 방법과 견적 요청 전 준비할 것까지 담았습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>AI 자동화 비용은 <strong>처음 한 번 드는 구축비</strong>와 <strong>매달 드는 운영비</strong>로 나뉩니다.</li>
+        <li>견적은 업무 범위, 연결할 시스템, 자료 정리 상태, 요구 정확도, AI의 판단 범위, 보안 환경 <strong>여섯 가지</strong>로 거의 정해집니다.</li>
+        <li>비용을 줄이는 가장 확실한 방법은 <strong>작게 시작하고, 자료를 먼저 정리하는 것</strong>입니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="why">왜 “얼마예요?”에 바로 답하기 어려울까</h2>
+    <p>공연 제작비를 떠올려 보면 쉽습니다. “공연 하나 올리는 데 얼마예요?”라는 질문에는 소극장 1인극인지, 대극장 뮤지컬인지, 몇 회차인지를 알아야 답할 수 있습니다. 무대·조명·음향이 이미 있는 극장인지, 하나하나 새로 들여야 하는지도 중요하죠.</p>
+    <p>AI 자동화도 같습니다. “AI 챗봇”이라는 이름 아래에 이런 것들이 모두 들어갑니다.</p>
+    <ul>
+      <li>홈페이지 FAQ 몇 개를 안내하는 간단한 상담 창</li>
+      <li>우리 단체의 규정과 아카이브를 찾아 근거와 함께 답하는 <a href="https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html">RAG 챗봇</a></li>
+      <li>문의를 분류하고 일정을 확인해 답장 초안까지 쓰는 <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">AI 에이전트</a></li>
+    </ul>
+    <p>셋은 이름은 비슷해도 들어가는 일의 양이 크게 다릅니다. 그래서 정확한 비용은 범위를 정한 뒤에야 나옵니다. 대신 <strong>무엇이 비용을 움직이는지</strong>는 미리 알 수 있습니다.</p>
+
+    <h2 id="two">구축비와 운영비</h2>
+    <p>AI 자동화 비용을 볼 때 가장 먼저 나눠야 할 것은 두 종류의 돈입니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="구축비: 업무 분석과 설계, 자료 정리, 개발과 연동, 시험과 조정" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">처음 한 번 · 구축비</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle"><rect x="30" y="44" width="260" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="69">업무 분석 · 설계</text><rect x="30" y="96" width="260" height="40" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="121">자료 정리</text><rect x="30" y="148" width="260" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="173">개발 · 기존 도구 연동</text><rect x="30" y="200" width="260" height="40" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="225">시험 · 정확도 조정</text></g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">범위가 넓을수록, 자료가 흩어져 있을수록 커집니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="운영비: AI 모델 사용료, 서버와 검색 환경, 유지보수와 자료 업데이트" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">매달 · 운영비</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle"><rect x="30" y="44" width="260" height="40" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="69">AI 모델 사용료</text><rect x="30" y="96" width="260" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="121">서버 · 검색 환경</text><rect x="30" y="148" width="260" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="173">유지보수 · 오류 대응</text><rect x="30" y="200" width="260" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="225">자료 업데이트</text></g>
+            <text x="160" y="272" text-anchor="middle" fill="#8b879b" font-size="12">사용량과 설계 방식에 따라 달라집니다</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>견적을 비교할 때는 구축비만이 아니라 매달 드는 운영비까지 함께 봐야 합니다.</figcaption>
+    </figure>
+    <p>일반 웹사이트는 만들고 나면 호스팅비 정도만 들지만, AI 자동화는 <strong>쓸 때마다 AI 모델 사용료가 붙습니다</strong>. 구축비가 낮아 보이는 견적이 운영비를 크게 만드는 구조일 수도 있고, 그 반대일 수도 있습니다. 두 숫자를 함께 놓고 “1년 동안 드는 비용”으로 비교해 보는 것을 권합니다.</p>
+
+    <h2 id="factors">견적을 좌우하는 여섯 가지</h2>
+    <div class="defs">
+      <div class="def a"><span class="ic">1</span><div><h3>업무 범위</h3><p>자동화할 업무가 몇 개인지, 한 업무 안에 단계가 몇 개인지가 가장 큰 기준입니다. “문의 분류만”과 “분류부터 답장 발송까지”는 전혀 다른 크기의 일입니다.</p></div></div>
+      <div class="def a"><span class="ic">2</span><div><h3>연결할 시스템</h3><p>이메일, 카카오톡, 구글 시트, 예약·결제 시스템처럼 붙여야 할 도구가 늘수록 연동 작업이 늘어납니다. 도구가 연결 기능(API)을 제공하는지도 비용을 크게 바꿉니다.</p></div></div>
+      <div class="def a"><span class="ic">3</span><div><h3>자료의 정리 상태</h3><p>RAG처럼 우리 자료로 답하게 하려면 자료가 정리되어 있어야 합니다. 최신본이 하나로 모여 있으면 빠르고, 여러 파일과 버전으로 흩어져 있으면 정리에 시간이 듭니다.</p></div></div>
+      <div class="def a"><span class="ic">4</span><div><h3>요구하는 정확도</h3><p>“대부분 맞으면 된다”와 “틀리면 안 된다”는 설계가 다릅니다. 정확도를 높일수록 시험 질문, 검토 단계, 예외 처리 규칙이 늘어납니다.</p></div></div>
+      <div class="def a"><span class="ic">5</span><div><h3>AI의 판단 범위</h3><p>순서가 정해진 워크플로는 예측 가능하고 저렴합니다. AI 에이전트가 스스로 판단하는 부분이 넓을수록 설계·시험·기록 장치가 더 필요하고 사용료도 늘어납니다.</p></div></div>
+      <div class="def a"><span class="ic">6</span><div><h3>보안과 운영 환경</h3><p>민감한 정보를 다루거나 자체 서버 환경이 필요하면 구축과 운영 모두 비용이 올라갑니다. 공개 자료만 다룬다면 훨씬 가볍게 시작할 수 있습니다.</p></div></div>
+    </div>
+    <div class="callout"><p><strong>한 줄 정리:</strong> 범위가 좁고, 자료가 정리되어 있고, 사람이 마지막에 확인하는 구조일수록 가볍게 시작할 수 있습니다.</p></div>
+
+    <h2 id="usage">AI 사용료는 어떻게 붙을까</h2>
+    <p>운영비 중 가장 낯선 것이 AI 모델 사용료입니다. 대부분의 AI 모델은 <strong>읽고 쓰는 글의 양</strong>에 따라 요금을 매깁니다. 이 글의 양을 세는 단위를 <strong>토큰(token)</strong>이라고 부릅니다. 낱말이나 글자 조각 정도의 단위라고 생각하면 됩니다.</p>
+    <p>그래서 사용료는 다음 네 가지에 비례해 움직입니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">무엇이</th><th scope="col">사용료를 늘리는 경우</th><th scope="col">줄이는 방법</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">질문 수</th><td>하루 문의가 많을수록</td><td>단순 반복 질문은 고정 답변으로 먼저 처리</td></tr>
+          <tr><th scope="row">건네는 자료의 길이</th><td>문서 전체를 매번 통째로 넘길 때</td><td>RAG로 관련 문단만 골라 넘기기</td></tr>
+          <tr><th scope="row">답변의 길이</th><td>필요 이상으로 긴 답을 쓰게 할 때</td><td>답변 형식과 길이를 정해 두기</td></tr>
+          <tr><th scope="row">모델 등급</th><td>모든 단계에 가장 비싼 모델을 쓸 때</td><td>분류·추출은 가벼운 모델, 어려운 판단만 상위 모델</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>AI 에이전트는 목표를 이룰 때까지 판단을 여러 번 반복하기 때문에, 같은 일을 워크플로로 처리할 때보다 사용료가 커지기 쉽습니다. <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">지난 글</a>에서 “순서를 표로 그릴 수 있는 일은 워크플로로”라고 권한 이유 중 하나가 바로 이 비용입니다.</p>
+
+    <h2 id="save">비용을 줄이는 방법</h2>
+    <ol>
+      <li><strong>가장 효과가 큰 업무 하나부터 시작합니다.</strong> 모든 업무를 한 번에 자동화하기보다, 가장 자주 반복되고 시간이 많이 드는 일 하나를 골라 먼저 만들고 효과를 확인한 뒤 넓혀 갑니다.</li>
+      <li><strong>자료를 먼저 정리합니다.</strong> 최신 규정·FAQ·안내문을 한곳에 모아 두기만 해도 구축 기간이 줄고 정확도는 올라갑니다. 비용을 아끼면서 품질도 올리는 거의 유일한 방법입니다.</li>
+      <li><strong>정해진 일은 워크플로로, 판단만 AI에게 맡깁니다.</strong> AI가 모든 단계를 판단하게 하면 비용과 오류가 함께 늘어납니다.</li>
+      <li><strong>지금 쓰는 도구에 붙입니다.</strong> 새 시스템으로 갈아타는 것보다 이미 쓰고 있는 이메일·카카오톡·구글 시트에 연결하는 쪽이 대체로 빠르고 저렴합니다.</li>
+      <li><strong>사람이 확인하는 단계를 남겨 둡니다.</strong> 처음부터 완벽한 자동 처리를 목표로 하면 예외 처리에 비용이 크게 듭니다. AI가 초안을 만들고 사람이 승인하는 구조로 시작하면 훨씬 가볍습니다.</li>
+    </ol>
+
+    <h2 id="prepare">견적 요청 전에 준비할 것</h2>
+    <p>아래 내용을 정리해 오시면 범위와 비용을 훨씬 정확하게 잡을 수 있습니다. 모두 갖추지 않아도 괜찮습니다. 함께 정리하는 것부터 시작할 수 있습니다.</p>
+    <ul class="checklist">
+      <li>자동화하고 싶은 업무와 지금의 처리 순서</li>
+      <li>그 업무가 한 달에 몇 건 정도 들어오는지</li>
+      <li>연결해야 할 도구(이메일, 카카오톡, 구글 시트, 예약·결제 시스템 등)</li>
+      <li>답의 근거가 될 자료가 있는지, 어디에 있는지</li>
+      <li>틀리면 안 되는 부분과 사람이 꼭 확인해야 하는 단계</li>
+      <li>다루는 정보 중 개인정보나 내부 자료가 있는지</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>AI 자동화 비용은 보통 어떻게 구성되나요?</summary><p>크게 처음 한 번 드는 구축비와 매달 드는 운영비로 나뉩니다. 구축비는 업무 분석, 자료 정리, 개발, 시험에 드는 비용이고, 운영비는 AI 모델 사용료, 서버·검색 환경, 유지보수 비용입니다. 견적을 비교할 때는 두 가지를 함께 봐야 합니다.</p></details>
+      <details><summary>AI 모델 사용료는 어떻게 계산되나요?</summary><p>대부분의 AI 모델은 읽고 쓰는 글의 양(토큰)에 비례해 요금이 붙습니다. 그래서 질문 수, 한 번에 AI에게 건네는 자료의 길이, 답변의 길이, 사용하는 모델의 등급이 사용료를 좌우합니다. 같은 일도 설계에 따라 사용료가 크게 달라질 수 있습니다.</p></details>
+      <details><summary>비용을 줄이려면 어떻게 해야 하나요?</summary><p>효과가 가장 큰 업무 하나부터 작게 시작하고, 순서가 정해진 일은 AI 에이전트 대신 워크플로로 처리하며, 간단한 분류 같은 일에는 가벼운 모델을 쓰는 것이 좋습니다. 자료를 미리 정리해 두는 것도 구축비를 줄이는 가장 확실한 방법입니다.</p></details>
+      <details><summary>견적을 받기 전에 무엇을 준비하면 좋나요?</summary><p>자동화하고 싶은 업무의 지금 처리 순서, 한 달에 몇 건 정도 들어오는지, 연결해야 할 도구(이메일, 카카오톡, 구글 시트, 예약 시스템 등), 답의 근거가 될 자료, 사람이 꼭 확인해야 하는 단계를 정리해 오시면 범위와 비용을 훨씬 정확하게 잡을 수 있습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>RAG는 왜 일반 챗봇보다 정확할까?</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/rag-vs-chatbot.html</guid>
+   <pubDate>Mon, 19 Oct 2026 09:00:00 +0900</pubDate>
+   <description>RAG(검색 증강 생성)가 일반 AI 챗봇보다 정확한 이유를 쉽게 설명합니다. 챗봇은 기억으로 답하고, RAG는 우리 자료에서 근거를 찾아 출처와 함께 답합니다. 작동 4단계, 비교표, 실패하는 이유와 도입 체크리스트까지 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>일반 챗봇은 <strong>기억</strong>으로 답합니다. 모르는 내용도 그럴듯하게 지어낼 수 있습니다.</li>
+        <li>RAG는 답하기 전에 <strong>우리 자료에서 근거를 찾아</strong> 그 내용을 바탕으로, 출처와 함께 답합니다.</li>
+        <li>그래서 RAG의 정확도는 AI 모델보다 <strong>자료가 얼마나 잘 정리되어 있는지</strong>에 더 크게 좌우됩니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="chatbot">일반 챗봇은 어떻게 답할까</h2>
+    <p>ChatGPT 같은 대형 언어 모델(LLM)은 엄청난 양의 글을 읽고 “다음에 올 말”을 예측하도록 학습되었습니다. 질문을 받으면 그 학습된 기억을 바탕으로 가장 자연스러운 답을 만들어 냅니다. 책을 덮고 보는 <strong>클로즈드북 시험</strong>과 비슷합니다.</p>
+    <p>문제는 이 기억에 없는 것들입니다.</p>
+    <ul>
+      <li><strong>우리만의 정보</strong>: 우리 단체의 환불 규정, 대관 조건, 수강료 정책</li>
+      <li><strong>최신 정보</strong>: 이번 시즌 공연 일정, 지난주에 바뀐 운영 시간</li>
+      <li><strong>공개되지 않은 정보</strong>: 내부 매뉴얼, 작품 아카이브, 계약 기준</li>
+    </ul>
+    <p>모델은 모른다고 말하기보다 그럴듯한 답을 만드는 쪽으로 기울어 있습니다. 이렇게 사실이 아닌 내용을 자신 있게 말하는 현상을 <strong>환각(hallucination)</strong>이라고 부릅니다. 고객 응대에서는 이 한 번의 틀린 답이 신뢰를 크게 깎습니다.</p>
+
+    <h2 id="rag">RAG는 무엇이 다를까</h2>
+    <p>RAG는 Retrieval-Augmented Generation, 우리말로 <strong>검색 증강 생성</strong>입니다. 이름 그대로 “검색해서(Retrieval) 보강한 뒤(Augmented) 답을 만든다(Generation)”는 뜻입니다.</p>
+    <p>AI에게 바로 답하게 하지 않고, 먼저 지정된 자료에서 질문과 관련된 부분을 찾아 질문과 함께 건넵니다. 그리고 이렇게 지시합니다. “아래 자료를 근거로 답하고, 자료에 없으면 모른다고 말해.” 책을 펴 놓고 보는 <strong>오픈북 시험</strong>으로 바꾸는 셈입니다.</p>
+    <div class="callout"><p><strong>핵심:</strong> RAG는 AI를 더 똑똑하게 만드는 기술이 아니라, AI가 <strong>무엇을 보고 답할지</strong>를 정해 주는 기술입니다.</p></div>
+
+    <h2 id="docent">도슨트로 비유하면</h2>
+    <p>전시장 도슨트를 떠올려 보면 쉽습니다.</p>
+    <ul>
+      <li><strong>일반 챗봇은 외운 것만 말하는 도슨트</strong>입니다. 말솜씨는 훌륭하지만, 이번 전시에 새로 들어온 작품을 물으면 비슷한 작가 이야기로 그럴듯하게 넘어갑니다.</li>
+      <li><strong>RAG는 작품 캡션과 도록을 확인하고 말하는 도슨트</strong>입니다. “도록 34쪽에 따르면 이 작품은 2024년작이고요” 하고 근거를 짚어 줍니다. 도록에 없는 질문에는 “확인해서 알려 드릴게요”라고 답합니다.</li>
+    </ul>
+    <p>관람객이 신뢰하는 쪽은 당연히 두 번째입니다. 그리고 두 번째 도슨트의 실력은 결국 <strong>도록이 얼마나 정확하고 잘 정리되어 있느냐</strong>에 달려 있습니다.</p>
+
+    <h2 id="how">RAG가 답을 만드는 과정</h2>
+    <p>RAG는 크게 두 단계로 움직입니다. 자료를 미리 준비해 두는 단계와, 질문이 올 때마다 답을 만드는 단계입니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="준비 단계: 자료 모으기, 조각으로 나누기, 검색용으로 저장하기" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="r1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="20" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">미리 한 번 · 준비</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle"><rect x="40" y="40" width="240" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="67">① 자료 모으기 <tspan fill="#8b879b" font-size="12">FAQ·규정·도록</tspan></text><rect x="40" y="104" width="240" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="131">② 조각으로 나누기 <tspan fill="#8b879b" font-size="12">문단 단위</tspan></text><rect x="40" y="168" width="240" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="195">③ 검색용으로 저장 <tspan fill="#c6b2ff" font-size="12">색인</tspan></text></g>
+            <g stroke="#8b879b" stroke-width="1.5" marker-end="url(#r1)"><line x1="160" y1="85" x2="160" y2="102"/><line x1="160" y1="149" x2="160" y2="166"/></g>
+            <text x="160" y="250" text-anchor="middle" fill="#8b879b" font-size="12">자료가 바뀌면 이 단계만 다시 합니다</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="질문 단계: 질문 받기, 관련 조각 찾기, 근거와 함께 AI에게 전달, 출처와 함께 답하기" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="r2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="20" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">질문마다 · 답변</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle"><rect x="40" y="40" width="240" height="44" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="67">① 질문 받기</text><rect x="40" y="104" width="240" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="131">② 관련 조각 찾기 <tspan fill="#c6b2ff" font-size="12">검색</tspan></text><rect x="40" y="168" width="240" height="44" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="195">③ 질문 + 근거 전달 <tspan fill="#c6b2ff" font-size="12">LLM</tspan></text><rect x="40" y="232" width="240" height="44" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="259">④ 출처와 함께 답 <tspan fill="#ff9fb4" font-size="12">답변</tspan></text></g>
+            <g stroke="#8b879b" stroke-width="1.5" marker-end="url(#r2)"><line x1="160" y1="85" x2="160" y2="102"/><line x1="160" y1="149" x2="160" y2="166"/><line x1="160" y1="213" x2="160" y2="230"/></g>
+          </svg>
+        </div>
+      </div>
+      <figcaption>자료는 미리 조각내 저장해 두고, 질문이 오면 관련 조각만 꺼내 AI에게 근거로 건넵니다.</figcaption>
+    </figure>
+    <h3>준비: 자료를 찾기 좋게 쪼개 둡니다</h3>
+    <p>FAQ, 운영 규정, 예매 안내, 작품 설명 같은 자료를 모아 문단 정도의 작은 <strong>조각(chunk)</strong>으로 나눕니다. 그리고 각 조각을 “의미”로 찾을 수 있게 숫자 좌표(임베딩)로 바꿔 저장합니다. 이렇게 하면 “휠체어로 들어갈 수 있나요?”라는 질문으로도 “장애인 관람 편의 안내” 문단을 찾을 수 있습니다. 단어가 하나도 겹치지 않아도요.</p>
+    <h3>답변: 관련 조각만 꺼내 근거로 붙입니다</h3>
+    <p>질문이 오면 저장된 조각 중 가장 관련 있는 몇 개를 찾아 질문과 함께 AI에게 넘깁니다. AI는 그 조각들을 읽고 답을 쓰며, 어떤 문서의 어느 부분을 참고했는지 출처를 함께 남깁니다.</p>
+    <p>자료가 바뀌면 준비 단계만 다시 하면 됩니다. 모델을 다시 학습시킬 필요가 없어서 <strong>“규정이 바뀌었는데 챗봇은 예전 답을 해요”</strong> 같은 문제를 문서 수정만으로 고칠 수 있습니다.</p>
+
+    <h2 id="example">같은 질문, 다른 답</h2>
+    <p>한 극단의 홈페이지 상담 창에 관객이 이렇게 물었다고 해 봅시다.</p>
+    <div class="chat-cmp">
+      <div class="chat bad">
+        <span class="who">일반 챗봇</span>
+        <div class="bubble q">조기 예매 할인으로 샀는데, 환불되나요?</div>
+        <div class="bubble a">네, 공연 3일 전까지는 전액 환불이 가능합니다. 이후에는 수수료 10%가 부과됩니다.</div>
+        <p class="note">일반적인 공연 환불 규정을 그럴듯하게 조합한 답입니다. 실제 규정과 다를 수 있고, 근거가 없습니다.</p>
+      </div>
+      <div class="chat good">
+        <span class="who">RAG 챗봇</span>
+        <div class="bubble q">조기 예매 할인으로 샀는데, 환불되나요?</div>
+        <div class="bubble a">조기 예매 할인 티켓은 공연 7일 전까지 취소하면 전액 환불되고, 그 이후에는 환불이 어렵습니다. 날짜 변경은 1회 가능합니다.<span class="src">출처: 2026 시즌 예매 안내 › 할인권 취소 규정</span></div>
+        <p class="note">우리 단체의 실제 문서를 찾아 근거로 답하고, 출처를 보여 줍니다.</p>
+      </div>
+    </div>
+    <p>둘 다 문장은 자연스럽습니다. 차이는 <strong>그 답이 어디서 왔는지 확인할 수 있느냐</strong>입니다. 관객도, 응대 담당자도 출처를 눌러 바로 확인할 수 있습니다.</p>
+
+    <h2 id="compare">한눈에 비교하기</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">일반 챗봇</th><th scope="col">RAG 챗봇</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">답의 재료</th><td>학습 때 읽은 기억</td><td>지정한 우리 자료 + 모델의 언어 능력</td></tr>
+          <tr><th scope="row">우리만의 정보</th><td>모름(지어낼 수 있음)</td><td>자료에 있으면 답함</td></tr>
+          <tr><th scope="row">최신 정보</th><td>학습 시점까지만</td><td>자료를 고치면 바로 반영</td></tr>
+          <tr><th scope="row">근거 확인</th><td>어려움</td><td>출처 문서·위치를 함께 표시</td></tr>
+          <tr><th scope="row">모를 때</th><td>그럴듯하게 답하기 쉬움</td><td>“자료에 없어 확인이 필요합니다”로 답하게 설정 가능</td></tr>
+          <tr><th scope="row">고치는 방법</th><td>프롬프트 수정, 재학습</td><td>문서 수정 후 다시 저장</td></tr>
+          <tr><th scope="row">추가 비용</th><td>거의 없음</td><td>자료 정리·검색 환경 구축과 유지</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="fail">RAG도 틀릴 때가 있다</h2>
+    <p>RAG를 붙였다고 저절로 정확해지지는 않습니다. 실제로 틀리는 이유는 대부분 AI 모델이 아니라 그 앞 단계에 있습니다.</p>
+    <h3>자료가 낡았거나 서로 충돌할 때</h3>
+    <p>2024년 규정과 2026년 규정이 함께 저장되어 있으면 AI는 어느 쪽이 맞는지 알 수 없습니다. 문서마다 시즌·작성일 같은 정보를 붙이고, 지난 자료는 빼거나 “지난 자료”로 표시해야 합니다.</p>
+    <h3>조각을 잘못 나눴을 때</h3>
+    <p>요금표가 중간에 잘려 앞 조각에는 항목만, 뒤 조각에는 금액만 들어가면 엉뚱한 답이 나옵니다. 표·목록·질문과 답 같은 자료의 모양을 살려 나누는 것이 중요합니다.</p>
+    <h3>검색이 엉뚱한 조각을 가져올 때</h3>
+    <p>의미 검색만으로는 공연명, 작품 번호, 고유명사를 놓칠 때가 있습니다. 의미 검색과 키워드 검색을 함께 쓰는 <strong>하이브리드 검색</strong>으로 보완합니다.</p>
+    <h3>자료에 없는데도 답하게 두었을 때</h3>
+    <p>“자료에 없으면 모른다고 답하고 담당자에게 연결하라”는 규칙이 없으면 AI는 다시 기억으로 메우려 합니다. 모를 때의 행동을 미리 정해 두는 것이 신뢰를 지키는 마지막 장치입니다.</p>
+
+    <h2 id="check">도입 전 체크리스트</h2>
+    <p>RAG 챗봇을 고민하고 있다면 아래 다섯 가지를 먼저 확인해 보세요. 절반 이상 “예”라면 바로 시작할 수 있습니다.</p>
+    <ul class="checklist">
+      <li>답의 근거가 될 자료(FAQ·규정·안내문·아카이브)가 문서로 남아 있나요?</li>
+      <li>자료가 바뀌면 누가 고칠지 정해져 있나요?</li>
+      <li>공개해도 되는 자료와 내부용 자료를 나눌 수 있나요?</li>
+      <li>자주 받는 질문 30개 정도를 뽑을 수 있나요?</li>
+      <li>AI가 답하지 말고 사람에게 넘겨야 할 기준(환불 결정, 민원 등)이 있나요?</li>
+    </ul>
+    <p>참고로 RAG 검색은 AI 에이전트가 쓰는 Tool 하나가 될 수도 있습니다. 에이전트가 필요할 때 “우리 자료 검색”을 골라 쓰는 식입니다. Agent와 Tool의 관계는 <a href="https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html">지난 글</a>에서 자세히 다뤘습니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>RAG란 무엇인가요?</summary><p>RAG(Retrieval-Augmented Generation, 검색 증강 생성)는 AI가 답하기 전에 매뉴얼·규정·아카이브 같은 지정된 자료에서 관련 내용을 먼저 찾고, 그 내용을 근거로 답하게 하는 방식입니다. 기억에만 의존하는 일반 챗봇과 달리 출처를 보여 줄 수 있습니다.</p></details>
+      <details><summary>RAG와 파인튜닝은 무엇이 다른가요?</summary><p>파인튜닝은 모델 자체를 추가로 학습시켜 말투나 형식을 익히게 하는 방법이고, RAG는 모델은 그대로 두고 답할 때마다 자료를 찾아 붙여 주는 방법입니다. 자주 바뀌는 정보나 출처가 중요한 정보는 RAG가 더 적합하고, 수정도 문서만 고치면 바로 반영됩니다.</p></details>
+      <details><summary>자료가 얼마나 있어야 RAG를 만들 수 있나요?</summary><p>양보다 정리 상태가 중요합니다. 자주 묻는 질문에 답할 수 있는 FAQ, 규정, 안내문 몇십 쪽만으로도 시작할 수 있습니다. 오래된 자료와 최신 자료가 섞여 있으면 먼저 정리하는 것이 정확도에 가장 큰 영향을 줍니다.</p></details>
+      <details><summary>RAG를 쓰면 우리 자료가 외부로 유출되지 않나요?</summary><p>자료를 어디에 저장하고 어떤 AI 모델로 보낼지는 설계 단계에서 정합니다. 데이터가 학습에 쓰이지 않는 API나 자체 서버 환경을 고를 수 있고, 공개해도 되는 자료와 내부용 자료를 나눠 검색 범위를 제한할 수 있습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+  <item>
+   <title>Agent와 Node 그리고 Tool의 차이가 궁금해요</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/agent-node-tool.html</guid>
+   <pubDate>Fri, 16 Oct 2026 09:00:00 +0900</pubDate>
+   <description>AI 자동화에서 자주 나오는 Agent, Node, Tool의 차이를 쉽게 정리했습니다. Tool은 한 가지 일을 하는 기능, Node는 워크플로의 한 단계, Agent는 목표를 받아 스스로 도구를 고르며 일을 끝내는 AI입니다. 비교표와 실제 예시로 설명합니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li><strong>Tool</strong>은 한 가지 일을 하는 기능입니다. 스스로 판단하지 않습니다.</li>
+        <li><strong>Node</strong>는 미리 그린 작업 흐름도의 한 칸입니다. 순서는 사람이 정합니다.</li>
+        <li><strong>Agent</strong>는 목표를 받아 어떤 Tool을 언제 쓸지 스스로 고르는 AI입니다. 순서를 AI가 정합니다.</li>
+      </ul>
+    </aside>
+
+    <h2 id="define">한 문장씩 정의하기</h2>
+    <p>세 단어는 크기 순서로 보면 쉽습니다. 가장 작은 실행 단위가 Tool, 그 Tool들을 순서대로 엮은 흐름의 한 칸이 Node, 그 흐름 자체를 상황에 따라 스스로 짜는 존재가 Agent입니다.</p>
+    <div class="defs">
+      <div class="def t"><span class="ic">T</span><div><h3>Tool<span>도구</span></h3><p>정해진 입력을 받아 정해진 일을 하는 기능입니다. 일정 조회, 메일 발송, 문서 검색, 결제 내역 확인 같은 것들이죠. 계산기처럼 <strong>시키는 일만 정확히</strong> 하고, 언제 쓸지는 스스로 정하지 않습니다.</p></div></div>
+      <div class="def n"><span class="ic">N</span><div><h3>Node<span>노드</span></h3><p>워크플로(작업 흐름도)를 이루는 <strong>한 단계</strong>입니다. 앞 단계에서 넘어온 정보를 받아 한 가지 처리를 하고 다음 단계로 넘깁니다. 그 처리는 LLM에게 묻는 일일 수도, 평범한 코드일 수도, Tool 실행일 수도 있습니다. n8n이나 LangGraph 화면에 보이는 네모 상자 하나하나가 Node입니다.</p></div></div>
+      <div class="def a"><span class="ic">A</span><div><h3>Agent<span>에이전트</span></h3><p>목표를 받으면 <strong>스스로 다음 행동을 고르는</strong> AI입니다. 어떤 Tool을 쓸지 정하고, 결과를 보고, 부족하면 다시 다른 Tool을 씁니다. 이 “판단 → 실행 → 관찰”을 목표를 이루거나 멈춤 조건에 닿을 때까지 반복합니다.</p></div></div>
+    </div>
+
+    <h2 id="stage">공연 무대로 비유하면</h2>
+    <p>공연예술 현장에서 일해 온 경험 덕분에, 저희는 이 셋을 설명할 때 무대를 자주 꺼냅니다.</p>
+    <ul>
+      <li><strong>Tool은 장비</strong>입니다. 조명기, 음향 콘솔, 막 장치. 버튼을 누르면 정확히 그 일을 하지만, 언제 켤지는 모릅니다.</li>
+      <li><strong>Node는 큐시트의 한 줄</strong>입니다. “Q12 — 암전 후 핀 조명 켜기.” 순서와 내용이 미리 적혀 있고, 리허설 때와 본 공연 때 똑같이 실행됩니다.</li>
+      <li><strong>Agent는 무대감독</strong>입니다. 배우가 대사를 건너뛰거나 장비가 멈추는 돌발 상황에서 큐시트에 없는 판단을 내리고, 필요한 장비를 직접 골라 씁니다.</li>
+    </ul>
+    <p>좋은 공연에는 셋이 다 필요합니다. 큐시트 없이 무대감독의 즉흥에만 기대는 공연은 위험하고, 무대감독 없이 큐시트만 있는 공연은 사고 한 번에 멈춥니다. AI 자동화도 똑같습니다.</p>
+
+    <h2 id="compare">한눈에 비교하기</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">Tool</th><th scope="col">Node</th><th scope="col">Agent</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">정체</th><td>한 가지 일을 하는 기능(함수·API)</td><td>워크플로의 한 단계</td><td>목표를 향해 반복하며 행동을 고르는 AI</td></tr>
+          <tr><th scope="row">순서는 누가 정하나</th><td>부르는 쪽</td><td>사람이 미리 그린 흐름도</td><td>AI가 상황을 보고 결정</td></tr>
+          <tr><th scope="row">결과의 일관성</th><td>매우 높음</td><td>높음</td><td>상황마다 달라질 수 있음</td></tr>
+          <tr><th scope="row">예시</th><td>캘린더 조회, 메일 발송, DB 검색</td><td>“문의 유형 분류” 단계, “담당자 승인” 단계</td><td>“이 문의를 처리해 줘”를 받아 알아서 조회·작성·확인</td></tr>
+          <tr><th scope="row">문제가 생기면</th><td>오류를 그대로 돌려줌</td><td>정해 둔 분기·재시도로 처리</td><td>다른 방법을 스스로 시도(멈춤 조건이 꼭 필요)</td></tr>
+          <tr><th scope="row">비용·속도</th><td>가장 저렴·빠름</td><td>예측 가능</td><td>반복 횟수만큼 늘어남</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="example">같은 일을 두 방식으로</h2>
+    <p>예를 들어 공연 단체에 이런 메일이 왔다고 해 봅시다. “11월 8일 저녁 공연, 단체 20명 예매 가능한가요? 휠체어석도 필요해요.”</p>
+    <h3>방식 1. Node로 짠 워크플로</h3>
+    <p>사람이 미리 흐름을 그려 둡니다. 어떤 문의가 와도 같은 순서로 지나갑니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 330" role="img" aria-label="워크플로: 문의 접수, 유형 분류, 좌석 조회, 답장 초안, 담당자 확인이 순서대로 이어지는 다이어그램" font-family="Pretendard, system-ui, sans-serif">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8b879b"/></marker></defs>
+            <text x="160" y="18" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">WORKFLOW</text>
+            <g font-size="15" fill="#efedf5" text-anchor="middle">
+              <rect x="50" y="34" width="220" height="42" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="60">① 문의 접수</text>
+              <rect x="50" y="96" width="220" height="42" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="122">② 유형 분류 <tspan fill="#c6b2ff" font-size="12">LLM</tspan></text>
+              <rect x="50" y="158" width="220" height="42" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="184">③ 좌석 조회 <tspan fill="#8b879b" font-size="12">Tool</tspan></text>
+              <rect x="50" y="220" width="220" height="42" rx="10" fill="#15151f" stroke="#a487ff"/><text x="160" y="246">④ 답장 초안 <tspan fill="#c6b2ff" font-size="12">LLM</tspan></text>
+              <rect x="50" y="282" width="220" height="42" rx="10" fill="#15151f" stroke="#ff3a52"/><text x="160" y="308">⑤ 담당자 확인 <tspan fill="#ff9fb4" font-size="12">사람</tspan></text>
+            </g>
+            <g stroke="#8b879b" stroke-width="1.5" marker-end="url(#ah)"><line x1="160" y1="77" x2="160" y2="94"/><line x1="160" y1="139" x2="160" y2="156"/><line x1="160" y1="201" x2="160" y2="218"/><line x1="160" y1="263" x2="160" y2="280"/></g>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 330" role="img" aria-label="에이전트: 가운데 에이전트가 좌석 조회, 예매 내역, FAQ 검색, 메일 초안 도구를 필요할 때마다 골라 쓰는 다이어그램" font-family="Pretendard, system-ui, sans-serif">
+            <defs>
+              <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3a52"/><stop offset="1" stop-color="#a487ff"/></linearGradient>
+              <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c6b2ff"/></marker>
+            </defs>
+            <text x="160" y="18" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">AGENT</text>
+            <g stroke="rgba(198,178,255,.55)" stroke-width="1.5" stroke-dasharray="4 4"><line x1="160" y1="165" x2="80" y2="76"/><line x1="160" y1="165" x2="240" y2="76"/><line x1="160" y1="165" x2="80" y2="262"/><line x1="160" y1="165" x2="240" y2="262"/></g>
+            <g font-size="14" fill="#efedf5" text-anchor="middle">
+              <rect x="14" y="40" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="80" y="65">좌석 조회</text>
+              <rect x="174" y="40" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="240" y="65">예매 내역</text>
+              <rect x="14" y="252" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="80" y="277">FAQ 검색</text>
+              <rect x="174" y="252" width="132" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="240" y="277">메일 초안</text>
+            </g>
+            <path d="M90 162a70 70 0 0 1 140 0" fill="none" stroke="#c6b2ff" stroke-width="1.5" marker-end="url(#ah2)"/>
+            <path d="M230 168a70 70 0 0 1 -140 0" fill="none" stroke="#c6b2ff" stroke-width="1.5" marker-end="url(#ah2)"/>
+            <rect x="100" y="140" width="120" height="50" rx="25" fill="url(#ag)"/>
+            <text x="160" y="171" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">Agent</text>
+            <text x="160" y="318" text-anchor="middle" fill="#8b879b" font-size="12">판단 → 실행 → 관찰을 반복</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>워크플로는 정해진 순서를 그대로 따르고, Agent는 필요한 Tool을 그때그때 골라 씁니다.</figcaption>
+    </figure>
+    <p>워크플로는 매번 같은 길로 가기 때문에 결과가 예측 가능하고, 어느 단계에서 문제가 났는지 바로 보입니다. 대신 “휠체어석”처럼 흐름도에 없던 요청이 끼어들면 놓치기 쉽습니다.</p>
+    <h3>방식 2. Agent에게 맡기기</h3>
+    <p>Agent에게는 “이 문의에 답할 수 있게 준비해 줘”라는 목표와 쓸 수 있는 Tool 목록만 줍니다. Agent는 먼저 좌석을 조회하고, 휠체어석 정보가 없으면 FAQ를 검색하고, 그래도 없으면 “담당자 확인 필요”라고 표시한 초안을 씁니다. 순서를 문의마다 스스로 바꾸기 때문에 예외에 강합니다. 대신 매번 판단 과정을 거치니 비용과 시간이 더 들고, 기록을 남기지 않으면 왜 그렇게 했는지 알기 어렵습니다.</p>
+
+    <h2 id="layers">셋은 어떻게 겹쳐 있을까</h2>
+    <p>헷갈리는 이유는 셋이 서로를 품을 수 있기 때문입니다.</p>
+    <ul>
+      <li><strong>Node 안에서 Tool을 부릅니다.</strong> “좌석 조회” Node는 결국 좌석 조회 Tool을 실행하는 한 칸입니다.</li>
+      <li><strong>Agent 하나가 Node 한 칸이 될 수 있습니다.</strong> 큰 워크플로의 대부분은 고정된 순서로 두고, 판단이 필요한 한 칸에만 Agent를 넣는 식입니다.</li>
+      <li><strong>Agent 자체를 Node로 만들 수도 있습니다.</strong> LangGraph 같은 도구에서는 “생각하기” Node와 “Tool 실행” Node를 고리로 이어 Agent를 만듭니다.</li>
+    </ul>
+    <p>코드로 아주 단순하게 줄이면 이런 모양입니다.</p>
+    <p class="code-label">개념을 보여 주기 위한 의사 코드</p>
+<pre class="code"><span class="c"># Tool — 한 가지 일만 한다</span>
+<span class="k">def</span> <span class="f">check_seats</span>(date, count): ...
+<span class="k">def</span> <span class="f">search_faq</span>(question): ...
+
+<span class="c"># Node — 상태를 받아 한 단계를 처리하고 넘긴다</span>
+<span class="k">def</span> <span class="f">classify</span>(state):
+    state[<span class="s">"type"</span>] = llm(<span class="s">"이 문의의 유형은?"</span>, state[<span class="s">"mail"</span>])
+    <span class="k">return</span> state
+
+<span class="c"># Agent — 목표를 이룰 때까지 다음 행동을 스스로 고른다</span>
+<span class="k">def</span> <span class="f">agent</span>(goal, tools, max_steps=<span class="s">8</span>):
+    history = []
+    <span class="k">for</span> _ <span class="k">in</span> range(max_steps):          <span class="c"># 멈춤 조건</span>
+        action = llm.decide(goal, history, tools)
+        <span class="k">if</span> action.done: <span class="k">return</span> action.answer
+        history.append(tools[action.name](**action.args))
+    <span class="k">return</span> <span class="s">"담당자 확인 필요"</span></pre>
+
+    <h2 id="choose">언제 무엇을 써야 할까</h2>
+    <p>실무에서 권하는 순서는 이렇습니다.</p>
+    <ol>
+      <li><strong>먼저 워크플로로 그려 봅니다.</strong> 업무의 70~80%는 순서가 정해져 있습니다. 정해진 일은 Node로 짜는 쪽이 빠르고 저렴하고 검증하기 쉽습니다.</li>
+      <li><strong>판단이 갈리는 칸에만 Agent를 둡니다.</strong> 문의 내용이 제각각이라 처리 경로가 매번 다르다면 그 칸이 Agent 자리입니다.</li>
+      <li><strong>중요한 결정 앞에는 사람 Node를 넣습니다.</strong> 환불, 계약, 외부 발송처럼 되돌리기 어려운 일은 AI가 초안까지만 만들고 사람이 승인합니다.</li>
+      <li><strong>Tool은 작고 분명하게 만듭니다.</strong> 이름과 설명만 보고도 무엇을 하는지 알 수 있어야 Agent가 잘못 고르지 않습니다.</li>
+    </ol>
+    <div class="callout"><p><strong>한 줄 기준:</strong> “이 일의 순서를 표로 그릴 수 있는가?” 그릴 수 있으면 워크플로, 그릴 수 없으면 그 부분만 Agent.</p></div>
+
+    <h2 id="myths">자주 하는 오해</h2>
+    <h3>“Tool을 많이 붙일수록 똑똑해진다”</h3>
+    <p>반대인 경우가 많습니다. 비슷한 Tool이 여러 개면 Agent가 헷갈려 엉뚱한 것을 고릅니다. 꼭 필요한 Tool만, 겹치지 않게 주는 편이 정확합니다.</p>
+    <h3>“Agent면 알아서 다 해 준다”</h3>
+    <p>Agent에게는 반드시 멈춤 조건(최대 반복 횟수, 비용 한도), 권한 범위(읽기만 할지 쓰기까지 할지), 실행 기록이 필요합니다. 이 셋이 없으면 같은 일을 계속 반복하거나, 하지 말아야 할 일을 하고도 이유를 알 수 없습니다.</p>
+    <h3>“워크플로는 구식이고 Agent가 최신이다”</h3>
+    <p>둘은 경쟁 관계가 아니라 역할 분담입니다. 실제로 잘 돌아가는 시스템은 대부분 탄탄한 워크플로 위에 Agent를 필요한 만큼만 얹은 형태입니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>Agent와 Tool의 차이는 무엇인가요?</summary><p>Tool은 일정 조회나 메일 발송처럼 한 가지 일을 하는 기능이고 스스로 판단하지 않습니다. Agent는 목표를 받아 어떤 Tool을 언제 쓸지 스스로 고르고, 결과를 보고 다음 행동을 정하며 일을 끝까지 처리하는 AI입니다.</p></details>
+      <details><summary>Node는 무엇인가요?</summary><p>Node는 워크플로(작업 흐름도)를 이루는 한 단계입니다. 현재 상태를 받아 한 가지 처리를 하고 결과를 다음 단계로 넘깁니다. 한 Node 안에서는 LLM 호출, 일반 코드, Tool 실행 중 무엇이든 할 수 있습니다.</p></details>
+      <details><summary>업무 자동화에는 Agent와 워크플로 중 무엇이 좋나요?</summary><p>순서가 정해진 업무는 Node로 짠 워크플로가 더 빠르고 저렴하며 결과가 일정합니다. 상황마다 판단이 달라지는 부분에만 Agent를 두고, 중요한 결정 앞에는 사람이 확인하는 단계를 넣는 방식을 권합니다.</p></details>
+      <details><summary>Agent 안에 Node가 있나요, Node 안에 Agent가 있나요?</summary><p>둘 다 가능합니다. 워크플로의 한 Node 자리에 Agent를 넣을 수 있고, Agent 하나를 내부적으로 여러 Node로 이루어진 그래프로 만들 수도 있습니다. Tool은 어느 쪽에서든 호출되는 가장 작은 실행 단위입니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
+ </channel>
+</rss>

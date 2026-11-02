@@ -4,7 +4,8 @@
 예약 글 한 편 = _drafts/<slug>.html (완성된 글 페이지) + _drafts/<slug>.json (발행 정보)
   {"date": "2026-11-01", "cat": "seo", "chip": "도입 가이드", "read": 9,
    "card": "목록 카드 설명", "llms": "llms.txt 설명"}
-cat: chat(AI 챗봇·RAG) | auto(에이전트·자동화) | seo(검색 노출)
+cat: chat(AI 챗봇·RAG) | auto(에이전트·자동화) | seo(검색 노출) | ops(홈페이지 운영)
+글이 없는 탭은 hidden으로 숨기고, 첫 글이 발행되면 보인다.
 
 GitHub Actions가 매일 오전 9시(KST)에 실행한다. 직접 실행: python3 .github/scripts/publish-drafts.py [--today YYYY-MM-DD]
 """
@@ -16,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DRAFTS = ROOT / '_drafts'
 SITE = 'https://www.thejmstudio.co.kr'
 BLOG = SITE + '/deep-ai/'
-CATS = {'chat': 'AI 챗봇·RAG', 'auto': '에이전트·자동화', 'seo': '검색 노출'}
+CATS = {'chat': 'AI 챗봇·RAG', 'auto': '에이전트·자동화', 'seo': '검색 노출', 'ops': '홈페이지 운영'}
 CARD = '<a class="b-card reveal" data-cat="'
 
 
@@ -66,8 +67,8 @@ def publish(slug, meta):
     cats = re.findall(r'<a class="b-card reveal" data-cat="(\w+)"', idx)
     idx = re.sub(r'(data-cat="all" aria-current="\w+">전체 <span>)\d+', lambda m: m.group(1) + str(len(cats)), idx)
     for k in CATS:
-        idx = re.sub(rf'(<a href="#{k}" data-cat="{k}" aria-current="\w+">[^<]*<span>)\d+',
-                     lambda m: m.group(1) + str(cats.count(k)), idx)
+        idx = re.sub(rf'(<a href="#{k}" data-cat="{k}" aria-current="\w+")(?: hidden)?(>[^<]*<span>)\d+',
+                     lambda m: m.group(1) + ('' if cats.count(k) else ' hidden') + m.group(2) + str(cats.count(k)), idx)
     index.write_text(idx)
 
     # sitemap, llms.txt
@@ -89,7 +90,7 @@ def main():
     if '--today' in sys.argv:
         today = sys.argv[sys.argv.index('--today') + 1]
     due = []
-    for f in sorted(DRAFTS.glob('*.json')):
+    for f in sorted(DRAFTS.glob('[!.]*.json')):
         meta = json.loads(f.read_text())
         assert meta['cat'] in CATS, f'{f.name}: cat 값이 올바르지 않습니다'
         assert (DRAFTS / f'{f.stem}.html').exists(), f'{f.stem}.html이 없습니다'

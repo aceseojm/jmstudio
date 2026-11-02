@@ -6,7 +6,179 @@
   <atom:link href="https://www.thejmstudio.co.kr/deep-ai/rss.xml" rel="self" type="application/rss+xml" />
   <description>AI 에이전트, RAG, 워크플로 자동화, 검색 노출까지. 도입을 고민할 때 알아야 할 개념을 쉬운 말로 정리하는 JM Studio의 블로그입니다.</description>
   <language>ko</language>
-  <lastBuildDate>Sun, 01 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Tue, 03 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+   <title>구글 서치 콘솔, 처음 시작하는 법</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/google-search-console.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/google-search-console.html</guid>
+   <pubDate>Tue, 03 Nov 2026 09:00:00 +0900</pubDate>
+   <description>구글 서치 콘솔(Google Search Console)을 처음 쓰는 분을 위한 안내입니다. 도메인 속성과 URL 접두사 속성의 차이, 소유권 확인 방법, 사이트맵 제출, URL 검사와 실적 보고서 보는 법을 구글 공식 도움말 기준으로 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>서치 콘솔은 <strong>내 사이트가 구글 검색에서 어떻게 보이는지 확인하는 무료 도구</strong>입니다.</li>
+        <li>처음에는 <strong>속성 추가 → 소유권 확인 → 사이트맵 제출</strong> 세 단계만 하면 됩니다.</li>
+        <li>등록이 검색 노출을 보장하지는 않습니다. 대신 <strong>색인 상태와 검색 실적, 문제</strong>를 직접 확인할 수 있게 됩니다.</li>
+      </ul>
+    </aside>
+
+    <div class="callout"><p><strong>기준일:</strong> 이 글은 2026년 11월 기준 <a href="https://support.google.com/webmasters/answer/34592" rel="noopener" target="_blank">구글 Search Console 고객센터 문서</a>를 바탕으로 썼습니다. 메뉴 이름과 세부 기준은 바뀔 수 있으니 작업할 때 공식 문서를 함께 확인하세요.</p></div>
+
+    <h2 id="what">서치 콘솔은 무엇을 하는 도구인가</h2>
+    <p><a href="https://search.google.com/search-console" rel="noopener" target="_blank">구글 서치 콘솔</a>은 사이트 운영자가 <strong>구글 검색에서 내 사이트의 상태를 확인하고 관리하는 무료 도구</strong>입니다. 구글 계정만 있으면 쓸 수 있습니다. 주로 이런 일을 합니다.</p>
+    <ul>
+      <li><strong>알리기:</strong> 사이트맵을 제출해 구글에 페이지 목록을 알립니다.</li>
+      <li><strong>확인하기:</strong> 어떤 페이지가 구글 색인에 들어갔는지, 안 들어갔다면 이유가 무엇인지 봅니다.</li>
+      <li><strong>살펴보기:</strong> 어떤 검색어로 몇 번 노출되고 몇 번 클릭됐는지 봅니다.</li>
+      <li><strong>알림 받기:</strong> 사이트에 문제가 생기면 메일로 알림을 받습니다.</li>
+    </ul>
+    <p>네이버에서 같은 역할을 하는 도구가 서치어드바이저입니다. 두 서비스는 서로 별개라서 각각 등록해야 합니다. 네이버 쪽 절차는 <a href="https://www.thejmstudio.co.kr/deep-ai/naver-search-advisor.html">네이버 서치어드바이저 글</a>에 정리해 두었습니다.</p>
+
+    <h2 id="property">1단계: 속성 추가하기</h2>
+    <p>서치 콘솔에 처음 들어가면 <strong>속성</strong>을 추가하라는 화면이 나옵니다. 속성은 “관리할 사이트의 범위”입니다. 구글 도움말 기준으로 두 가지 중 하나를 고릅니다.</p>
+
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="도메인 속성은 www가 붙은 주소와 안 붙은 주소, http와 https, m 같은 하위 도메인을 모두 하나로 묶습니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">도메인 속성</text>
+            <rect x="30" y="36" width="260" height="226" rx="12" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+            <text x="48" y="60" fill="#c9bdff" font-size="12" font-weight="700">mysite.com 전체</text>
+            <g font-size="12" fill="#efedf5">
+              <rect x="46" y="70" width="228" height="30" rx="7" fill="#15151f" stroke="#a487ff"/><text x="58" y="90">https://www.mysite.com</text>
+              <rect x="46" y="106" width="228" height="30" rx="7" fill="#15151f" stroke="#a487ff"/><text x="58" y="126">https://mysite.com</text>
+              <rect x="46" y="142" width="228" height="30" rx="7" fill="#15151f" stroke="#a487ff"/><text x="58" y="162">http://www.mysite.com</text>
+              <rect x="46" y="178" width="228" height="30" rx="7" fill="#15151f" stroke="#a487ff"/><text x="58" y="198">https://m.mysite.com</text>
+            </g>
+            <text x="160" y="240" text-anchor="middle" fill="#8b879b" font-size="11.5">모두 한 속성에서 확인</text>
+            <text x="160" y="288" text-anchor="middle" fill="#bcb8c9" font-size="12">확인 방법: DNS 레코드만 가능</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="URL 접두사 속성은 입력한 주소로 시작하는 페이지만 포함합니다. https://www.mysite.com으로 만들면 www 없는 주소나 http 주소는 빠집니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">URL 접두사 속성</text>
+            <rect x="30" y="36" width="260" height="226" rx="12" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+            <text x="48" y="60" fill="#ffb3c6" font-size="12" font-weight="700">https://www.mysite.com 으로 시작</text>
+            <g font-size="12">
+              <rect x="46" y="70" width="228" height="30" rx="7" fill="#15151f" stroke="#ff3a52"/><text x="58" y="90" fill="#efedf5">https://www.mysite.com</text>
+              <rect x="46" y="106" width="228" height="30" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" stroke-dasharray="4 4"/><text x="58" y="126" fill="#8b879b">https://mysite.com</text>
+              <rect x="46" y="142" width="228" height="30" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" stroke-dasharray="4 4"/><text x="58" y="162" fill="#8b879b">http://www.mysite.com</text>
+              <rect x="46" y="178" width="228" height="30" rx="7" fill="#15151f" stroke="rgba(239,237,245,.25)" stroke-dasharray="4 4"/><text x="58" y="198" fill="#8b879b">https://m.mysite.com</text>
+            </g>
+            <text x="160" y="240" text-anchor="middle" fill="#8b879b" font-size="11.5">점선 주소는 포함되지 않음</text>
+            <text x="160" y="288" text-anchor="middle" fill="#bcb8c9" font-size="12">확인 방법: HTML 태그, 파일 등 여러 가지</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>도메인 속성은 도메인 아래 모든 주소를 묶고, URL 접두사 속성은 입력한 주소로 시작하는 페이지만 담습니다. 주소는 설명용 예시입니다.</figcaption>
+    </figure>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">구분</th><th scope="col">도메인 속성</th><th scope="col">URL 접두사 속성</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">입력 예시</th><td><code>mysite.com</code></td><td><code>https://www.mysite.com/</code></td></tr>
+          <tr><th scope="row">포함 범위</th><td>모든 하위 도메인(www, m 등)과 http, https</td><td>입력한 주소(프로토콜 포함)로 시작하는 페이지만</td></tr>
+          <tr><th scope="row">소유권 확인</th><td>도메인 이름 공급업체(DNS 레코드)만 가능</td><td>HTML 파일, HTML 태그, 애널리틱스, 태그 관리자 등</td></tr>
+          <tr><th scope="row">어울리는 경우</th><td>도메인 관리 화면에 들어갈 수 있을 때</td><td>DNS를 다루기 어렵거나 사이트 일부만 관리할 때</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>도메인을 산 곳(가비아, 카페24, 후이즈 같은 등록 업체나 Cloudflare)의 관리 화면에 들어갈 수 있다면 <strong>도메인 속성</strong>이 편합니다. www가 붙은 주소와 안 붙은 주소를 따로 볼 필요가 없습니다. DNS 설정이 낯설거나 제작사가 도메인을 관리하고 있다면 <strong>URL 접두사 속성</strong>으로 시작해도 충분합니다. 이때는 실제로 사이트가 열리는 주소를 <code>https://</code>와 <code>www</code> 여부까지 정확히 입력해야 합니다.</p>
+
+    <h2 id="verify">2단계: 소유권 확인하기</h2>
+    <p>속성을 추가하면 구글은 <strong>“이 사이트가 정말 당신 것인지”</strong> 확인합니다. 아무나 남의 사이트 데이터를 보거나 설정을 바꾸면 안 되니까요. 구글 도움말이 안내하는 방법은 이렇습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">방법</th><th scope="col">하는 일</th><th scope="col">참고</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">HTML 태그</th><td>구글이 준 <code>&lt;meta&gt;</code> 태그를 홈페이지 첫 화면의 <code>&lt;head&gt;</code>에 붙여 넣기</td><td>직접 만든 사이트에서 가장 흔히 씀</td></tr>
+          <tr><th scope="row">HTML 파일 업로드</th><td>구글이 준 파일을 사이트 최상위 폴더에 올리기</td><td>파일 업로드가 안 되는 호스팅도 있음</td></tr>
+          <tr><th scope="row">도메인 이름 공급업체</th><td>도메인 관리 화면에 구글이 준 TXT 레코드 추가</td><td>도메인 속성은 이 방법만 가능</td></tr>
+          <tr><th scope="row">Google 애널리틱스 · 태그 관리자</th><td>이미 설치된 추적 코드나 컨테이너로 확인</td><td>해당 계정에 권한이 있어야 함</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <pre class="code"><span class="c">&lt;!-- HTML 태그 방법 예시: 홈페이지 &lt;head&gt; 안에 넣기 --&gt;</span>
+&lt;head&gt;
+  &lt;meta name="google-site-verification" content="구글이-발급한-값" /&gt;
+  ...
+&lt;/head&gt;</pre>
+    <p>워드프레스, 윅스(Wix), 스퀘어스페이스 같은 플랫폼은 대개 설정 메뉴에 서치 콘솔 연결 칸이 따로 있습니다. 구글 도움말도 이런 플랫폼은 <strong>플랫폼이 안내하는 방법</strong>을 따르라고 권합니다.</p>
+    <p>한 가지 꼭 기억할 점이 있습니다. 구글 도움말에 따르면 서치 콘솔은 확인용 태그나 파일이 <strong>계속 남아 있는지 정기적으로 검사</strong>합니다. 리뉴얼하면서 태그를 빠뜨리면 알림이 오고, 그대로 두면 권한이 만료됩니다. 그래서 구글은 <strong>확인 방법을 두 가지 이상</strong> 등록해 두기를 권합니다.</p>
+
+    <h2 id="sitemap">3단계: 사이트맵 제출하기</h2>
+    <p>소유권 확인이 끝나면 메뉴의 <strong>색인 생성 → Sitemaps</strong>에서 사이트맵 주소를 입력하고 제출합니다. 보통 <code>https://내 도메인/sitemap.xml</code>입니다. 블로그가 있다면 RSS 주소도 같은 곳에 제출할 수 있습니다. 구글은 RSS도 사이트맵 형식의 하나로 받습니다.</p>
+    <p>제출하고 나면 같은 화면에서 구글이 파일을 읽었는지, 주소를 몇 개 찾았는지 볼 수 있습니다. 상태가 “성공”이 아니라면 파일 주소가 맞는지, 파일이 실제로 열리는지부터 확인하세요. 사이트맵과 RSS의 차이는 <a href="https://www.thejmstudio.co.kr/deep-ai/sitemap-vs-rss.html">사이트맵과 RSS 글</a>에서 자세히 다뤘습니다.</p>
+    <p>여기까지가 처음 한 번 해 두면 되는 일입니다. 그다음부터는 필요할 때 아래 도구와 보고서를 들여다보면 됩니다.</p>
+
+    <h2 id="inspect">URL 검사: 페이지 하나 들여다보기</h2>
+    <p>화면 맨 위 검색창에 내 사이트의 주소 하나를 넣으면 <strong>URL 검사</strong> 결과가 나옵니다. 그 페이지가 구글 색인에 들어 있는지, 안 들어 있다면 이유가 무엇인지 보여 줍니다. <strong>실제 URL 테스트</strong>를 누르면 지금 이 순간 구글이 페이지를 가져갈 수 있는지도 확인할 수 있습니다.</p>
+    <p>새로 만든 중요한 페이지라면 여기서 <strong>색인 생성 요청</strong>을 할 수 있습니다. 다만 구글 도움말이 밝히는 한계가 있습니다.</p>
+    <ul>
+      <li>요청에는 <strong>할당량</strong>이 있고, 같은 주소를 여러 번 요청해도 더 빨리 처리되지 않습니다.</li>
+      <li>크롤링에는 <strong>며칠에서 몇 주</strong>가 걸릴 수 있고, 요청했다고 검색 결과에 들어간다는 보장은 없습니다.</li>
+      <li>주소가 많다면 하나씩 요청하기보다 <strong>사이트맵을 제출</strong>하는 편이 맞습니다.</li>
+    </ul>
+
+    <h2 id="report">실적 보고서와 페이지 색인 생성 보고서</h2>
+    <p>처음 쓰는 분이라면 이 두 보고서만 알아도 충분합니다.</p>
+    <h3>실적 보고서: 검색에서 얼마나 보이고 눌렸나</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">지표</th><th scope="col">뜻</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">총 클릭수</th><td>검색 결과에서 내 사이트를 눌러 들어온 횟수</td></tr>
+          <tr><th scope="row">총 노출수</th><td>검색 결과에 내 사이트가 보인 횟수</td></tr>
+          <tr><th scope="row">평균 CTR</th><td>노출 대비 클릭 비율</td></tr>
+          <tr><th scope="row">평균 게재순위</th><td>검색 결과에서 내 사이트가 나온 평균 위치 (여러 페이지가 나오면 가장 위쪽 기준)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>기본으로 <strong>최근 3개월</strong> 데이터가 보이고, 아래 표에서 <strong>검색어(쿼리), 페이지, 국가, 기기, 날짜</strong>별로 나눠 볼 수 있습니다. 예를 들어 “노출은 많은데 클릭이 적은 검색어”를 찾으면, 그 페이지의 제목과 설명문을 다듬을 실마리가 됩니다.</p>
+    <h3>페이지 색인 생성 보고서: 어떤 페이지가 색인에 들어갔나</h3>
+    <p>색인된 페이지 수와 색인되지 않은 페이지, 그 이유를 묶어서 보여 줍니다. 이 보고서를 볼 때는 두 가지를 기억하세요.</p>
+    <ul>
+      <li><strong>모든 페이지가 색인될 필요는 없습니다.</strong> robots.txt로 막은 페이지, <code>noindex</code>를 단 페이지, 다른 주소와 중복인 페이지, 지운 페이지(404)는 색인되지 않는 것이 정상입니다.</li>
+      <li>구글 도움말은 <strong>페이지가 500개 미만인 사이트</strong>라면 이 보고서가 꼭 필요하지 않을 수 있다고 설명합니다. 구글 검색창에 <code>site:내 도메인</code>을 입력해 보는 것으로도 대략 확인할 수 있고, 특정 페이지가 궁금하면 URL 검사를 쓰면 됩니다.</li>
+    </ul>
+
+    <h2 id="case">이 사이트의 사례</h2>
+    <p>JM Studio 홈페이지는 이렇게 연결해 두었습니다.</p>
+    <ul>
+      <li><strong>소유권 확인:</strong> 직접 만든 정적 사이트라서 <strong>HTML 태그</strong> 방법을 썼습니다. 메인 페이지 <code>&lt;head&gt;</code>에 <code>google-site-verification</code> 태그가 들어 있고, 페이지를 고칠 때도 이 줄은 지우지 않도록 관리합니다.</li>
+      <li><strong>사이트맵과 RSS:</strong> <code>sitemap.xml</code>과 Deep AI의 <a href="https://www.thejmstudio.co.kr/deep-ai/rss.xml">RSS 피드</a>를 제출해 두었습니다. 새 글이 올라가면 두 파일이 함께 갱신됩니다.</li>
+      <li><strong>네이버:</strong> 같은 작업을 네이버 서치어드바이저에도 따로 해 두었습니다.</li>
+    </ul>
+
+    <h2 id="myth">흔한 오해</h2>
+    <div class="defs">
+      <div class="def n"><span class="ic">1</span><div><h3>등록하지 않으면 구글에 안 나온다<span>오해</span></h3><p>구글은 링크를 따라가며 페이지를 스스로 찾습니다. 서치 콘솔 등록은 검색에 나오기 위한 필수 조건이 아니라, <strong>더 잘 알리고 상태를 확인하기 위한 도구</strong>입니다.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>등록하면 바로 검색에 나온다<span>오해</span></h3><p>색인 생성 요청이나 사이트맵 제출은 구글에 주는 신호일 뿐입니다. 크롤링에는 시간이 걸리고, 검색 결과에 들어갈지는 구글이 판단합니다.</p></div></div>
+      <div class="def n"><span class="ic">3</span><div><h3>색인 생성 요청을 반복하면 빨라진다<span>오해</span></h3><p>구글 도움말은 같은 주소를 여러 번 요청해도 더 빨리 크롤링되지 않는다고 밝힙니다. 한 번 요청했다면 기다리는 것이 맞습니다.</p></div></div>
+    </div>
+
+    <h2 id="list">체크리스트</h2>
+    <ul class="checklist">
+      <li>서치 콘솔에 속성을 추가했다 (가능하면 도메인 속성)</li>
+      <li>소유권 확인을 마쳤고, 확인 방법을 두 가지 이상 등록했다</li>
+      <li>확인용 태그나 파일이 리뉴얼 뒤에도 남아 있다</li>
+      <li>사이트맵을 제출했고 상태가 “성공”이다</li>
+      <li>블로그가 있다면 RSS 주소도 제출했다</li>
+      <li>중요한 새 페이지는 URL 검사로 색인 상태를 확인한다</li>
+      <li>한 달에 한 번쯤 실적 보고서로 검색어와 클릭을 살핀다</li>
+      <li>네이버 서치어드바이저에도 따로 등록했다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>구글 서치 콘솔에 등록하지 않으면 구글 검색에 안 나오나요?</summary><p>그렇지는 않습니다. 구글은 링크를 따라가며 새 페이지를 스스로 찾기 때문에 등록하지 않은 사이트도 검색에 나올 수 있습니다. 서치 콘솔을 쓰면 사이트맵을 제출해 페이지를 알리고, 색인 상태와 검색 실적, 문제를 직접 확인할 수 있습니다.</p></details>
+      <details><summary>도메인 속성과 URL 접두사 속성 중 무엇을 골라야 하나요?</summary><p>도메인 설정(DNS)을 바꿀 수 있다면 도메인 속성을 추천합니다. www가 붙은 주소와 안 붙은 주소, http와 https를 모두 묶어서 볼 수 있습니다. DNS를 다루기 어렵다면 URL 접두사 속성을 만들고 HTML 태그나 HTML 파일로 소유권을 확인하면 됩니다.</p></details>
+      <details><summary>소유권 확인용 태그를 나중에 지워도 되나요?</summary><p>지우면 안 됩니다. 구글 도움말에 따르면 서치 콘솔은 확인 토큰이 계속 있는지 정기적으로 검사하고, 더 이상 확인할 수 없으면 알림을 보낸 뒤 유예 기간이 지나면 권한이 만료됩니다. 홈페이지를 리뉴얼할 때도 확인용 태그나 파일을 그대로 옮겨야 합니다.</p></details>
+      <details><summary>새 글을 올렸는데 색인 생성 요청을 꼭 해야 하나요?</summary><p>꼭 해야 하는 것은 아닙니다. 사이트맵에 새 주소가 들어가 있으면 구글이 찾아갑니다. 빨리 알리고 싶은 중요한 페이지가 있을 때 URL 검사 도구에서 색인 생성을 요청할 수 있지만, 할당량이 있고 같은 주소를 여러 번 요청해도 더 빨리 처리되지는 않습니다.</p></details>
+      <details><summary>서치 콘솔과 네이버 서치어드바이저를 둘 다 해야 하나요?</summary><p>둘 다 하는 것이 좋습니다. 두 서비스는 서로 별개라서 한쪽에 등록한 내용이 다른 쪽에 반영되지 않습니다. 사이트 등록, 소유 확인, 사이트맵 제출을 각각 해 두면 구글과 네이버에서 모두 상태를 확인할 수 있습니다.</p></details>
+    </div>]]></content:encoded>
+  </item>
   <item>
    <title>사이트맵과 RSS, 무엇이 다르고 둘 다 필요할까?</title>
    <link>https://www.thejmstudio.co.kr/deep-ai/sitemap-vs-rss.html</link>

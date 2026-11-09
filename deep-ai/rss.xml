@@ -6,7 +6,188 @@
   <atom:link href="https://www.thejmstudio.co.kr/deep-ai/rss.xml" rel="self" type="application/rss+xml" />
   <description>AI 에이전트, RAG, 워크플로 자동화, 검색 노출까지. 도입을 고민할 때 알아야 할 개념을 쉬운 말로 정리하는 JM Studio의 블로그입니다.</description>
   <language>ko</language>
-  <lastBuildDate>Thu, 05 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <lastBuildDate>Mon, 09 Nov 2026 09:00:00 +0900</lastBuildDate>
+  <item>
+   <title>홈페이지에 결제 붙이기: PG사 비교와 고르는 기준</title>
+   <link>https://www.thejmstudio.co.kr/deep-ai/website-payment-pg.html</link>
+   <guid isPermaLink="true">https://www.thejmstudio.co.kr/deep-ai/website-payment-pg.html</guid>
+   <pubDate>Mon, 09 Nov 2026 09:00:00 +0900</pubDate>
+   <description>홈페이지에 카드 결제를 붙이려면 어떤 PG사를 골라야 할까요? 토스페이먼츠, KG이니시스, NHN KCP, 나이스페이먼츠, 포트원, 페이앱의 차이와 결제를 붙이는 세 가지 방법, 수수료 외에 따져 볼 항목, 통신판매업 신고까지의 준비 순서를 공식 자료 기준으로 정리했습니다.</description>
+   <content:encoded><![CDATA[<aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>PG사는 <strong>카드사와 내 사이트 사이에서 결제를 대신 처리하고 정산해 주는 회사</strong>입니다.</li>
+        <li>결제를 붙이는 길은 <strong>빌더 내장, PG 직접 연동, 연동 플랫폼(포트원)</strong> 세 가지입니다.</li>
+        <li>수수료는 계약 조건마다 달라서 <strong>같은 조건으로 두세 곳 견적을 받아 비교</strong>하는 것이 가장 정확합니다.</li>
+      </ul>
+    </aside>
+
+    <div class="callout"><p><strong>기준일:</strong> 이 글은 2026년 11월 기준 각 업체 공식 홈페이지와 <a href="https://www.tosspayments.com/about/fee" rel="noopener" target="_blank">토스페이먼츠 이용요금 안내</a>를 바탕으로 썼습니다. 수수료와 가입 조건은 자주 바뀌고 계약마다 다를 수 있으니, 계약 전에 반드시 업체에 직접 확인하세요. 이 글은 특정 업체를 추천하거나 광고하지 않습니다.</p></div>
+
+    <h2 id="pg">PG사는 무슨 일을 하나</h2>
+    <p>작은 회사가 카드사 여러 곳과 하나하나 가맹 계약을 맺기는 어렵습니다. PG(Payment Gateway, 전자지급결제대행)사는 이 일을 대신 해 줍니다. 고객이 홈페이지에서 결제 버튼을 누르면 PG사의 결제창이 뜨고, PG사가 카드사에 승인을 받아 결제를 처리한 뒤 정해진 날짜에 수수료를 뺀 금액을 내 계좌로 보내 줍니다(정산).</p>
+    <p>대부분의 PG사는 신용·체크카드, 계좌이체, 가상계좌, 간편결제(네이버페이, 카카오페이 등) 같은 기본 결제 수단을 함께 제공합니다. 어떤 수단을 어떤 조건으로 쓸 수 있는지는 업체와 계약마다 다르니 확인이 필요합니다.</p>
+
+    <h2 id="way">결제를 붙이는 세 가지 방법</h2>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="PG 직접 연동: 내 홈페이지가 PG사 한 곳과 바로 연결되고, PG사가 카드사와 연결됩니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">PG 직접 연동</text>
+            <rect x="80" y="40" width="160" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.4)"/>
+            <text x="160" y="65" text-anchor="middle" fill="#efedf5" font-size="13">내 홈페이지</text>
+            <path d="M160 80 V112" stroke="#a487ff" stroke-width="1.6"/><path d="M155 106 L160 114 L165 106" fill="none" stroke="#a487ff" stroke-width="1.6"/>
+            <rect x="80" y="116" width="160" height="44" rx="10" fill="#17142a" stroke="#a487ff" stroke-width="1.6"/>
+            <text x="160" y="143" text-anchor="middle" fill="#c9bdff" font-size="13" font-weight="700">PG사 1곳</text>
+            <path d="M160 160 V192" stroke="#a487ff" stroke-width="1.6"/><path d="M155 186 L160 194 L165 186" fill="none" stroke="#a487ff" stroke-width="1.6"/>
+            <rect x="80" y="196" width="160" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/>
+            <text x="160" y="221" text-anchor="middle" fill="#bcb8c9" font-size="12.5">카드사 · 은행 · 간편결제</text>
+            <text x="160" y="276" text-anchor="middle" fill="#bcb8c9" font-size="12">구조가 단순, PG사를 바꾸면 다시 연동</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 300" role="img" aria-label="연동 플랫폼: 내 홈페이지가 포트원 같은 연동 플랫폼 하나와 연결되고, 플랫폼이 여러 PG사와 연결됩니다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="22" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">연동 플랫폼 이용</text>
+            <rect x="80" y="40" width="160" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.4)"/>
+            <text x="160" y="65" text-anchor="middle" fill="#efedf5" font-size="13">내 홈페이지</text>
+            <path d="M160 80 V104" stroke="#ff3a52" stroke-width="1.6"/><path d="M155 98 L160 106 L165 98" fill="none" stroke="#ff3a52" stroke-width="1.6"/>
+            <rect x="80" y="108" width="160" height="40" rx="10" fill="#2a1a24" stroke="#ff3a52" stroke-width="1.6"/>
+            <text x="160" y="133" text-anchor="middle" fill="#ffb3c6" font-size="13" font-weight="700">연동 플랫폼 (포트원 등)</text>
+            <path d="M110 148 L70 180 M160 148 V180 M210 148 L250 180" stroke="#ff3a52" stroke-width="1.4"/>
+            <g font-size="12" fill="#efedf5" text-anchor="middle">
+              <rect x="26" y="182" width="84" height="36" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="68" y="205">PG사 A</text>
+              <rect x="118" y="182" width="84" height="36" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="160" y="205">PG사 B</text>
+              <rect x="210" y="182" width="84" height="36" rx="9" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="252" y="205">PG사 C</text>
+            </g>
+            <text x="160" y="276" text-anchor="middle" fill="#bcb8c9" font-size="12">한 번 연동으로 PG사 추가·변경이 쉬움</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>PG사와 바로 연결하면 구조가 단순하고, 연동 플랫폼을 거치면 여러 PG사를 한 가지 방식으로 다룰 수 있습니다. PG사 A·B·C는 설명용 예시입니다.</figcaption>
+    </figure>
+
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">방법</th><th scope="col">어떻게</th><th scope="col">어울리는 경우</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">빌더 내장</th><td>아임웹, 카페24, 식스샵 같은 빌더의 관리 화면에서 제휴 PG사를 신청</td><td>빌더로 만든 사이트, 개발 인력이 없을 때</td></tr>
+          <tr><th scope="row">PG 직접 연동</th><td>PG사와 계약하고, 그 PG사의 개발 문서대로 결제창을 붙임</td><td>직접 만든 사이트, PG사 한 곳으로 충분할 때</td></tr>
+          <tr><th scope="row">연동 플랫폼</th><td>포트원 같은 서비스에 연동하고, 그 뒤에 원하는 PG사를 연결</td><td>PG사를 여러 곳 쓰거나 나중에 바꿀 가능성이 있을 때</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>빌더를 쓰는 경우에는 고를 수 있는 PG사와 조건이 빌더 정책에 따라 정해집니다. 토스페이먼츠 요금 안내에도 “호스팅사를 통해 가입할 경우 호스팅사 정책에 따라 적용된다”고 적혀 있습니다.</p>
+    <p>홈페이지에 결제창을 붙이지 않고 <strong>결제 링크</strong>를 쓰는 방법도 있습니다. 주문이나 예약을 받은 뒤 문자나 메신저로 결제 링크를 보내면 고객이 휴대폰에서 결제하는 방식으로, 페이앱 같은 결제 서비스가 앱과 PC 관리 화면에서 제공합니다. 결제가 많지 않거나 금액이 건마다 다를 때 개발 없이 시작하기 좋습니다.</p>
+
+    <h2 id="compare">주요 업체 비교</h2>
+    <p>국내 홈페이지에서 많이 쓰이는 PG사와 연동 플랫폼, 결제 서비스를 정리했습니다. 기본 결제 수단은 대부분 비슷하게 갖추고 있어서, 실제 차이는 <strong>계약 조건(수수료, 가입비, 정산 주기)과 연동 방식</strong>에서 나는 경우가 많습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">업체</th><th scope="col">구분</th><th scope="col">요금 확인 방법</th><th scope="col">참고</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><a href="https://www.tosspayments.com/" rel="noopener" target="_blank">토스페이먼츠</a></th><td>PG사</td><td>공식 홈페이지에 요금표 공개</td><td>개발 문서를 공개하고 있어 직접 연동 자료를 찾기 쉬움</td></tr>
+          <tr><th scope="row"><a href="https://www.inicis.com/" rel="noopener" target="_blank">KG이니시스</a></th><td>PG사</td><td>상담·계약 조건에 따라 안내</td><td>국내 주요 PG사</td></tr>
+          <tr><th scope="row"><a href="https://www.kcp.co.kr/" rel="noopener" target="_blank">NHN KCP</a></th><td>PG사</td><td>상담·계약 조건에 따라 안내</td><td>국내 주요 PG사</td></tr>
+          <tr><th scope="row"><a href="https://www.nicepay.co.kr/" rel="noopener" target="_blank">나이스페이먼츠</a></th><td>PG사</td><td>상담·계약 조건에 따라 안내</td><td>국내 주요 PG사</td></tr>
+          <tr><th scope="row"><a href="https://portone.io/" rel="noopener" target="_blank">포트원</a></th><td>결제 연동 플랫폼</td><td>공식 홈페이지 또는 상담</td><td>PG사가 아니라 여러 PG사를 한 방식으로 연결해 주는 서비스. 결제 승인과 정산은 계약한 PG사가 맡음</td></tr>
+          <tr><th scope="row"><a href="https://www.payapp.kr/" rel="noopener" target="_blank">페이앱</a></th><td>결제 서비스 (앱·결제 링크·API 연동)</td><td>공식 홈페이지에 요금표 공개</td><td>사업자가 없는 개인도 가입 가능. 결제를 먼저 받고 계약 서류는 첫 정산 때 제출</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>KG이니시스, NHN KCP, 나이스페이먼츠는 이 글을 쓰는 시점에 공식 요금표를 찾지 못했습니다. 블로그나 대행사 홍보 페이지에 나도는 수치는 프로모션이거나 예전 기준일 수 있어 이 글에는 옮기지 않았습니다. 견적은 각 업체에 직접 받으세요.</p>
+
+    <h3>참고: 토스페이먼츠 공개 요금 (2026년 11월 확인)</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">항목</th><th scope="col">공개 요금</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">가입비</th><td>220,000원 (최초 1회)</td></tr>
+          <tr><th scope="row">연관리비</th><td>110,000원 (연 1회)</td></tr>
+          <tr><th scope="row">신용·체크카드</th><td>일반 3.4%</td></tr>
+          <tr><th scope="row">간편결제</th><td>3.4% (일부 간편결제는 추가 수수료)</td></tr>
+          <tr><th scope="row">계좌이체</th><td>2.0% (최저 건당 200원)</td></tr>
+          <tr><th scope="row">가상계좌</th><td>건당 400원</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>모두 부가세(VAT) 10% 별도이고, 토스페이먼츠는 가입비와 연관리비가 계약 형태에 따라 다를 수 있다고 밝히고 있습니다. 카드 수수료 3.4%는 ‘일반’ 등급 기준입니다. 같은 페이지에 따르면 신규 사업자는 가입할 때 일반 등급으로 시작하고, 매년 상·하반기에 국세청 명단을 받아 영세·중소 우대 수수료를 자동으로 반영·환급합니다. 다른 업체와 비교할 때 기준점으로 삼기 좋습니다.</p>
+
+    <h3>참고: 페이앱 공개 요금 (2026년 11월 확인)</h3>
+    <p>페이앱은 (주)유디아이디가 운영하는 결제 서비스입니다. 앱으로 결제 링크를 보내거나 현장에서 결제를 받을 수 있고, API로 홈페이지에 연동할 수도 있습니다. <a href="https://www.payapp.kr/homepage/guide/guide1.html" rel="noopener" target="_blank">페이앱 공식 비용 안내</a>에 공개된 요금은 이렇습니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">항목</th><th scope="col">사업자 (법인·개인)</th><th scope="col">비사업자 개인</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">초기등록비</th><td colspan="2">120,000원. 현재 무료 이벤트 중 (예고 없이 종료될 수 있음)</td></tr>
+          <tr><th scope="row">유지비</th><td colspan="2">0원</td></tr>
+          <tr><th scope="row">카드·간편결제</th><td>1.9%~3.4% (연 매출 구간별 영세·중소 우대, 신규·일반 3.4%)</td><td>4.0%</td></tr>
+          <tr><th scope="row">휴대폰 결제</th><td>3.8%</td><td>4.0%</td></tr>
+          <tr><th scope="row">계좌이체</th><td>2.3%</td><td>2.3%</td></tr>
+          <tr><th scope="row">가상계좌</th><td>건당 220원</td><td>건당 220원</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>모두 부가세(VAT) 별도이고 실물 상품 기준입니다. 페이앱은 비실물 상품이면 수수료가 달라질 수 있고, 카카오페이는 사업자만 쓸 수 있다고 안내합니다. 정산은 실물 상품 기본 D+3이고, 비실물이나 리스크 업종은 D+5입니다. 가입 후 바로 결제를 받을 수 있고 계약 서류는 첫 정산 때 제출하며, 이때 업종 심사를 거칩니다. 건당 결제금액이 50만원 이상이거나 월 매출이 500만원 이상이면 보증보험 가입을 요청할 수 있다고 밝히고 있습니다.</p>
+
+    <h2 id="fee">수수료 외에 따져 볼 항목</h2>
+    <div class="defs">
+      <div class="def n"><span class="ic">1</span><div><h3>가입비와 연관리비<span>초기 비용</span></h3><p>처음 한 번 내는 가입비와 매년 내는 관리비가 따로 있는 경우가 많습니다. 빌더나 연동 플랫폼을 통해 가입하면 면제해 주는 프로모션도 있으니 조건을 비교해 보세요.</p></div></div>
+      <div class="def n"><span class="ic">2</span><div><h3>정산 주기<span>현금 흐름</span></h3><p>결제된 돈이 내 계좌에 들어오기까지 걸리는 기간입니다. 매출이 작을 때는 큰 차이가 없어 보여도, 재료비를 먼저 써야 하는 업종이라면 중요합니다.</p></div></div>
+      <div class="def n"><span class="ic">3</span><div><h3>보증보험<span>계약 조건</span></h3><p>PG사가 정산 위험에 대비해 보증보험 가입을 요구하기도 합니다. 일정 한도까지 면제해 주는 곳도 있으니 계약 전에 확인하세요.</p></div></div>
+      <div class="def n"><span class="ic">4</span><div><h3>쓸 수 있는 결제 수단<span>고객 편의</span></h3><p>고객층이 주로 쓰는 간편결제가 지원되는지, 정기결제(구독)나 해외 카드가 필요한지 미리 정리해 두면 업체를 고르기 쉽습니다.</p></div></div>
+      <div class="def n"><span class="ic">5</span><div><h3>연동 난이도와 지원<span>개발</span></h3><p>개발 문서가 잘 정리돼 있는지, 테스트 환경이 있는지, 문제가 생겼을 때 연락할 창구가 있는지 확인하세요. 직접 연동이라면 이 부분이 작업 기간을 좌우합니다.</p></div></div>
+    </div>
+
+    <h2 id="prepare">준비 순서: 사업자등록부터 통신판매업 신고까지</h2>
+    <p>온라인으로 상품이나 서비스를 판매하면 통신판매업 신고 대상이 될 수 있습니다. <a href="https://www.tosspayments.com/blog/articles/sales-registration" rel="noopener" target="_blank">토스페이먼츠 안내</a>에 따르면 순서는 이렇습니다.</p>
+    <ol>
+      <li><strong>사업자등록:</strong> 사업자등록증을 발급받습니다.</li>
+      <li><strong>PG사 가입:</strong> PG사에 신청하고 심사를 거쳐 계약합니다. 카드사 심사가 함께 진행됩니다.</li>
+      <li><strong>구매안전서비스 이용확인증 발급:</strong> PG 계약 후 발급받습니다. 선지급식 통신판매업은 신고할 때 이 확인증을 내야 합니다.</li>
+      <li><strong>통신판매업 신고:</strong> 관할 시·군·구청에 방문하거나 정부24에서 온라인으로 신고합니다.</li>
+    </ol>
+    <p>업종이나 판매 방식에 따라 필요한 서류와 요건이 다를 수 있으니, 정확한 내용은 관할 기관이나 세무 전문가에게 확인하세요. PG 심사에는 시간이 걸리므로 <strong>홈페이지 제작과 PG 신청을 함께 진행</strong>하는 것이 좋습니다. 심사 과정에서 사이트의 상품 정보, 환불 정책, 사업자 정보 표시를 확인하는 경우가 많아서, 이 내용이 담긴 페이지를 미리 준비해 두면 심사가 수월합니다.</p>
+
+    <h2 id="global">해외 고객 결제</h2>
+    <p>해외 고객에게도 결제를 받아야 한다면 해외 결제 수단을 지원하는 PG사를 골라야 합니다. 예를 들어 토스페이먼츠는 페이팔 해외 결제를 제공하고, 공개 요금은 기본 4.0%에 건당 0.3달러, 환전·인출 수수료 2.5%(부가세 별도)입니다.</p>
+    <p>해외 서비스에서 많이 쓰는 Stripe는 <a href="https://stripe.com/global" rel="noopener" target="_blank">Stripe 공식 지원 국가 목록</a>에 한국이 없어서, 한국 사업자가 바로 가입하기는 어려운 것으로 보입니다. 해외 법인을 통해 쓰는 방법도 있지만 법인 설립과 세무 문제가 따르니 전문가와 먼저 상의하세요.</p>
+
+    <h2 id="choose">우리 사이트에는 어디가 맞을까</h2>
+    <p>아래는 판단을 돕기 위한 <strong>예시</strong>입니다. 실제 선택은 견적과 계약 조건을 비교해서 정하세요.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">예시 상황</th><th scope="col">먼저 검토할 방법</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">아임웹으로 만든 공방 사이트에서 클래스 예약금 받기</th><td>빌더 내장 결제. 빌더 제휴 PG사 조건부터 비교</td></tr>
+          <tr><th scope="row">직접 만든 사이트에서 상담 예약금만 받기</th><td>PG 직접 연동. 요금이 공개된 곳과 견적받은 곳을 비교</td></tr>
+          <tr><th scope="row">정기 구독과 단건 결제를 함께 받고, 나중에 PG사를 바꿀 수도 있음</th><td>연동 플랫폼. 정기결제를 지원하는 PG사와 함께 검토</td></tr>
+          <tr><th scope="row">예약을 받은 뒤 건마다 금액을 정해 결제 요청</th><td>결제 링크를 보낼 수 있는 결제 서비스(페이앱 등). 홈페이지 개발 없이 시작</td></tr>
+          <tr><th scope="row">해외 고객 비중이 큼</th><td>해외 결제 수단을 지원하는 PG사, 또는 전문가와 해외 결제 방안 상의</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="list">체크리스트</h2>
+    <ul class="checklist">
+      <li>받을 결제 수단(카드, 계좌이체, 간편결제, 정기결제, 해외 카드)을 정리했다</li>
+      <li>빌더 내장, 직접 연동, 연동 플랫폼 중 어떤 방법을 쓸지 정했다</li>
+      <li>같은 조건으로 두 곳 이상에서 견적을 받았다</li>
+      <li>가입비, 연관리비, 정산 주기, 보증보험 조건을 확인했다</li>
+      <li>모든 금액이 부가세 포함인지 별도인지 확인했다</li>
+      <li>사업자등록과 통신판매업 신고 순서를 확인했다</li>
+      <li>사이트에 상품 정보, 환불 정책, 사업자 정보가 표시돼 있다</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>PG사 수수료는 어디가 가장 싼가요?</summary><p>한마디로 답하기 어렵습니다. 토스페이먼츠나 페이앱처럼 공식 요금표를 공개하는 곳도 있지만, 많은 PG사는 업종과 매출 규모, 계약 조건에 따라 수수료를 따로 정합니다. 또 연 매출 기준에 해당하는 영세·중소 사업자는 카드 수수료 우대가 적용될 수 있습니다. 두세 곳에서 같은 조건으로 견적을 받아 비교하는 것이 가장 정확합니다.</p></details>
+      <details><summary>홈페이지에 결제를 붙이려면 사업자등록이 꼭 필요한가요?</summary><p>일반적으로 그렇습니다. PG사와 계약하려면 사업자 정보가 필요하고, 온라인으로 상품이나 서비스를 판매하면 통신판매업 신고 대상이 될 수 있습니다. 토스페이먼츠 안내에 따르면 사업자등록, PG사 가입, 구매안전서비스 이용확인증 발급을 마친 뒤 통신판매업 신고를 합니다. 업종에 따라 요건이 다를 수 있으니 관할 기관이나 세무 전문가에게 확인하세요.</p></details>
+      <details><summary>포트원은 PG사인가요?</summary><p>포트원은 여러 PG사를 한 가지 방식으로 연동할 수 있게 해 주는 결제 연동 서비스입니다. 실제 결제 승인과 정산은 계약한 PG사가 맡고, 포트원은 그 사이의 연결을 쉽게 해 줍니다. PG사를 여러 곳 쓰거나 나중에 바꿀 가능성이 있을 때 유용합니다.</p></details>
+      <details><summary>아임웹이나 카페24로 만든 사이트도 PG사를 따로 골라야 하나요?</summary><p>대개 빌더나 호스팅사가 제휴한 PG사 중에서 고르고, 관리 화면에서 신청합니다. 토스페이먼츠 요금 안내에도 호스팅사를 통해 가입하면 호스팅사 정책에 따라 적용된다고 적혀 있습니다. 빌더가 제공하는 조건과 PG사에 직접 가입할 때의 조건을 비교해 보세요.</p></details>
+      <details><summary>페이앱은 사업자등록 없이도 쓸 수 있나요?</summary><p>페이앱 공식 안내에 따르면 사업자가 없는 개인도 가입해 결제를 받을 수 있습니다. 다만 비사업자는 카드 수수료가 사업자보다 높고(공개 요금 기준 4.0%, 부가세 별도), 카카오페이는 쓸 수 없습니다. 판매를 계속하거나 규모가 커지면 사업자등록과 통신판매업 신고가 필요할 수 있으니 세무 전문가나 관할 기관에 확인하세요.</p></details>
+      <details><summary>해외 고객에게 카드 결제를 받으려면 어떻게 하나요?</summary><p>국내 PG사 중에는 페이팔 같은 해외 결제 수단을 함께 제공하는 곳이 있습니다. 토스페이먼츠는 페이팔 해외 결제 수수료를 공개하고 있습니다. 해외에서 많이 쓰는 Stripe는 한국 사업자가 바로 가입하기 어려운 것으로 알려져 있으니, 도입 전에 Stripe 공식 지원 국가 목록을 확인하세요.</p></details>
+    </div>]]></content:encoded>
+  </item>
   <item>
    <title>홈페이지 리뉴얼이 필요하다는 신호 7가지</title>
    <link>https://www.thejmstudio.co.kr/deep-ai/website-renewal-signs.html</link>

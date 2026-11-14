@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07070b" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
+<title>MCP란? AI가 다른 도구와 연결되는 방식 | Deep AI — JM Studio</title>
+<meta name="description" content="MCP(Model Context Protocol)는 AI 앱을 캘린더, 문서, 데이터베이스 같은 외부 서비스에 연결하는 공개 표준입니다. 왜 생겼는지, 호스트·클라이언트·서버의 역할, 서버가 주는 Tools·Resources·Prompts, API·자동화 툴과의 관계, 연결할 때 주의할 점을 공식 문서 기준으로 쉽게 정리했습니다." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html" />
+<link rel="alternate" type="application/rss+xml" title="Deep AI — JM Studio" href="https://www.thejmstudio.co.kr/deep-ai/rss.xml" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="JM Studio" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="MCP란? AI가 다른 도구와 연결되는 방식 | Deep AI" />
+<meta property="og:description" content="AI를 위한 USB-C, MCP. 무엇이고 왜 생겼는지, 무엇이 가능해지는지 쉽게 정리했습니다." />
+<meta property="og:url" content="https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html" />
+<meta property="og:image" content="https://www.thejmstudio.co.kr/og-deepai.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-11-15" />
+<meta property="article:section" content="Deep AI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MCP란? AI가 다른 도구와 연결되는 방식 | Deep AI" />
+<meta name="twitter:description" content="AI를 위한 USB-C, MCP. 무엇이고 왜 생겼는지, 무엇이 가능해지는지 쉽게 정리했습니다." />
+<meta name="twitter:image" content="https://www.thejmstudio.co.kr/og-deepai.jpg" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html#post",
+   "headline": "MCP란? AI가 다른 도구와 연결되는 방식",
+   "description": "MCP(Model Context Protocol)의 뜻과 생긴 이유, 구조, 서버가 제공하는 기능, API·자동화 툴과의 관계, 연결할 때 주의할 점을 정리한 글",
+   "datePublished": "2026-11-15",
+   "dateModified": "2026-11-15",
+   "inLanguage": "ko-KR",
+   "url": "https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html",
+   "mainEntityOfPage": "https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html",
+   "image": "https://www.thejmstudio.co.kr/og-deepai.jpg",
+   "keywords": [
+    "MCP",
+    "MCP란",
+    "Model Context Protocol",
+    "MCP 서버",
+    "AI 에이전트",
+    "AI 연동",
+    "AI 자동화"
+   ],
+   "author": {
+    "@type": "Organization",
+    "name": "JM Studio",
+    "url": "https://www.thejmstudio.co.kr/"
+   },
+   "publisher": {
+    "@id": "https://www.thejmstudio.co.kr/#studio"
+   },
+   "isPartOf": {
+    "@id": "https://www.thejmstudio.co.kr/deep-ai/#blog"
+   },
+   "citation": [
+    "https://modelcontextprotocol.io/docs/getting-started/intro",
+    "https://modelcontextprotocol.io/docs/learn/architecture",
+    "https://modelcontextprotocol.io/docs/learn/server-concepts",
+    "https://www.anthropic.com/news/model-context-protocol",
+    "https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation"
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "홈",
+     "item": "https://www.thejmstudio.co.kr/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Deep AI",
+     "item": "https://www.thejmstudio.co.kr/deep-ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "MCP란? AI가 다른 도구와 연결되는 방식",
+     "item": "https://www.thejmstudio.co.kr/deep-ai/what-is-mcp.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "MCP란 무엇인가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "MCP(Model Context Protocol)는 Claude나 ChatGPT 같은 AI 앱을 파일, 데이터베이스, 캘린더, 업무 도구 같은 외부 시스템에 연결하는 공개 표준입니다. 공식 문서는 AI 앱을 위한 USB-C 포트에 비유합니다. 2024년 11월 Anthropic이 공개했고, 2025년 12월 리눅스 재단 산하 Agentic AI Foundation에 기증되었습니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "MCP와 API는 무엇이 다른가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "API는 각 서비스가 저마다의 방식으로 여는 문이고, MCP는 AI 앱이 그런 문을 같은 규격으로 쓰게 해 주는 약속입니다. MCP 서버는 보통 서비스의 API를 감싸서, 어떤 기능이 있는지와 어떻게 부르는지를 AI가 알아들을 수 있는 형태로 알려 줍니다. MCP가 API를 대체하는 것이 아니라 API 위에서 동작합니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "MCP를 쓰려면 개발을 해야 하나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "이미 MCP 서버가 공개된 서비스라면 지원하는 AI 앱에서 연결 설정만으로 쓸 수 있는 경우가 많습니다. 우리 회사의 예약 시스템이나 내부 데이터베이스처럼 공개된 서버가 없는 시스템을 연결하려면 MCP 서버를 새로 만들어야 합니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "MCP가 있으면 n8n이나 Make 같은 자동화 툴은 필요 없나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "역할이 다릅니다. MCP는 AI가 대화 중에 필요한 도구를 골라 쓰게 하는 연결 방식이고, 자동화 툴은 정해진 시간이나 이벤트에 정해진 흐름을 매번 같은 방식으로 실행합니다. n8n처럼 MCP 연결을 지원하는 자동화 툴도 있어 함께 쓰는 경우가 많습니다."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="/deep-ai/blog.css" />
+</head>
+<body data-style="ribbon" data-theme="dark">
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+    <nav class="nav-links">
+      <a href="/#services">서비스</a>
+      <a href="/artist-website.html">예술인</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/deep-ai/" aria-current="page">Deep AI</a>
+      <a href="/#contact" class="nav-cta">프로젝트 문의</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article class="post">
+  <header class="p-head">
+    <nav class="crumb" aria-label="경로"><a href="/">홈</a><span>/</span><a href="/deep-ai/">Deep AI</a></nav>
+    <h1>MCP란? AI가 다른 도구와 연결되는 방식</h1>
+    <p class="dek">“AI한테 우리 캘린더를 보고 빈 시간을 찾아 달라고 할 수 있나요?” 요즘은 됩니다. 그 연결을 가능하게 하는 공통 규격이 MCP입니다. 개발 용어처럼 들리지만, 원리는 생각보다 단순합니다.</p>
+    <div class="p-meta"><strong>JM Studio</strong><time datetime="2026-11-15">2026년 11월 15일</time><span>읽는 시간 9분</span><span class="chip">개념 정리</span></div>
+  </header>
+
+  <div class="prose">
+    <aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>MCP는 AI 앱을 캘린더, 문서, 데이터베이스 같은 <strong>외부 서비스에 연결하는 공통 규격</strong>입니다. 공식 문서는 “AI를 위한 USB-C”에 비유합니다.</li>
+        <li>서비스마다 연결을 따로 만들던 일을 <strong>한 번 만들면 여러 AI 앱에서 쓰는</strong> 방식으로 바꿨습니다.</li>
+        <li>연결이 쉬워진 만큼 <strong>어떤 서버를 붙이고 어디까지 허락할지</strong>는 더 신중하게 정해야 합니다.</li>
+      </ul>
+    </aside>
+
+    <nav class="toc" aria-label="목차">
+      <p>목차</p>
+      <ol>
+        <li><a href="#what">MCP란</a></li>
+        <li><a href="#why">왜 필요했을까</a></li>
+        <li><a href="#roles">세 가지 역할: 호스트, 클라이언트, 서버</a></li>
+        <li><a href="#features">서버가 주는 세 가지: Tools, Resources, Prompts</a></li>
+        <li><a href="#example">실제로는 이렇게 움직입니다</a></li>
+        <li><a href="#compare">API, 자동화 툴과는 무엇이 다를까</a></li>
+        <li><a href="#caution">연결할 때 주의할 점</a></li>
+        <li><a href="#need">우리에게 필요할까</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="what">MCP란</h2>
+    <p><strong>MCP(Model Context Protocol)</strong>는 AI 앱을 외부 시스템에 연결하기 위한 <strong>공개 표준</strong>입니다. <a href="https://modelcontextprotocol.io/docs/getting-started/intro" target="_blank" rel="noopener">공식 문서</a>의 설명을 옮기면, MCP를 쓰면 Claude나 ChatGPT 같은 AI 앱이 파일·데이터베이스 같은 <strong>데이터</strong>, 검색엔진·계산기 같은 <strong>도구</strong>, 미리 만든 작업 지시 같은 <strong>워크플로</strong>에 연결해 정보를 가져오고 일을 처리할 수 있습니다.</p>
+    <div class="callout"><p><strong>USB-C에 비유하면:</strong> 예전에는 기기마다 충전 단자가 달라 케이블을 따로 챙겨야 했습니다. USB-C는 하나의 규격으로 여러 기기를 연결합니다. MCP는 AI 앱과 외부 서비스 사이의 USB-C 역할을 합니다.</p></div>
+    <p>MCP는 2024년 11월 Anthropic이 <a href="https://www.anthropic.com/news/model-context-protocol" target="_blank" rel="noopener">오픈소스로 공개</a>했습니다. 2025년 12월에는 리눅스 재단 산하의 Agentic AI Foundation에 <a href="https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation" target="_blank" rel="noopener">기증</a>되어, 한 회사가 아닌 중립적인 재단이 관리하는 표준이 되었습니다. 당시 발표에 따르면 ChatGPT, Gemini, Microsoft Copilot, Cursor, Visual Studio Code 같은 제품이 MCP를 지원합니다.</p>
+
+    <h2 id="why">왜 필요했을까</h2>
+    <p>AI는 똑똑해도 우리 캘린더나 예약 장부를 직접 볼 수는 없습니다. 그래서 AI 앱과 서비스를 잇는 연결을 따로 만들어야 했는데, 이 연결은 <strong>AI 앱과 서비스의 조합마다</strong> 새로 만들어야 했습니다. AI 앱이 3개, 서비스가 3개면 연결이 9개 필요한 셈입니다.</p>
+    <p>MCP는 이 사이에 공통 규격을 하나 둡니다. 서비스는 MCP 규격으로 한 번만 연결 창구를 만들고, AI 앱은 MCP 규격만 알면 그 창구를 모두 쓸 수 있습니다.</p>
+    <figure class="fig">
+      <div class="fig-row">
+        <div class="fig-box">
+          <svg viewBox="0 0 320 290" role="img" aria-label="MCP 이전: AI 앱 3개와 서비스 3개를 각각 연결해 연결선 9개가 필요하다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="24" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">MCP 이전 · 조합마다 따로</text>
+            <g stroke="#8b879b" stroke-width="1.2" opacity=".8"><line x1="120" y1="80" x2="200" y2="80"/><line x1="120" y1="80" x2="200" y2="150"/><line x1="120" y1="80" x2="200" y2="220"/><line x1="120" y1="150" x2="200" y2="80"/><line x1="120" y1="150" x2="200" y2="150"/><line x1="120" y1="150" x2="200" y2="220"/><line x1="120" y1="220" x2="200" y2="80"/><line x1="120" y1="220" x2="200" y2="150"/><line x1="120" y1="220" x2="200" y2="220"/></g>
+            <g font-size="14" fill="#efedf5" text-anchor="middle">
+              <rect x="20" y="60" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="85">Claude</text>
+              <rect x="20" y="130" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="155">ChatGPT</text>
+              <rect x="20" y="200" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="225">우리 챗봇</text>
+              <rect x="200" y="60" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="85">캘린더</text>
+              <rect x="200" y="130" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="155">문서</text>
+              <rect x="200" y="200" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="225">예약 DB</text>
+            </g>
+            <text x="160" y="272" text-anchor="middle" fill="#ff9fb4" font-size="13">연결 9개</text>
+          </svg>
+        </div>
+        <div class="fig-box">
+          <svg viewBox="0 0 320 290" role="img" aria-label="MCP 이후: AI 앱과 서비스가 모두 MCP 규격 하나에 연결되어 연결선 6개로 충분하다" font-family="Pretendard, system-ui, sans-serif">
+            <text x="160" y="24" text-anchor="middle" fill="#bcb8c9" font-size="13" letter-spacing="2">MCP 이후 · 같은 규격으로</text>
+            <g stroke="#8b879b" stroke-width="1.2"><line x1="120" y1="80" x2="140" y2="80"/><line x1="120" y1="150" x2="140" y2="150"/><line x1="120" y1="220" x2="140" y2="220"/><line x1="180" y1="80" x2="200" y2="80"/><line x1="180" y1="150" x2="200" y2="150"/><line x1="180" y1="220" x2="200" y2="220"/></g>
+            <rect x="140" y="56" width="40" height="188" rx="10" fill="#1a1530" stroke="#a487ff"/>
+            <text x="160" y="155" text-anchor="middle" fill="#c6b2ff" font-size="13" font-weight="600" transform="rotate(-90 160 150)">MCP</text>
+            <g font-size="14" fill="#efedf5" text-anchor="middle">
+              <rect x="20" y="60" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="85">Claude</text>
+              <rect x="20" y="130" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="155">ChatGPT</text>
+              <rect x="20" y="200" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="70" y="225">우리 챗봇</text>
+              <rect x="200" y="60" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="85">캘린더</text>
+              <rect x="200" y="130" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="155">문서</text>
+              <rect x="200" y="200" width="100" height="40" rx="10" fill="#15151f" stroke="rgba(239,237,245,.25)"/><text x="250" y="225">예약 DB</text>
+            </g>
+            <text x="160" y="272" text-anchor="middle" fill="#c6b2ff" font-size="13">연결 6개</text>
+          </svg>
+        </div>
+      </div>
+      <figcaption>AI 앱과 서비스가 늘어날수록 차이는 커집니다. 서비스는 MCP 창구를 한 번만 만들면 됩니다.</figcaption>
+    </figure>
+
+    <h2 id="roles">세 가지 역할: 호스트, 클라이언트, 서버</h2>
+    <p><a href="https://modelcontextprotocol.io/docs/learn/architecture" target="_blank" rel="noopener">공식 문서의 구조 설명</a>에는 세 가지 역할이 나옵니다.</p>
+    <div class="defs">
+      <div class="def t"><span class="ic">H</span><div><h3>MCP 호스트<span>Host</span></h3><p>사람이 쓰는 AI 앱입니다. Claude 데스크톱 앱, Visual Studio Code 같은 프로그램이 여기에 해당합니다.</p></div></div>
+      <div class="def n"><span class="ic">C</span><div><h3>MCP 클라이언트<span>Client</span></h3><p>호스트 안에서 서버 하나와의 연결을 맡는 부품입니다. 서버를 세 개 연결하면 클라이언트도 세 개 생깁니다. 사용자가 직접 볼 일은 거의 없습니다.</p></div></div>
+      <div class="def a"><span class="ic">S</span><div><h3>MCP 서버<span>Server</span></h3><p>외부 서비스의 기능과 정보를 MCP 규격으로 내어 주는 프로그램입니다. “캘린더 MCP 서버”, “파일 시스템 MCP 서버”처럼 서비스마다 있습니다.</p></div></div>
+    </div>
+    <p>서버는 내 컴퓨터에서 돌 수도 있고(로컬 서버), 서비스 회사의 인터넷 서버에서 돌 수도 있습니다(원격 서버). 예를 들어 내 컴퓨터의 파일을 읽는 서버는 로컬에서, 클라우드 서비스가 직접 제공하는 서버는 원격으로 연결합니다.</p>
+
+    <h2 id="features">서버가 주는 세 가지: Tools, Resources, Prompts</h2>
+    <p><a href="https://modelcontextprotocol.io/docs/learn/server-concepts" target="_blank" rel="noopener">공식 문서</a>에 따르면 MCP 서버는 세 가지를 제공할 수 있습니다. 누가 쓰기로 결정하는지가 서로 다릅니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">무엇인가</th><th scope="col">예시</th><th scope="col">누가 고르나</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Tools<br>(도구)</th><td>AI가 직접 실행하는 기능. 정보를 바꾸거나 외부에 요청할 수 있음</td><td>일정 만들기, 메시지 보내기, 항공편 검색</td><td>AI 모델</td></tr>
+          <tr><th scope="row">Resources<br>(자료)</th><td>읽기만 하는 참고 정보</td><td>문서 내용, 데이터베이스 구조, 캘린더 조회</td><td>AI 앱</td></tr>
+          <tr><th scope="row">Prompts<br>(지시 템플릿)</th><td>도구와 자료를 어떻게 쓸지 미리 만든 작업 지시</td><td>“회의 요약하기”, “메일 초안 쓰기”</td><td>사용자</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>이 중 가장 많이 쓰이는 것은 Tools입니다. 공식 문서는 도구를 실행하기 전에 <strong>사용자의 동의를 받도록 할 수 있다</strong>고 설명합니다. AI가 일정을 지우거나 메일을 보내기 전에 사람이 확인하는 장치입니다. Tool이라는 말이 낯설다면 <a href="/deep-ai/agent-node-tool.html">Agent와 Node 그리고 Tool의 차이가 궁금해요</a>를 먼저 읽어 보셔도 좋습니다.</p>
+
+    <h2 id="example">실제로는 이렇게 움직입니다</h2>
+    <p>작은 공방이 AI 앱에 캘린더 MCP 서버를 연결해 두었다고 해 봅시다. 대표가 이렇게 묻습니다.</p>
+    <div class="chat-cmp">
+      <div class="chat good">
+        <span class="who">MCP로 캘린더를 연결한 AI 앱</span>
+        <div class="bubble q">다음 주에 2시간짜리 원데이 클래스를 넣을 수 있는 시간이 언제야?</div>
+        <div class="bubble a">다음 주 캘린더를 확인했습니다. 화요일 오후 2~4시와 목요일 오전 10~12시가 비어 있습니다. 화요일로 일정을 잡을까요?<span class="src">사용한 도구: 캘린더 › 일정 조회</span></div>
+        <p class="note">대표가 “응”이라고 답하면 AI가 “일정 만들기” 도구를 실행합니다. 실행 전에 확인을 받도록 설정할 수 있습니다.</p>
+      </div>
+    </div>
+    <p>그 뒤에서는 이런 일이 일어납니다.</p>
+    <ol>
+      <li>AI 앱(호스트)이 캘린더 서버에 “어떤 도구가 있니?”라고 묻고, “일정 조회”, “일정 만들기” 같은 목록을 받습니다.</li>
+      <li>AI 모델이 질문을 읽고 “일정 조회” 도구가 필요하다고 판단합니다.</li>
+      <li>AI 앱이 서버에 조회를 요청하고, 결과를 받아 AI 모델에게 건넵니다.</li>
+      <li>AI 모델이 빈 시간을 정리해 답합니다.</li>
+    </ol>
+    <p>캘린더 대신 노션, 구글 드라이브, 사내 데이터베이스여도 순서는 같습니다. 이것이 공통 규격의 힘입니다.</p>
+
+    <h2 id="compare">API, 자동화 툴과는 무엇이 다를까</h2>
+    <p>“그럼 API랑 같은 거 아닌가요?”, “n8n 같은 자동화 툴이 필요 없어지나요?”라는 질문을 많이 받습니다. 셋은 경쟁 관계가 아니라 층이 다릅니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">API</th><th scope="col">MCP</th><th scope="col">자동화 툴(n8n·Make 등)</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">한마디로</th><td>서비스가 여는 문</td><td>AI가 그 문을 쓰는 공통 규격</td><td>정해진 흐름을 자동 실행하는 도구</td></tr>
+          <tr><th scope="row">누가 쓰나</th><td>개발자가 만든 프로그램</td><td>AI 앱과 AI 모델</td><td>미리 짜 둔 워크플로</td></tr>
+          <tr><th scope="row">언제 움직이나</th><td>호출할 때</td><td>AI가 대화 중 필요하다고 판단할 때</td><td>정해진 시간이나 이벤트가 생길 때</td></tr>
+          <tr><th scope="row">잘하는 일</th><td>정확한 데이터 주고받기</td><td>그때그때 다른 요청에 맞춰 도구 고르기</td><td>매번 같은 일을 빠짐없이 반복하기</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>MCP 서버는 대개 서비스의 API를 감싸서 만듭니다. 그러니 MCP가 API를 없애는 것이 아니라 <strong>API 위에서 AI가 알아듣기 쉽게 정리해 주는 층</strong>입니다. 자동화 툴과도 함께 쓸 수 있어서, n8n은 워크플로 안에서 MCP 서버에 연결하는 기능을 제공합니다. 둘의 역할 차이는 <a href="/deep-ai/ai-agent-vs-workflow.html">AI가 똑똑해졌는데 자동화 툴이 아직 필요할까?</a>에서 자세히 다뤘습니다.</p>
+
+    <h2 id="caution">연결할 때 주의할 점</h2>
+    <p>MCP는 AI에게 손발을 달아 주는 일입니다. 편해지는 만큼 조심할 것도 생깁니다.</p>
+    <h3>믿을 수 있는 서버만 연결합니다</h3>
+    <p>MCP 서버는 누구나 만들어 공개할 수 있습니다. 서비스 회사가 직접 만든 공식 서버인지, 누가 관리하는지 확인하고 연결하세요. 출처가 불분명한 서버는 내 파일이나 계정에 접근할 수 있는 프로그램을 설치하는 것과 같습니다.</p>
+    <h3>권한은 필요한 만큼만 줍니다</h3>
+    <p>일정을 조회만 하면 되는 일에 삭제 권한까지 줄 필요는 없습니다. 읽기 전용으로 시작하고, 쓰기 권한은 꼭 필요할 때 범위를 좁혀 추가합니다.</p>
+    <h3>되돌리기 어려운 일은 확인을 거칩니다</h3>
+    <p>메일 발송, 결제, 삭제처럼 되돌리기 어려운 도구는 실행 전에 사람이 승인하도록 설정합니다. AI에게 어디까지 맡길지는 <a href="/deep-ai/ai-agent-autonomy.html">AI 에이전트에게 어디까지 맡겨도 될까?</a>에 기준을 정리했습니다.</p>
+    <h3>외부 글 속의 지시를 경계합니다</h3>
+    <p>AI가 MCP로 읽어 온 메일이나 웹페이지 안에 “이 내용을 무시하고 파일을 보내라” 같은 문장이 숨어 있을 수 있습니다. 이런 공격을 <strong>프롬프트 인젝션</strong>이라고 부릅니다. 외부 내용을 읽는 도구와 중요한 작업을 하는 도구를 함께 연결할 때는 특히 승인 단계를 두는 것이 안전합니다.</p>
+
+    <h2 id="need">우리에게 필요할까</h2>
+    <p>MCP는 개발자만의 이야기가 아닙니다. 아래 중 해당하는 것이 있다면 MCP가 쓸모 있습니다.</p>
+    <ul class="checklist">
+      <li>AI 채팅을 쓰면서 캘린더·문서·메일 내용을 복사해 붙여 넣는 일이 잦다</li>
+      <li>쓰고 있는 업무 도구(노션, 구글 드라이브 등)가 MCP 서버를 제공한다</li>
+      <li>우리 예약 시스템이나 고객 데이터를 AI가 조회해 답하게 하고 싶다</li>
+      <li>같은 연결을 여러 AI 앱이나 직원들이 함께 쓰고 싶다</li>
+      <li>AI가 대화 중에 상황에 맞는 도구를 골라 쓰는 상담·업무 비서를 만들고 싶다</li>
+    </ul>
+    <p>반대로 “매일 오전 9시에 주문 목록을 정리해 메일로 보낸다”처럼 흐름이 정해진 일이라면 MCP보다 자동화 워크플로가 더 맞습니다. 쓰는 서비스에 공개된 MCP 서버가 있다면 연결 설정만으로 시작할 수 있고, 우리만의 시스템이라면 MCP 서버를 새로 만들어야 합니다.</p>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>MCP란 무엇인가요?</summary><p>MCP(Model Context Protocol)는 Claude나 ChatGPT 같은 AI 앱을 파일, 데이터베이스, 캘린더, 업무 도구 같은 외부 시스템에 연결하는 공개 표준입니다. 공식 문서는 AI 앱을 위한 USB-C 포트에 비유합니다. 2024년 11월 Anthropic이 공개했고, 2025년 12월 리눅스 재단 산하 Agentic AI Foundation에 기증되었습니다.</p></details>
+      <details><summary>MCP와 API는 무엇이 다른가요?</summary><p>API는 각 서비스가 저마다의 방식으로 여는 문이고, MCP는 AI 앱이 그런 문을 같은 규격으로 쓰게 해 주는 약속입니다. MCP 서버는 보통 서비스의 API를 감싸서, 어떤 기능이 있는지와 어떻게 부르는지를 AI가 알아들을 수 있는 형태로 알려 줍니다. MCP가 API를 대체하는 것이 아니라 API 위에서 동작합니다.</p></details>
+      <details><summary>MCP를 쓰려면 개발을 해야 하나요?</summary><p>이미 MCP 서버가 공개된 서비스라면 지원하는 AI 앱에서 연결 설정만으로 쓸 수 있는 경우가 많습니다. 우리 회사의 예약 시스템이나 내부 데이터베이스처럼 공개된 서버가 없는 시스템을 연결하려면 MCP 서버를 새로 만들어야 합니다.</p></details>
+      <details><summary>MCP가 있으면 n8n이나 Make 같은 자동화 툴은 필요 없나요?</summary><p>역할이 다릅니다. MCP는 AI가 대화 중에 필요한 도구를 골라 쓰게 하는 연결 방식이고, 자동화 툴은 정해진 시간이나 이벤트에 정해진 흐름을 매번 같은 방식으로 실행합니다. n8n처럼 MCP 연결을 지원하는 자동화 툴도 있어 함께 쓰는 경우가 많습니다.</p></details>
+    </div>
+
+    <aside class="p-cta">
+      <h2>우리 시스템을 AI와 연결하고 싶다면</h2>
+      <p>예약 장부, 고객 자료, 사내 문서처럼 AI가 함께 봐야 할 시스템을 알려 주시면, MCP로 연결할지 자동화 워크플로로 만들지부터 함께 정해 드립니다.</p>
+      <div class="row">
+        <a class="btn primary" href="/#contact">프로젝트 문의</a>
+        <a class="btn" href="/ai-automation.html">AI 자동화 서비스 보기</a>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="p-nav" aria-label="글 이동"><a href="/deep-ai/chatbot-hallucination.html">← 이전 글: 할루시네이션 줄이는 법</a><a href="/deep-ai/">글 목록 →</a></nav>
+</article>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="small">© 2026 JM Studio — 예술인·비즈니스를 위한 웹사이트 제작 · 브랜딩 · AI 자동화</span>
+    <div class="foot-links">
+      <a href="/#services">서비스</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/deep-ai/">Deep AI</a>
+      <a href="/#contact">문의</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.addEventListener('click',(e)=>{const a=e.target.closest('a');if(!a||!window.gtag)return;if(a.getAttribute('href')==='/#contact')gtag('event','blog_cta_click',{page:'deep-ai/what-is-mcp'});});
+</script>
+</body>
+</html>

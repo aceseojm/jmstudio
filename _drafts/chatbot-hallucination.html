@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07070b" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HM68NQ04LQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HM68NQ04LQ');
+</script>
+<title>AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법 | Deep AI — JM Studio</title>
+<meta name="description" content="AI 챗봇이 없는 규정을 지어내거나 틀린 금액을 말하는 할루시네이션(환각)은 왜 생길까요? 원인과 챗봇에서 자주 보이는 오답 네 가지, 줄이는 방법 여섯 가지, 도입 후 점검 방법과 체크리스트를 정리했습니다." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html" />
+<link rel="alternate" type="application/rss+xml" title="Deep AI — JM Studio" href="https://www.thejmstudio.co.kr/deep-ai/rss.xml" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="JM Studio" />
+<meta property="og:locale" content="ko_KR" />
+<meta property="og:title" content="AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법 | Deep AI" />
+<meta property="og:description" content="AI 챗봇은 왜 모르는 것을 지어낼까요? 원인과 오답 유형, 줄이는 방법 여섯 가지를 정리했습니다." />
+<meta property="og:url" content="https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html" />
+<meta property="og:image" content="https://www.thejmstudio.co.kr/og-deepai.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2026-11-15" />
+<meta property="article:section" content="Deep AI" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법 | Deep AI" />
+<meta name="twitter:description" content="AI 챗봇은 왜 모르는 것을 지어낼까요? 원인과 오답 유형, 줄이는 방법 여섯 가지를 정리했습니다." />
+<meta name="twitter:image" content="https://www.thejmstudio.co.kr/og-deepai.jpg" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html#post",
+   "headline": "AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법",
+   "description": "AI 챗봇 할루시네이션(환각)의 원인, 챗봇에서 자주 보이는 오답 유형, 줄이는 방법과 도입 후 점검 방법을 정리한 글",
+   "datePublished": "2026-11-15",
+   "dateModified": "2026-11-15",
+   "inLanguage": "ko-KR",
+   "url": "https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html",
+   "mainEntityOfPage": "https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html",
+   "image": "https://www.thejmstudio.co.kr/og-deepai.jpg",
+   "keywords": [
+    "AI 할루시네이션",
+    "할루시네이션 줄이는 법",
+    "AI 환각",
+    "챗봇 오답",
+    "RAG",
+    "AI 챗봇",
+    "프롬프트"
+   ],
+   "author": {
+    "@type": "Organization",
+    "name": "JM Studio",
+    "url": "https://www.thejmstudio.co.kr/"
+   },
+   "publisher": {
+    "@id": "https://www.thejmstudio.co.kr/#studio"
+   },
+   "isPartOf": {
+    "@id": "https://www.thejmstudio.co.kr/deep-ai/#blog"
+   },
+   "citation": "https://arxiv.org/abs/2509.04664"
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "홈",
+     "item": "https://www.thejmstudio.co.kr/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Deep AI",
+     "item": "https://www.thejmstudio.co.kr/deep-ai/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법",
+     "item": "https://www.thejmstudio.co.kr/deep-ai/chatbot-hallucination.html"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "AI 할루시네이션이란 무엇인가요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "AI가 사실이 아니거나 근거가 없는 내용을 사실처럼 자신 있게 말하는 현상입니다. 우리말로는 환각이라고 부릅니다. 없는 규정을 만들어 내거나, 금액·날짜를 틀리게 말하거나, 존재하지 않는 출처를 대는 경우가 대표적입니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "할루시네이션을 완전히 없앨 수 있나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "완전히 없앨 수는 없습니다. 대신 근거 자료를 연결하고, 자료에 없으면 모른다고 답하게 하고, 답할 범위를 좁히고, 중요한 질문은 사람에게 넘기는 방식으로 크게 줄이고, 틀렸을 때 피해가 작도록 설계할 수 있습니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "더 좋은 AI 모델을 쓰면 해결되나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "최신 모델일수록 일반 상식에서는 덜 틀리지만, 우리 단체의 규정이나 이번 시즌 일정처럼 모델이 배운 적 없는 정보는 여전히 모릅니다. 챗봇 오답의 상당수는 모델보다 자료와 설정에서 생기므로 자료 정리와 답변 규칙이 먼저입니다."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "RAG를 쓰면 할루시네이션이 사라지나요?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "크게 줄어들지만 사라지지는 않습니다. 자료가 낡았거나 서로 충돌하거나, 검색이 엉뚱한 문단을 가져오면 RAG 챗봇도 틀립니다. 그래서 자료 관리와 출처 표시, 모를 때의 행동 규칙을 함께 갖춰야 합니다."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" />
+<link rel="stylesheet" href="/deep-ai/blog.css" />
+</head>
+<body data-style="ribbon" data-theme="dark">
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand"><span class="mark">jm</span><span>JM&nbsp;Studio</span></a>
+    <nav class="nav-links">
+      <a href="/#services">서비스</a>
+      <a href="/artist-website.html">예술인</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/deep-ai/" aria-current="page">Deep AI</a>
+      <a href="/#contact" class="nav-cta">프로젝트 문의</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article class="post">
+  <header class="p-head">
+    <nav class="crumb" aria-label="경로"><a href="/">홈</a><span>/</span><a href="/deep-ai/">Deep AI</a></nav>
+    <h1>AI 챗봇이 엉뚱한 답을 할 때: 할루시네이션 줄이는 법</h1>
+    <p class="dek">“없는 할인 규정을 안내했어요.” “공연 시간을 한 시간 틀리게 말했어요.” 챗봇을 붙인 뒤 가장 먼저 듣는 걱정입니다. AI는 왜 모르는 것을 지어낼까요? 그리고 어떻게 줄일 수 있을까요?</p>
+    <div class="p-meta"><strong>JM Studio</strong><time datetime="2026-11-15">2026년 11월 15일</time><span>읽는 시간 9분</span><span class="chip">개념 정리</span></div>
+  </header>
+
+  <div class="prose">
+    <aside class="summary">
+      <span class="eyebrow">세 줄 요약</span>
+      <ul>
+        <li>할루시네이션은 AI가 <strong>모를 때 “모른다” 대신 그럴듯한 추측</strong>을 내놓는 현상입니다.</li>
+        <li>챗봇의 오답은 대부분 모델보다 <strong>자료와 설정</strong>에서 생깁니다. 근거 자료, 모를 때의 규칙, 답할 범위가 핵심입니다.</li>
+        <li>0으로 만들 수는 없습니다. 그래서 <strong>틀렸을 때 피해가 작도록</strong> 출처를 보여 주고, 중요한 질문은 사람에게 넘기게 설계합니다.</li>
+      </ul>
+    </aside>
+
+    <nav class="toc" aria-label="목차">
+      <p>목차</p>
+      <ol>
+        <li><a href="#what">할루시네이션이란</a></li>
+        <li><a href="#why">AI는 왜 모르는 것을 지어낼까</a></li>
+        <li><a href="#types">챗봇에서 자주 보이는 오답 네 가지</a></li>
+        <li><a href="#fix">할루시네이션 줄이는 법 여섯 가지</a></li>
+        <li><a href="#example">같은 질문, 다른 답</a></li>
+        <li><a href="#test">도입 후에는 이렇게 점검합니다</a></li>
+        <li><a href="#check">체크리스트</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="what">할루시네이션이란</h2>
+    <p><strong>할루시네이션(hallucination)</strong>은 AI가 사실이 아니거나 근거가 없는 내용을 사실처럼 말하는 현상입니다. 우리말로는 <strong>환각</strong>이라고 부릅니다. 홈페이지 챗봇에서는 이런 모습으로 나타납니다.</p>
+    <ul>
+      <li>없는 할인, 없는 환불 규정을 안내합니다.</li>
+      <li>금액, 날짜, 시간 같은 숫자를 틀리게 말합니다.</li>
+      <li>존재하지 않는 페이지나 문서를 출처로 댑니다.</li>
+      <li>담당자 이름이나 연락처를 그럴듯하게 만들어 냅니다.</li>
+    </ul>
+    <p>문제는 틀린 답도 말투가 똑같이 자신 있다는 점입니다. 읽는 사람은 문장만 보고 맞는 답과 틀린 답을 구분할 수 없습니다.</p>
+
+    <h2 id="why">AI는 왜 모르는 것을 지어낼까</h2>
+    <p>ChatGPT 같은 대형 언어 모델(LLM)은 많은 글을 읽고 “다음에 올 자연스러운 말”을 예측하도록 학습되었습니다. 질문을 받으면 사실을 찾아보는 것이 아니라 가장 그럴듯한 문장을 이어 씁니다. 그래서 학습한 적 없는 우리 단체의 규정을 물어도 비슷한 사례를 섞어 답을 만들어 냅니다.</p>
+    <p>OpenAI 연구진은 2025년 9월 논문 <a href="https://arxiv.org/abs/2509.04664" target="_blank" rel="noopener">「Why Language Models Hallucinate」</a>에서 원인을 이렇게 설명했습니다. 모델을 학습시키고 평가하는 방식이 <strong>“모르겠다”고 답하는 것보다 추측하는 쪽에 점수를 더 주기</strong> 때문에, 모델이 불확실할 때도 추측하도록 길들여진다는 것입니다.</p>
+    <div class="callout"><p><strong>시험으로 비유하면:</strong> 틀려도 감점이 없는 객관식 시험에서는 빈칸으로 두는 것보다 찍는 것이 늘 유리합니다. AI도 같은 이유로 “모르겠습니다” 대신 그럴듯한 답을 고릅니다.</p></div>
+    <p>그러니 챗봇을 만들 때 할 일은 분명합니다. <strong>찍지 않아도 되도록</strong> 근거를 쥐여 주고, <strong>모를 때는 모른다고 말해도 되도록</strong> 규칙을 정해 주는 것입니다.</p>
+
+    <h2 id="types">챗봇에서 자주 보이는 오답 네 가지</h2>
+    <p>홈페이지 챗봇의 오답은 원인에 따라 네 가지로 나눌 수 있습니다. 원인이 다르면 고치는 방법도 다릅니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th scope="col">유형</th><th scope="col">예시</th><th scope="col">주된 원인</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">지어낸 답</th><td>없는 학생 할인을 안내</td><td>근거 자료가 없는데 답하게 둠</td></tr>
+          <tr><th scope="row">낡은 답</th><td>작년 대관료를 안내</td><td>지난 자료가 함께 저장됨</td></tr>
+          <tr><th scope="row">섞인 답</th><td>A 공연의 시간과 B 공연의 장소를 합쳐 안내</td><td>비슷한 자료를 잘못 찾아 섞음</td></tr>
+          <tr><th scope="row">범위 밖 답</th><td>법률·의료 상담이나 다른 업체 정보까지 답함</td><td>답할 범위를 정하지 않음</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>네 가지 모두 AI 모델을 바꾸기 전에 <strong>자료와 설정</strong>에서 먼저 손볼 수 있습니다.</p>
+
+    <h2 id="fix">할루시네이션 줄이는 법 여섯 가지</h2>
+
+    <h3>1. 근거 자료를 연결합니다</h3>
+    <p>가장 효과가 큰 방법입니다. AI가 기억으로 답하지 않고 FAQ, 규정, 안내문 같은 <strong>우리 자료에서 관련 내용을 찾아 근거로 답하게</strong> 합니다. 이 방식을 RAG(검색 증강 생성)라고 부릅니다. 작동 방식은 <a href="/deep-ai/rag-vs-chatbot.html">RAG는 왜 일반 챗봇보다 정확할까?</a>에서 자세히 다뤘습니다.</p>
+
+    <h3>2. 모를 때의 행동을 정해 둡니다</h3>
+    <p>AI에게 “자료에 없으면 모른다고 답하라”고 분명히 알려 줍니다. 이 한 줄이 없으면 AI는 빈칸을 다시 추측으로 메웁니다. 챗봇에 주는 기본 지시문(시스템 프롬프트)에 이런 규칙을 넣습니다.</p>
+    <p class="code-label">챗봇 지시문 예시</p>
+<pre class="code"><span class="c"># 답변 규칙</span>
+- 아래 [자료]에 있는 내용으로만 답한다.
+- [자료]에 없으면 추측하지 말고
+  "확인이 필요한 내용입니다"라고 답한 뒤
+  문의 창구를 안내한다.
+- 금액·날짜·시간은 [자료]의 표현 그대로 쓴다.
+- 답 끝에 참고한 문서 이름을 적는다.</pre>
+    <p>지시문만으로 완벽히 지켜지지는 않지만, 모를 때 “모른다”고 말할 길을 열어 두는 것이 출발점입니다.</p>
+
+    <h3>3. 답할 범위를 좁힙니다</h3>
+    <p>홈페이지 챗봇은 무엇이든 답하는 비서가 아닙니다. “공연 예매, 대관, 수강 안내에 대해서만 답한다”처럼 범위를 정하고, 범위 밖 질문에는 정중히 안내만 하게 합니다. 범위가 좁을수록 틀릴 여지도 줄어듭니다.</p>
+
+    <h3>4. 출처를 함께 보여 줍니다</h3>
+    <p>답 아래에 “출처: 2026 시즌 예매 안내 › 환불 규정”처럼 참고한 문서를 표시합니다. 방문자는 원문을 눌러 확인할 수 있고, 운영자는 틀린 답이 어느 자료에서 나왔는지 바로 찾을 수 있습니다. 출처를 댈 수 없는 답은 그 자체로 의심해 볼 신호가 됩니다.</p>
+
+    <h3>5. 자료를 정리하고 날짜를 붙입니다</h3>
+    <p>낡은 답과 섞인 답은 대부분 자료 문제입니다. 지난 시즌 자료는 빼거나 “지난 자료”로 표시하고, 문서마다 작성일과 적용 기간을 적습니다. 표가 중간에 잘리지 않게 나누는 것도 중요합니다. 자세한 방법은 <a href="/deep-ai/chatbot-data-prep.html">챗봇에 넣을 자료는 어떻게 정리할까?</a>에 정리했습니다.</p>
+
+    <h3>6. 틀리면 곤란한 질문은 사람에게 넘깁니다</h3>
+    <p>환불 결정, 계약 조건, 민원, 개인 사정이 걸린 예외처럼 <strong>한 번 틀리면 피해가 큰 질문</strong>은 AI가 확정해서 답하지 않게 합니다. 일반 안내까지만 하고 담당자 연결로 넘기는 것이 안전합니다. 넘기는 설계는 다음 챗봇 글에서 따로 다룰 예정입니다.</p>
+
+    <h2 id="example">같은 질문, 다른 답</h2>
+    <p>어느 극단 홈페이지에서 관객이 자료에 없는 할인을 물었다고 해 봅시다.</p>
+    <div class="chat-cmp">
+      <div class="chat bad">
+        <span class="who">규칙이 없는 챗봇</span>
+        <div class="bubble q">대학생 할인 있나요?</div>
+        <div class="bubble a">네, 학생증을 제시하시면 30% 할인된 가격으로 예매하실 수 있습니다.</div>
+        <p class="note">자료에 학생 할인이 없는데도 다른 공연장 사례를 섞어 그럴듯하게 지어냈습니다.</p>
+      </div>
+      <div class="chat good">
+        <span class="who">규칙을 갖춘 챗봇</span>
+        <div class="bubble q">대학생 할인 있나요?</div>
+        <div class="bubble a">이번 시즌 안내에는 대학생 할인 항목이 없습니다. 현재 안내된 할인은 조기 예매 할인과 재관람 할인입니다. 학생 할인 여부는 매표소로 문의해 주세요.<span class="src">출처: 2026 시즌 예매 안내 › 할인 안내</span></div>
+        <p class="note">자료에 없는 것은 없다고 말하고, 있는 정보와 확인할 곳을 함께 안내합니다.</p>
+      </div>
+    </div>
+    <p>두 번째 답은 덜 친절해 보일 수 있습니다. 하지만 공연 당일 매표소에서 “챗봇이 된다고 했는데요”라는 말을 듣지 않게 해 주는 것은 두 번째 답입니다.</p>
+
+    <h2 id="test">도입 후에는 이렇게 점검합니다</h2>
+    <p>할루시네이션은 줄일 수 있지만 0이 되지는 않습니다. 그래서 만든 뒤에도 정기적으로 확인해야 합니다.</p>
+    <h3>시험 질문을 만들어 돌려 봅니다</h3>
+    <p>실제로 자주 받는 질문과 정답을 표로 만들어 두고, 자료를 고치거나 설정을 바꿀 때마다 챗봇에 다시 물어봅니다. 이때 <strong>자료에 없는 질문</strong>도 꼭 섞으세요. “모른다”고 답하는지가 할루시네이션 점검의 핵심입니다.</p>
+    <ul>
+      <li><strong>자료에 있는 질문:</strong> 금액·날짜를 정확히 말하는지</li>
+      <li><strong>자료에 없는 질문:</strong> 지어내지 않고 “확인이 필요하다”고 하는지</li>
+      <li><strong>비슷한 두 대상을 묻는 질문:</strong> A와 B의 정보를 섞지 않는지</li>
+      <li><strong>범위 밖 질문:</strong> 정해진 범위 밖의 질문을 정중히 거절하는지</li>
+    </ul>
+    <h3>실제 대화 기록을 읽어 봅니다</h3>
+    <p>방문자가 실제로 무엇을 물었고 챗봇이 어떻게 답했는지 정기적으로 훑어봅니다. 틀린 답을 찾으면 출처를 따라가 자료를 고치는 것이 가장 빠른 개선 방법입니다. 대화 기록에는 개인정보가 담길 수 있으니 보관 기간과 열람 범위를 정해 두세요. 이 부분은 <a href="/deep-ai/ai-chatbot-privacy.html">AI 챗봇을 만들 때 개인정보는 어떻게 다뤄야 할까?</a>에서 다뤘습니다.</p>
+
+    <h2 id="check">체크리스트</h2>
+    <p>지금 쓰고 있거나 만들 예정인 챗봇을 아래 항목으로 확인해 보세요.</p>
+    <ul class="checklist">
+      <li>챗봇이 우리 자료(FAQ·규정·안내문)를 근거로 답하나요?</li>
+      <li>자료에 없으면 “모른다”고 답하라는 규칙이 있나요?</li>
+      <li>챗봇이 답할 범위가 정해져 있나요?</li>
+      <li>답에 참고한 문서(출처)가 표시되나요?</li>
+      <li>지난 자료를 빼거나 따로 표시했나요?</li>
+      <li>환불·계약·민원처럼 사람이 답할 질문의 기준이 있나요?</li>
+      <li>자료에 없는 질문을 섞은 시험 질문 목록이 있나요?</li>
+    </ul>
+
+    <h2 id="faq">자주 묻는 질문</h2>
+    <div class="p-faq">
+      <details><summary>AI 할루시네이션이란 무엇인가요?</summary><p>AI가 사실이 아니거나 근거가 없는 내용을 사실처럼 자신 있게 말하는 현상입니다. 우리말로는 환각이라고 부릅니다. 없는 규정을 만들어 내거나, 금액·날짜를 틀리게 말하거나, 존재하지 않는 출처를 대는 경우가 대표적입니다.</p></details>
+      <details><summary>할루시네이션을 완전히 없앨 수 있나요?</summary><p>완전히 없앨 수는 없습니다. 대신 근거 자료를 연결하고, 자료에 없으면 모른다고 답하게 하고, 답할 범위를 좁히고, 중요한 질문은 사람에게 넘기는 방식으로 크게 줄이고, 틀렸을 때 피해가 작도록 설계할 수 있습니다.</p></details>
+      <details><summary>더 좋은 AI 모델을 쓰면 해결되나요?</summary><p>최신 모델일수록 일반 상식에서는 덜 틀리지만, 우리 단체의 규정이나 이번 시즌 일정처럼 모델이 배운 적 없는 정보는 여전히 모릅니다. 챗봇 오답의 상당수는 모델보다 자료와 설정에서 생기므로 자료 정리와 답변 규칙이 먼저입니다.</p></details>
+      <details><summary>RAG를 쓰면 할루시네이션이 사라지나요?</summary><p>크게 줄어들지만 사라지지는 않습니다. 자료가 낡았거나 서로 충돌하거나, 검색이 엉뚱한 문단을 가져오면 RAG 챗봇도 틀립니다. 그래서 자료 관리와 출처 표시, 모를 때의 행동 규칙을 함께 갖춰야 합니다.</p></details>
+    </div>
+
+    <aside class="p-cta">
+      <h2>우리 챗봇, 엉뚱한 답을 하고 있지는 않을까요?</h2>
+      <p>지금 쓰는 챗봇이나 준비 중인 자료를 보여 주시면, 어디서 오답이 생기는지와 무엇부터 고치면 좋을지 함께 살펴봐 드립니다.</p>
+      <div class="row">
+        <a class="btn primary" href="/#contact">프로젝트 문의</a>
+        <a class="btn" href="/ai-automation.html">AI 자동화 서비스 보기</a>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="p-nav" aria-label="글 이동"><a href="/deep-ai/website-payment-pg.html">← 이전 글: 홈페이지 결제 연동, PG사 비교</a><a href="/deep-ai/">글 목록 →</a></nav>
+</article>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="small">© 2026 JM Studio — 예술인·비즈니스를 위한 웹사이트 제작 · 브랜딩 · AI 자동화</span>
+    <div class="foot-links">
+      <a href="/#services">서비스</a>
+      <a href="/work.html">작업</a>
+      <a href="/pricing.html">패키지</a>
+      <a href="/ai-automation.html">AI 자동화</a>
+      <a href="/deep-ai/">Deep AI</a>
+      <a href="/#contact">문의</a>
+    </div>
+  </div>
+</footer>
+<script>
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.addEventListener('click',(e)=>{const a=e.target.closest('a');if(!a||!window.gtag)return;if(a.getAttribute('href')==='/#contact')gtag('event','blog_cta_click',{page:'deep-ai/chatbot-hallucination'});});
+</script>
+</body>
+</html>
